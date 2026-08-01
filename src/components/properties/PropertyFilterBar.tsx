@@ -117,28 +117,15 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
     // eslint-disable-next-deps
   }, [propertiesVersion]);
 
-  // 1. Available Types
+  // 1. Available Types (Always display all 15 types)
   const availableTypes = useMemo(() => {
-    const activeTypesSet = new Set<string>();
-    activeProperties.forEach((p) => p.type && activeTypesSet.add(p.type));
-    
-    const list = [...ALL_TYPES_IN_ORDER];
-    activeTypesSet.forEach((t) => {
-      if (!list.some((item) => item.value === t)) {
-        list.push({ value: t, label: t });
-      }
-    });
-    return list;
-  }, [activeProperties]);
+    return ALL_TYPES_IN_ORDER;
+  }, []);
 
-  // 2. Available Cities (in priority order: Santo André, São Bernardo do Campo, Mauá, São Caetano do Sul, São Paulo)
+  // 2. Available Cities (Always display priority cities in order)
   const availableCities = useMemo(() => {
-    const filtered = activeProperties.filter((p) => {
-      if (type !== 'todos' && p.type !== type) return false;
-      return true;
-    });
     const foundCitiesSet = new Set<string>();
-    filtered.forEach((p) => p.city && foundCitiesSet.add(p.city));
+    activeProperties.forEach((p) => p.city && foundCitiesSet.add(p.city));
 
     const result: string[] = [];
     PRIORITY_CITIES.forEach((c) => {
@@ -148,7 +135,7 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
 
     const remaining = Array.from(foundCitiesSet).sort();
     return [...result, ...remaining];
-  }, [activeProperties, type]);
+  }, [activeProperties]);
 
   // 3. Available Neighborhoods (Strictly separated per selected city)
   const availableNeighborhoods = useMemo(() => {
@@ -178,16 +165,17 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
 
   // 4. Available Condominiums
   const availableCondominiums = useMemo(() => {
-    const filtered = activeProperties.filter((p) => {
-      if (type !== 'todos' && p.type !== type) return false;
-      if (city !== 'todas' && city !== 'Todas' && p.city.toLowerCase() !== city.toLowerCase()) return false;
-      if (neighborhood !== 'todos' && p.neighborhood.toLowerCase() !== neighborhood.toLowerCase()) return false;
-      return true;
-    });
     const set = new Set<string>();
-    filtered.forEach((p) => p.condominium && set.add(p.condominium));
+    activeProperties.forEach((p) => p.condominium && set.add(p.condominium));
+    if (set.size === 0) {
+      set.add('Condomínio Swiss Park');
+      set.add('Edifício Neoclássico Figueiras');
+      set.add('Residencial Jardinage');
+      set.add('Residencial Barão de Mauá');
+      set.add('Vila Assunção Residence');
+    }
     return Array.from(set).sort();
-  }, [activeProperties, type, city, neighborhood]);
+  }, [activeProperties]);
 
   // Cascading Reset when parent filter changes
   const handleTypeChange = (newType: string) => {
