@@ -11,38 +11,7 @@ interface PropertyFilterBarProps {
   initialFilters?: PropertyFilterParams;
 }
 
-export const ALL_TYPES_IN_ORDER = [
-  { value: 'area_corporativa', label: 'Área Corporativa' },
-  { value: 'area', label: 'Área' },
-  { value: 'apartamento', label: 'Apartamento' },
-  { value: 'casa', label: 'Casa' },
-  { value: 'casa_assobradada', label: 'Casa Assobradada' },
-  { value: 'casa_comercial', label: 'Casa Comercial' },
-  { value: 'casa_condominio', label: 'Casa em Condomínio' },
-  { value: 'cobertura', label: 'Cobertura' },
-  { value: 'kitnet', label: 'Kitnet / Studio' },
-  { value: 'loja', label: 'Loja' },
-  { value: 'predio', label: 'Prédio' },
-  { value: 'salao', label: 'Salão' },
-  { value: 'sobrado', label: 'Sobrado' },
-  { value: 'comercial', label: 'Comercial' },
-  { value: 'terreno', label: 'Terreno' },
-];
-
-export const TYPE_LABELS: Record<string, string> = ALL_TYPES_IN_ORDER.reduce((acc, cur) => {
-  acc[cur.value] = cur.label;
-  return acc;
-}, {} as Record<string, string>);
-
-const PRIORITY_CITIES = [
-  'Santo André',
-  'São Bernardo do Campo',
-  'Mauá',
-  'São Caetano do Sul',
-  'São Paulo',
-];
-
-const DEFAULT_NEIGHBORHOODS_BY_CITY: Record<string, string[]> = {
+const NEIGHBORHOODS_BY_CITY: Record<string, string[]> = {
   'Santo André': [
     'Bairro Jardim',
     'Campestre',
@@ -51,10 +20,6 @@ const DEFAULT_NEIGHBORHOODS_BY_CITY: Record<string, string[]> = {
     'Vila Bastos',
     'Parque das Nações',
     'Vila Valparaíso',
-    'Vila Metalúrgica',
-    'Utinga',
-    'Santa Maria',
-    'Vila Alpina',
     'Centro',
   ],
   'São Bernardo do Campo': [
@@ -63,18 +28,12 @@ const DEFAULT_NEIGHBORHOODS_BY_CITY: Record<string, string[]> = {
     'Anchieta',
     'Rudge Ramos',
     'Baeta Neves',
-    'Demarchi',
-    'Assunção',
-    'Paulicéia',
-    'Jardim Maracanã',
     'Centro',
   ],
   'Mauá': [
     'Vila Bocaina',
     'Jardim Guapituba',
     'Parque São Vicente',
-    'Vila Noêmia',
-    'Matriz',
     'Centro',
   ],
   'São Caetano do Sul': [
@@ -82,19 +41,16 @@ const DEFAULT_NEIGHBORHOODS_BY_CITY: Record<string, string[]> = {
     'Santo Antônio',
     'Jardim São Caetano',
     'Barcelona',
-    'Santa Paula',
     'Centro',
   ],
 };
 
 export default function PropertyFilterBar({ onFilterChange, compact = false, initialFilters }: PropertyFilterBarProps) {
-  // State for the 4 interlinked filters
   const [type, setType] = useState<string>(initialFilters?.type || 'todos');
   const [city, setCity] = useState<string>(initialFilters?.city || 'todas');
   const [neighborhood, setNeighborhood] = useState<string>(initialFilters?.neighborhood || 'todos');
   const [condominium, setCondominium] = useState<string>(initialFilters?.condominium || 'todos');
 
-  // Secondary advanced filters
   const [minPrice, setMinPrice] = useState<string>(initialFilters?.minPrice ? String(initialFilters.minPrice) : '');
   const [maxPrice, setMaxPrice] = useState<string>(initialFilters?.maxPrice ? String(initialFilters.maxPrice) : '');
   const [bedrooms, setBedrooms] = useState<string>(initialFilters?.bedrooms ? String(initialFilters.bedrooms) : 'todos');
@@ -102,7 +58,6 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
   const [searchQuery, setSearchQuery] = useState<string>(initialFilters?.searchQuery || '');
   const [showAdvanced, setShowAdvanced] = useState<boolean>(false);
 
-  // Property list reactive trigger (updates when properties are added/edited in admin)
   const [propertiesVersion, setPropertiesVersion] = useState<number>(0);
 
   useEffect(() => {
@@ -111,59 +66,28 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
     return () => window.removeEventListener('properties_updated', handleUpdate);
   }, []);
 
-  // Get active properties for dynamic filter options
   const activeProperties = useMemo(() => {
     return PropertyService.getActiveProperties();
     // eslint-disable-next-deps
   }, [propertiesVersion]);
 
-  // 1. Available Types (Always display all 15 types)
-  const availableTypes = useMemo(() => {
-    return ALL_TYPES_IN_ORDER;
-  }, []);
-
-  // 2. Available Cities (Always display priority cities in order)
-  const availableCities = useMemo(() => {
-    const foundCitiesSet = new Set<string>();
-    activeProperties.forEach((p) => p.city && foundCitiesSet.add(p.city));
-
-    const result: string[] = [];
-    PRIORITY_CITIES.forEach((c) => {
-      result.push(c);
-      foundCitiesSet.delete(c);
-    });
-
-    const remaining = Array.from(foundCitiesSet).sort();
-    return [...result, ...remaining];
-  }, [activeProperties]);
-
-  // 3. Available Neighborhoods (Strictly separated per selected city)
+  // Neighborhoods strictly separated by selected city
   const availableNeighborhoods = useMemo(() => {
     const set = new Set<string>();
 
-    if (city !== 'todas' && city !== 'Todas') {
-      // Strict filter: ONLY neighborhoods for the selected city
-      const presets = DEFAULT_NEIGHBORHOODS_BY_CITY[city];
-      if (presets) {
-        presets.forEach((n) => set.add(n));
-      }
-
-      const filteredProperties = activeProperties.filter(
-        (p) => p.city.toLowerCase() === city.toLowerCase()
-      );
-      filteredProperties.forEach((p) => p.neighborhood && set.add(p.neighborhood));
+    if (city !== 'todas' && city !== 'Todas' && NEIGHBORHOODS_BY_CITY[city]) {
+      NEIGHBORHOODS_BY_CITY[city].forEach((n) => set.add(n));
+      const activeForCity = activeProperties.filter((p) => p.city.toLowerCase() === city.toLowerCase());
+      activeForCity.forEach((p) => p.neighborhood && set.add(p.neighborhood));
     } else {
-      // All cities selected
       activeProperties.forEach((p) => p.neighborhood && set.add(p.neighborhood));
-      Object.values(DEFAULT_NEIGHBORHOODS_BY_CITY).forEach((arr) => {
-        arr.forEach((n) => set.add(n));
-      });
+      Object.values(NEIGHBORHOODS_BY_CITY).forEach((list) => list.forEach((n) => set.add(n)));
     }
 
     return Array.from(set).sort();
   }, [activeProperties, city]);
 
-  // 4. Available Condominiums
+  // Condominiums
   const availableCondominiums = useMemo(() => {
     const set = new Set<string>();
     activeProperties.forEach((p) => p.condominium && set.add(p.condominium));
@@ -172,24 +96,14 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
       set.add('Edifício Neoclássico Figueiras');
       set.add('Residencial Jardinage');
       set.add('Residencial Barão de Mauá');
-      set.add('Vila Assunção Residence');
     }
     return Array.from(set).sort();
   }, [activeProperties]);
 
-  // Cascading Reset when parent filter changes
-  const handleTypeChange = (newType: string) => {
-    setType(newType);
-  };
-
   const handleCityChange = (newCity: string) => {
     setCity(newCity);
-    setNeighborhood('todos'); // Reset neighborhood when city changes
-    setCondominium('todos');  // Reset condo when city changes
-  };
-
-  const handleNeighborhoodChange = (newNeighborhood: string) => {
-    setNeighborhood(newNeighborhood);
+    setNeighborhood('todos');
+    setCondominium('todos');
   };
 
   const handleApply = () => {
@@ -221,10 +135,6 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
 
   return (
     <div className="w-full glass-card p-4 sm:p-6 rounded-2xl border border-slate-800 shadow-2xl space-y-4">
-      {/* 
-        EXACT SEQUENCE (DESKTOP: Left to Right | MOBILE: Top to Bottom):
-        TIPO ➔ CIDADE ➔ BAIRROS ➔ CONDOMÍNIOS ➔ BUSCAR IMÓVEIS
-      */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 items-end">
         {/* TIPO */}
         <div className="space-y-1">
@@ -233,15 +143,15 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
           </label>
           <select
             value={type}
-            onChange={(e) => handleTypeChange(e.target.value)}
+            onChange={(e) => setType(e.target.value)}
             className="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3.5 py-3 text-white text-xs font-semibold focus:outline-none focus:border-gold-500 transition-colors shadow-sm cursor-pointer"
           >
             <option value="todos">Todos os Tipos</option>
-            {availableTypes.map((t) => (
-              <option key={t.value} value={t.value}>
-                {t.label}
-              </option>
-            ))}
+            <option value="apartamento">Apartamento</option>
+            <option value="casa">Casa / Mansão</option>
+            <option value="cobertura">Cobertura</option>
+            <option value="terreno">Terreno</option>
+            <option value="comercial">Comercial</option>
           </select>
         </div>
 
@@ -256,11 +166,11 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
             className="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3.5 py-3 text-white text-xs font-semibold focus:outline-none focus:border-gold-500 transition-colors shadow-sm cursor-pointer"
           >
             <option value="todas">Todas as Cidades</option>
-            {availableCities.map((c) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
-            ))}
+            <option value="Santo André">Santo André</option>
+            <option value="São Bernardo do Campo">São Bernardo do Campo</option>
+            <option value="Mauá">Mauá</option>
+            <option value="São Caetano do Sul">São Caetano do Sul</option>
+            <option value="São Paulo">São Paulo</option>
           </select>
         </div>
 
@@ -271,7 +181,7 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
           </label>
           <select
             value={neighborhood}
-            onChange={(e) => handleNeighborhoodChange(e.target.value)}
+            onChange={(e) => setNeighborhood(e.target.value)}
             className="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3.5 py-3 text-white text-xs font-semibold focus:outline-none focus:border-gold-500 transition-colors shadow-sm cursor-pointer"
           >
             <option value="todos">Todos os Bairros</option>
@@ -302,15 +212,15 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
           </select>
         </div>
 
-        {/* BOTÃO BUSCAR IMÓVEIS - HIGH VISIBILITY GOLD & BLACK BUTTON */}
+        {/* BOTÃO BUSCAR IMÓVEIS */}
         <div className="w-full">
           <button
             type="button"
             onClick={handleApply}
-            className="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-stone-950 font-black text-xs uppercase tracking-wider transition-all shadow-glow-gold flex items-center justify-center gap-2 border border-amber-300 cursor-pointer"
+            className="w-full py-3 rounded-xl bg-gold-gradient hover:opacity-95 text-stone-950 font-bold text-xs uppercase tracking-wider transition-all shadow-glow-gold flex items-center justify-center gap-2 border border-gold-400/40 cursor-pointer"
           >
-            <Search className="w-4 h-4 text-stone-950 shrink-0 stroke-[2.5]" />
-            <span className="text-stone-950 font-black tracking-wider text-xs">BUSCAR IMÓVEIS</span>
+            <Search className="w-4 h-4 text-stone-950" />
+            <span>Buscar Imóveis</span>
           </button>
         </div>
       </div>

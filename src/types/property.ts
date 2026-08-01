@@ -1,19 +1,4 @@
-export type PropertyType = 
-  | 'area_corporativa'
-  | 'area'
-  | 'apartamento'
-  | 'casa'
-  | 'casa_assobradada'
-  | 'casa_comercial'
-  | 'casa_condominio'
-  | 'cobertura'
-  | 'kitnet'
-  | 'loja'
-  | 'predio'
-  | 'salao'
-  | 'sobrado'
-  | 'comercial'
-  | 'terreno';
+export type PropertyType = 'apartamento' | 'casa' | 'cobertura' | 'terreno' | 'comercial';
 export type PropertyPurpose = 'venda' | 'aluguel';
 export type PropertyStatus = 'disponivel' | 'vendido' | 'alugado' | 'inativo';
 
