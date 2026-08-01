@@ -258,6 +258,11 @@ export default function AdminImoveisPage() {
                   </div>
                   <h3 className="text-white font-semibold text-sm leading-snug truncate">{p.title}</h3>
                   <p className="text-slate-400 text-xs mt-0.5">{p.neighborhood}, {p.city} · {p.area}m² · {p.bedrooms} dorm · {p.parking} vaga{p.parking !== 1 ? 's' : ''}</p>
+                  {(p.ownerName || p.ownerPhone) && (
+                    <div className="text-[11px] text-amber-300 font-medium mt-1 flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded-lg w-fit">
+                      <span>👤 Proprietário: <strong>{p.ownerName || 'Não informado'}</strong> {p.ownerPhone ? `(${p.ownerPhone})` : ''}</span>
+                    </div>
+                  )}
                   <p className="text-gold-400 font-bold text-sm mt-1">{formatCurrency(p.price)}</p>
                 </div>
 

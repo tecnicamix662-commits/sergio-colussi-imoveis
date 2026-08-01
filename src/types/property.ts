@@ -28,6 +28,11 @@ export interface Property {
   mainImage: string;
   featured: boolean;
   active: boolean;
+  // Dados Privados do Proprietário (Visível Apenas no Painel Admin)
+  ownerName?: string;
+  ownerPhone?: string;
+  ownerEmail?: string;
+  ownerNotes?: string;
   createdAt: string;
   updatedAt: string;
 }

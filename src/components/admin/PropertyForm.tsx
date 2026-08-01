@@ -8,7 +8,7 @@ import { Property, PropertyType, PropertyPurpose, PropertyStatus } from '@/types
 import {
   Save, ArrowLeft, PlusCircle, X, Star, Loader2, Grip,
   Upload, Camera, Image as ImageIcon, CheckCircle2, AlertCircle,
-  Trash2, ChevronUp, ChevronDown, FolderOpen,
+  Trash2, ChevronUp, ChevronDown, FolderOpen, Shield, User,
 } from 'lucide-react';
 
 export type PropertyFormData = Omit<Property, 'id' | 'code' | 'slug' | 'createdAt' | 'updatedAt'>;
@@ -67,7 +67,7 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
   const [saving, setSaving] = useState(false);
   const [savedMsg, setSavedMsg] = useState<'success' | 'error' | null>(null);
   const [featureInput, setFeatureInput] = useState('');
-  const [activeSection, setActiveSection] = useState<'basico' | 'detalhes' | 'fotos' | 'status'>('basico');
+  const [activeSection, setActiveSection] = useState<'basico' | 'detalhes' | 'fotos' | 'proprietario' | 'status'>('basico');
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState<{ current: number; total: number } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -100,6 +100,10 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
       mainImage: '',
       featured: false,
       active: true,
+      ownerName: '',
+      ownerPhone: '',
+      ownerEmail: '',
+      ownerNotes: '',
     };
   };
 
@@ -193,6 +197,7 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
     { id: 'basico', label: 'Dados Básicos' },
     { id: 'detalhes', label: 'Detalhes e Características' },
     { id: 'fotos', label: 'Fotos' },
+    { id: 'proprietario', label: '👤 Proprietário (Privado)' },
     { id: 'status', label: 'Status e Publicação' },
   ] as const;
 
@@ -657,6 +662,63 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
                 </p>
               </div>
             </div>
+          </div>
+        )}
+
+        {/* === DADOS DO PROPRIETÁRIO (PRIVADO) === */}
+        {activeSection === 'proprietario' && (
+          <div className="space-y-6">
+            <div className="p-4 rounded-xl bg-gold-500/10 border border-gold-500/30 text-gold-300 text-xs flex items-center gap-3">
+              <Shield className="w-5 h-5 shrink-0 text-gold-400" />
+              <div>
+                <p className="font-bold">🔒 Dados Confidenciais do Proprietário</p>
+                <p className="text-[11px] text-slate-300 mt-0.5">
+                  Estes dados são estritamente privados para seu controle interno e NUNCA serão exibidos publicamente no site.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+              <Field label="Nome do Proprietário">
+                <input
+                  type="text"
+                  value={form.ownerName || ''}
+                  onChange={(e) => update('ownerName', e.target.value)}
+                  placeholder="Ex: João da Silva"
+                  className={inputCls}
+                />
+              </Field>
+
+              <Field label="Telefone / WhatsApp">
+                <input
+                  type="text"
+                  value={form.ownerPhone || ''}
+                  onChange={(e) => update('ownerPhone', e.target.value)}
+                  placeholder="Ex: (11) 99888-7777"
+                  className={inputCls}
+                />
+              </Field>
+
+              <Field label="E-mail do Proprietário">
+                <input
+                  type="email"
+                  value={form.ownerEmail || ''}
+                  onChange={(e) => update('ownerEmail', e.target.value)}
+                  placeholder="Ex: proprietario@email.com"
+                  className={inputCls}
+                />
+              </Field>
+            </div>
+
+            <Field label="Observações Privadas / Notas Internas" hint="Anotações sobre chaves, horários de visita, comissão, autorização...">
+              <textarea
+                value={form.ownerNotes || ''}
+                onChange={(e) => update('ownerNotes', e.target.value)}
+                rows={5}
+                placeholder="Ex: Chave na portaria com o seu Carlos. Visitas autorizadas após 14h. Comissão alinhada em 6%."
+                className={`${inputCls} resize-none`}
+              />
+            </Field>
           </div>
         )}
       </div>
