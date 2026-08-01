@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-sans: 'Inter', sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  body {
+    background-color: #FFF9F0;
+    color: #292524;
+    font-family: var(--font-sans), Inter, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .bg-gold-gradient {
+    background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+  }
+
+  .bg-navy-gradient {
+    background: linear-gradient(135deg, #1E3A8A 0%, #0F172A 100%);
+  }
+
+  .bg-dark-gradient {
+    background: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
+  }
+
+  .text-gold-gradient {
+    background: linear-gradient(135deg, #B8924B 0%, #9E7B3B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Cards — bege/creme com borda suave */
+  .glass-card {
+    background: rgba(255, 251, 244, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(30, 41, 59, 0.12);
+    box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+  }
+
+  .glass-card-gold {
+    background: rgba(30, 58, 138, 0.08);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(30, 58, 138, 0.25);
+  }
+
+  /* Header transparente sobre banner */
+  .glass-header {
+    background: rgba(255, 249, 240, 0.95);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(30, 41, 59, 0.12);
+    box-shadow: 0 2px 12px rgba(15, 23, 42, 0.05);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F5EDD9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C5A059;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9E7B3B;
+}
