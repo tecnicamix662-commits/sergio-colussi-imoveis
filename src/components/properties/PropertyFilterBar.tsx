@@ -150,30 +150,31 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
     return [...result, ...remaining];
   }, [activeProperties, type]);
 
-  // 3. Available Neighborhoods (interlinked + preset list per city for rich experience)
+  // 3. Available Neighborhoods (Strictly separated per selected city)
   const availableNeighborhoods = useMemo(() => {
     const set = new Set<string>();
 
-    // Add preset neighborhoods if city is selected
-    if (city !== 'todas' && city !== 'Todas' && DEFAULT_NEIGHBORHOODS_BY_CITY[city]) {
-      DEFAULT_NEIGHBORHOODS_BY_CITY[city].forEach((n) => set.add(n));
-    } else if (city === 'todas' || city === 'Todas') {
-      // Add all preset neighborhoods across cities
+    if (city !== 'todas' && city !== 'Todas') {
+      // Strict filter: ONLY neighborhoods for the selected city
+      const presets = DEFAULT_NEIGHBORHOODS_BY_CITY[city];
+      if (presets) {
+        presets.forEach((n) => set.add(n));
+      }
+
+      const filteredProperties = activeProperties.filter(
+        (p) => p.city.toLowerCase() === city.toLowerCase()
+      );
+      filteredProperties.forEach((p) => p.neighborhood && set.add(p.neighborhood));
+    } else {
+      // All cities selected
+      activeProperties.forEach((p) => p.neighborhood && set.add(p.neighborhood));
       Object.values(DEFAULT_NEIGHBORHOODS_BY_CITY).forEach((arr) => {
         arr.forEach((n) => set.add(n));
       });
     }
 
-    // Add any neighborhood present in active properties
-    const filteredProperties = activeProperties.filter((p) => {
-      if (type !== 'todos' && p.type !== type) return false;
-      if (city !== 'todas' && city !== 'Todas' && p.city.toLowerCase() !== city.toLowerCase()) return false;
-      return true;
-    });
-    filteredProperties.forEach((p) => p.neighborhood && set.add(p.neighborhood));
-
     return Array.from(set).sort();
-  }, [activeProperties, type, city]);
+  }, [activeProperties, city]);
 
   // 4. Available Condominiums
   const availableCondominiums = useMemo(() => {
@@ -188,13 +189,15 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
     return Array.from(set).sort();
   }, [activeProperties, type, city, neighborhood]);
 
-  // Cascading Reset
+  // Cascading Reset when parent filter changes
   const handleTypeChange = (newType: string) => {
     setType(newType);
   };
 
   const handleCityChange = (newCity: string) => {
     setCity(newCity);
+    setNeighborhood('todos'); // Reset neighborhood when city changes
+    setCondominium('todos');  // Reset condo when city changes
   };
 
   const handleNeighborhoodChange = (newNeighborhood: string) => {
