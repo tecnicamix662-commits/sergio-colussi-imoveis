@@ -719,6 +719,20 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
                 className={`${inputCls} resize-none`}
               />
             </Field>
+
+            <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-800">
+              <span className="text-xs text-slate-400">
+                🔒 Ao salvar, todos os dados do imóvel e do proprietário serão gravados com segurança no sistema.
+              </span>
+              <button
+                type="submit"
+                disabled={saving}
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
+              >
+                {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+                <span>{saving ? 'Salvando...' : 'Salvar Dados do Proprietário'}</span>
+              </button>
+            </div>
           </div>
         )}
       </div>
