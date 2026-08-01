@@ -22,11 +22,21 @@ const FEATURES_SUGGESTIONS = [
 ];
 
 const TYPE_LABELS: Record<PropertyType, string> = {
+  area_corporativa: 'Área Corporativa',
+  area: 'Área',
   apartamento: 'Apartamento',
   casa: 'Casa',
+  casa_assobradada: 'Casa Assobradada',
+  casa_comercial: 'Casa Comercial',
+  casa_condominio: 'Casa em Condomínio',
   cobertura: 'Cobertura',
-  terreno: 'Terreno',
+  kitnet: 'Kitnet / Studio',
+  loja: 'Loja',
+  predio: 'Prédio',
+  salao: 'Salão',
+  sobrado: 'Sobrado',
   comercial: 'Comercial',
+  terreno: 'Terreno',
 };
 
 const STATUS_LABELS: Record<PropertyStatus, string> = {
