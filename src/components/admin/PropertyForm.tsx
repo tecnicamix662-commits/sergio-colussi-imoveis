@@ -114,14 +114,23 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
 
 function parseCurrency(input: string): number {
   if (!input) return 0;
-  const clean = input.replace(/[R$\s]/g, '');
+  let clean = input.replace(/[R$\s]/g, '');
+
   if (clean.includes(',')) {
-    const formatted = clean.replace(/\./g, '').replace(',', '.');
-    const val = parseFloat(formatted);
-    return isNaN(val) ? 0 : val;
+    clean = clean.replace(/\./g, '').replace(',', '.');
+  } else {
+    const dotCount = (clean.match(/\./g) || []).length;
+    if (dotCount > 1) {
+      clean = clean.replace(/\./g, '');
+    } else if (dotCount === 1) {
+      const parts = clean.split('.');
+      if (parts[1] && parts[1].length === 3) {
+        clean = clean.replace('.', '');
+      }
+    }
   }
-  const formatted = clean.replace(/\./g, '');
-  const val = parseFloat(formatted);
+
+  const val = parseFloat(clean);
   return isNaN(val) ? 0 : val;
 }
 
@@ -327,20 +336,21 @@ function parseCurrency(input: string): number {
                   <option value="aluguel">Aluguel</option>
                 </select>
               </Field>
-              <Field label="Preço do Imóvel (R$)" required hint="Digite com vírgula ou pontos. Ex: 5.000.000 ou 5000000,00">
+              <Field label="Preço do Imóvel (R$)" required hint="Aceita vírgulas e pontos no celular e computador. Ex: 5.000.000,00 ou 5000000">
                 <input
                   type="text"
+                  inputMode="decimal"
                   value={priceInput}
                   onChange={(e) => {
                     setPriceInput(e.target.value);
                     update('price', parseCurrency(e.target.value));
                   }}
-                  placeholder="Ex: 5.000.000,00"
+                  placeholder="Ex: 5.000.000,00 ou 5000000"
                   required
                   className={inputCls}
                 />
                 {form.price > 0 && (
-                  <div className="text-xs font-extrabold text-stone-950 bg-stone-100 border border-stone-300 px-3 py-1.5 rounded-lg mt-1.5 flex items-center justify-between">
+                  <div className="text-xs font-extrabold text-stone-950 bg-stone-100 border border-stone-300 px-3 py-1.5 rounded-lg mt-1.5 flex items-center justify-between shadow-xs">
                     <span>💵 Valor Confirmado:</span>
                     <span className="text-stone-950 text-sm font-black">{form.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 2 })}</span>
                   </div>
@@ -349,9 +359,10 @@ function parseCurrency(input: string): number {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <Field label="Condomínio (R$/mês)" hint="Aceita vírgula e pontos. Deixe em branco se não houver">
+              <Field label="Condomínio (R$/mês)" hint="Aceita vírgulas e pontos. Deixe em branco se não houver">
                 <input
                   type="text"
+                  inputMode="decimal"
                   value={condoInput}
                   onChange={(e) => {
                     setCondoInput(e.target.value);
@@ -369,9 +380,10 @@ function parseCurrency(input: string): number {
                 ) : null}
               </Field>
 
-              <Field label="IPTU (R$/ano)" hint="Aceita vírgula e pontos. Deixe em branco se não souber">
+              <Field label="IPTU (R$/ano)" hint="Aceita vírgulas e pontos. Deixe em branco se não souber">
                 <input
                   type="text"
+                  inputMode="decimal"
                   value={iptuInput}
                   onChange={(e) => {
                     setIptuInput(e.target.value);
