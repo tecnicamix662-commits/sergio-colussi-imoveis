@@ -132,18 +132,6 @@ export default function Footer() {
                   <Facebook className="w-4 h-4 text-[#1877F2]" />
                 </a>
               )}
-              {settings.linkedin && (
-                <a href={settings.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-                  className="w-9 h-9 rounded-lg bg-stone-900 border border-stone-800 flex items-center justify-center text-stone-300 hover:text-white hover:border-stone-600 transition-colors">
-                  <Linkedin className="w-4 h-4 text-[#0A66C2]" />
-                </a>
-              )}
-              {settings.youtube && (
-                <a href={settings.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube"
-                  className="w-9 h-9 rounded-lg bg-stone-900 border border-stone-800 flex items-center justify-center text-stone-300 hover:text-white hover:border-stone-600 transition-colors">
-                  <Youtube className="w-4 h-4 text-[#FF0000]" />
-                </a>
-              )}
             </div>
           </div>
         </div>

@@ -104,6 +104,7 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
       mainImage: '',
       featured: false,
       active: true,
+      realtorName: '',
       ownerName: '',
       ownerPhone: '',
       ownerEmail: '',
@@ -274,16 +275,29 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
         {/* === DADOS BÁSICOS === */}
         {activeSection === 'basico' && (
           <div className="space-y-5">
-            <Field label="Título do Anúncio" required>
-              <input
-                type="text"
-                value={form.title}
-                onChange={(e) => update('title', e.target.value)}
-                placeholder="Ex: Cobertura Duplex com Piscina no Bairro Jardim"
-                required
-                className={inputCls}
-              />
-            </Field>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+              <div className="sm:col-span-2">
+                <Field label="Título do Anúncio" required>
+                  <input
+                    type="text"
+                    value={form.title}
+                    onChange={(e) => update('title', e.target.value)}
+                    placeholder="Ex: Cobertura Duplex com Piscina no Bairro Jardim"
+                    required
+                    className={inputCls}
+                  />
+                </Field>
+              </div>
+              <Field label="Corretor Responsável" hint="Nome do corretor de imóveis">
+                <input
+                  type="text"
+                  value={form.realtorName || ''}
+                  onChange={(e) => update('realtorName', e.target.value)}
+                  placeholder="Ex: Sérgio Colussi"
+                  className={inputCls}
+                />
+              </Field>
+            </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
               <Field label="Tipo de Imóvel" required>

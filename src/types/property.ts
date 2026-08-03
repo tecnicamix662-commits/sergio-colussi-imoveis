@@ -28,6 +28,9 @@ export interface Property {
   mainImage: string;
   featured: boolean;
   active: boolean;
+  // Corretor Responsável pelo Imóvel
+  realtorName?: string;
+
   // Dados Privados do Proprietário (Visível Apenas no Painel Admin)
   ownerName?: string;
   ownerPhone?: string;
