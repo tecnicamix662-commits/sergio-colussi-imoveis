@@ -41,10 +41,14 @@ export default function HomePage() {
     return () => window.removeEventListener('properties_updated', loadProperties);
   }, []);
 
-  // Cover background photos (APENAS FOTOS REAIS DOS IMÓVEIS CADASTRADOS)
-  const coverPhotos = featuredProperties
-    .map((p) => p.mainImage)
-    .filter((img) => Boolean(img) && !img.includes('placeholder'));
+  // Cover background photos para o Slide da Capa (Home Hero Carousel)
+  const coverPhotos = [
+    'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1920&q=85',
+    'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1920&q=85',
+    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=85',
+    'https://images.unsplash.com/photo-1567496898669-ee935f5f647a?auto=format&fit=crop&w=1920&q=85',
+    'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1920&q=85',
+  ];
 
   // Auto-play interval for background photos (4.5 seconds)
   useEffect(() => {
