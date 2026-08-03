@@ -116,12 +116,16 @@ export default function Footer() {
 
             {/* Redes Sociais */}
             <div className="flex items-center gap-2.5 pt-2 flex-wrap">
-              {settings.instagram && (
-                <a href={settings.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-                  className="w-9 h-9 rounded-lg bg-stone-900 border border-stone-800 flex items-center justify-center text-stone-300 hover:text-white hover:border-stone-600 transition-colors">
-                  <Instagram className="w-4 h-4" />
-                </a>
-              )}
+              <a
+                href={settings.instagram || 'https://www.instagram.com/sjcolussi/'}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-stone-900 border border-stone-800 text-stone-300 hover:text-white hover:border-stone-600 transition-colors text-xs font-semibold"
+              >
+                <Instagram className="w-4 h-4 text-white" />
+                <span>Instagram</span>
+              </a>
               {settings.facebook && (
                 <a href={settings.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook"
                   className="w-9 h-9 rounded-lg bg-stone-900 border border-stone-800 flex items-center justify-center text-stone-300 hover:text-white hover:border-stone-600 transition-colors">

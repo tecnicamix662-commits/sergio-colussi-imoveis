@@ -71,7 +71,7 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   heroSubtitle: 'Com 22 anos de experiência no mercado imobiliário do ABC Paulista, oferecemos atendimento transparente, seguro e personalizado para compra, venda e avaliação de imóveis em Santo André, Mauá e região.',
   footerDescription: 'Tradição e transparência na compra, venda e avaliação de imóveis em Santo André, Mauá e região do ABC Paulista. Atendimento seguro e personalizado para realizar bons negócios.',
 
-  instagram: 'https://instagram.com',
+  instagram: 'https://www.instagram.com/sjcolussi/',
   facebook: 'https://facebook.com',
   linkedin: 'https://linkedin.com',
   youtube: '',
