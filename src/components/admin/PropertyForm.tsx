@@ -514,7 +514,7 @@ function formatToBRL(value: string | number): { display: string; numeric: number
 
             {/* Features */}
             <div className="space-y-3">
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider">Características e Diferenciais</label>
+              <label className="block text-xs font-bold text-stone-900 uppercase tracking-wider">Características e Diferenciais</label>
               
               <div className="flex gap-2">
                 <input
@@ -525,7 +525,7 @@ function formatToBRL(value: string | number): { display: string; numeric: number
                   placeholder="Digite uma característica e pressione Enter..."
                   className={`${inputCls} flex-1`}
                 />
-                <button type="button" onClick={() => addFeature(featureInput)} className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition border border-slate-700 whitespace-nowrap">
+                <button type="button" onClick={() => addFeature(featureInput)} className="px-4 py-2.5 rounded-xl bg-stone-950 hover:bg-black text-white text-xs font-bold transition border border-stone-800 whitespace-nowrap">
                   + Adicionar
                 </button>
               </div>
@@ -540,8 +540,8 @@ function formatToBRL(value: string | number): { display: string; numeric: number
                     disabled={form.features.includes(s)}
                     className={`text-[11px] px-2.5 py-1 rounded-full border transition ${
                       form.features.includes(s)
-                        ? 'bg-gold-500/20 border-gold-500/40 text-gold-400 cursor-default'
-                        : 'bg-slate-900 border-slate-700 text-slate-400 hover:text-white hover:border-slate-500'
+                        ? 'bg-emerald-50 border-emerald-300 text-emerald-800 cursor-default'
+                        : 'bg-stone-100 border-stone-300 text-stone-700 hover:text-stone-950 hover:border-stone-500'
                     }`}
                   >
                     {form.features.includes(s) ? '✓ ' : '+ '}{s}
@@ -553,9 +553,9 @@ function formatToBRL(value: string | number): { display: string; numeric: number
               {form.features.length > 0 && (
                 <div className="flex flex-wrap gap-2 mt-2">
                   {form.features.map((feat) => (
-                    <span key={feat} className="inline-flex items-center gap-1.5 bg-gold-500/10 border border-gold-500/30 text-gold-300 text-xs px-3 py-1.5 rounded-full">
+                    <span key={feat} className="inline-flex items-center gap-1.5 bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs px-3 py-1.5 rounded-full font-bold">
                       {feat}
-                      <button type="button" onClick={() => removeFeature(feat)} className="text-gold-400 hover:text-red-400 transition">
+                      <button type="button" onClick={() => removeFeature(feat)} className="text-stone-500 hover:text-red-500 transition">
                         <X className="w-3 h-3" />
                       </button>
                     </span>
@@ -583,8 +583,8 @@ function formatToBRL(value: string | number): { display: string; numeric: number
               onClick={() => fileInputRef.current?.click()}
               className={`relative border-2 border-dashed rounded-2xl p-8 text-center transition-all cursor-pointer ${
                 isDragging
-                  ? 'border-gold-500 bg-gold-500/10 scale-[1.01]'
-                  : 'border-slate-700 hover:border-gold-500/60 bg-slate-900/60 hover:bg-slate-900/90'
+                  ? 'border-stone-950 bg-stone-100 scale-[1.01]'
+                  : 'border-stone-300 hover:border-stone-500 bg-stone-50 hover:bg-stone-100'
               }`}
             >
               <input
@@ -601,23 +601,23 @@ function formatToBRL(value: string | number): { display: string; numeric: number
               />
 
               <div className="flex flex-col items-center justify-center space-y-3">
-                <div className="w-14 h-14 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 shadow-glow-gold">
-                  {uploading ? <Loader2 className="w-7 h-7 animate-spin text-gold-400" /> : <Upload className="w-7 h-7" />}
+                <div className="w-14 h-14 rounded-2xl bg-stone-100 border border-stone-300 flex items-center justify-center text-stone-900">
+                  {uploading ? <Loader2 className="w-7 h-7 animate-spin text-stone-900" /> : <Upload className="w-7 h-7" />}
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-white">
+                  <p className="text-sm font-bold text-stone-950">
                     {uploading
                       ? `Processando fotos (${uploadProgress?.current || 0}/${uploadProgress?.total || 0})...`
                       : 'Clique aqui para escolher fotos do seu computador'}
                   </p>
-                  <p className="text-xs text-slate-400 mt-1">
+                  <p className="text-xs text-stone-500 mt-1">
                     Ou arraste e solte seus arquivos de imagem aqui (JPG, PNG, WebP)
                   </p>
                 </div>
                 <button
                   type="button"
                   disabled={uploading}
-                  className="px-5 py-2.5 rounded-xl bg-gold-gradient text-navy-950 font-bold text-xs uppercase tracking-wider shadow-glow-gold hover:brightness-110 transition-all flex items-center gap-2 disabled:opacity-50"
+                  className="px-5 py-2.5 rounded-xl bg-stone-950 text-white font-bold text-xs uppercase tracking-wider shadow-md hover:bg-black transition-all flex items-center gap-2 disabled:opacity-50"
                 >
                   <FolderOpen className="w-4 h-4" />
                   <span>Selecionar Fotos do Computador</span>
@@ -630,13 +630,13 @@ function formatToBRL(value: string | number): { display: string; numeric: number
               <button
                 type="button"
                 onClick={() => setShowUrlInput(!showUrlInput)}
-                className="text-xs text-gold-400 hover:text-gold-300 font-medium flex items-center gap-1 transition"
+                className="text-xs text-stone-700 hover:text-stone-950 font-bold flex items-center gap-1 transition"
               >
                 <span>{showUrlInput ? '− Ocultar inserção via URL' : '+ Adicionar foto por URL externa'}</span>
               </button>
 
               {showUrlInput && (
-                <div className="mt-3 p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
+                <div className="mt-3 p-4 rounded-xl bg-stone-50 border border-stone-300 space-y-2">
                   <div className="flex gap-2">
                     <input
                       type="url"
@@ -649,7 +649,7 @@ function formatToBRL(value: string | number): { display: string; numeric: number
                       type="button"
                       onClick={() => { addImageUrl(newImageUrl); setNewImageUrl(''); }}
                       disabled={!newImageUrl.trim()}
-                      className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition border border-slate-700 whitespace-nowrap disabled:opacity-40"
+                      className="px-4 py-2.5 rounded-xl bg-stone-950 hover:bg-black text-white text-xs font-bold transition border border-stone-800 whitespace-nowrap disabled:opacity-40"
                     >
                       <PlusCircle className="w-4 h-4" />
                     </button>
@@ -660,18 +660,18 @@ function formatToBRL(value: string | number): { display: string; numeric: number
 
             {/* Lista de Imagens Adicionadas */}
             {form.images.length === 0 ? (
-              <div className="text-center py-8 border border-slate-800 rounded-2xl bg-slate-900/30">
-                <Camera className="w-8 h-8 text-slate-600 mx-auto mb-2" />
-                <p className="text-slate-400 text-xs">Nenhuma foto no imóvel ainda.</p>
-                <p className="text-slate-600 text-[11px] mt-1">Selecione fotos do dispositivo no quadro acima.</p>
+              <div className="text-center py-8 border border-stone-200 rounded-2xl bg-stone-50">
+                <Camera className="w-8 h-8 text-stone-400 mx-auto mb-2" />
+                <p className="text-stone-600 text-xs font-semibold">Nenhuma foto no imóvel ainda.</p>
+                <p className="text-stone-400 text-[11px] mt-1">Selecione fotos do dispositivo no quadro acima.</p>
               </div>
             ) : (
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <p className="text-xs font-semibold text-slate-300">
+                  <p className="text-xs font-bold text-stone-950">
                     Galeria do Imóvel ({form.images.length} foto{form.images.length !== 1 ? 's' : ''})
                   </p>
-                  <p className="text-[11px] text-slate-500">A primeira imagem ou a marcada com ★ é a capa principal.</p>
+                  <p className="text-[11px] text-stone-500">A primeira imagem ou a marcada com ★ é a capa principal.</p>
                 </div>
 
                 <div className="grid grid-cols-1 gap-3">
@@ -680,11 +680,11 @@ function formatToBRL(value: string | number): { display: string; numeric: number
                       key={idx}
                       className={`flex gap-3 items-center p-3 rounded-xl border transition-all ${
                         form.mainImage === url
-                          ? 'border-gold-500/50 bg-gold-500/10'
-                          : 'border-slate-800 bg-slate-900/60 hover:border-slate-700'
+                          ? 'border-stone-950 bg-stone-100'
+                          : 'border-stone-200 bg-white hover:border-stone-400'
                       }`}
                     >
-                      <div className="w-24 h-16 rounded-lg overflow-hidden bg-slate-800 shrink-0 relative">
+                      <div className="w-24 h-16 rounded-lg overflow-hidden bg-stone-100 shrink-0 relative">
                         <img
                           src={url}
                           alt={`Foto ${idx + 1}`}
@@ -692,15 +692,15 @@ function formatToBRL(value: string | number): { display: string; numeric: number
                           onError={(e) => { (e.target as HTMLImageElement).src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="%2394a3b8" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>'; }}
                         />
                         {form.mainImage === url && (
-                          <span className="absolute top-1 left-1 bg-gold-500 text-navy-950 font-bold text-[9px] px-1.5 py-0.5 rounded shadow">
+                          <span className="absolute top-1 left-1 bg-stone-950 text-white font-bold text-[9px] px-1.5 py-0.5 rounded shadow">
                             ★ Capa
                           </span>
                         )}
                       </div>
 
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-medium text-slate-200 truncate">Foto {idx + 1}</p>
-                        <p className="text-[11px] text-slate-500 truncate">{url.startsWith('data:') ? 'Foto enviada do computador' : url}</p>
+                        <p className="text-xs font-bold text-stone-950 truncate">Foto {idx + 1}</p>
+                        <p className="text-[11px] text-stone-500 truncate">{url.startsWith('data:') ? 'Foto enviada do computador' : url}</p>
                       </div>
 
                       <div className="flex items-center gap-1 shrink-0">
@@ -709,7 +709,7 @@ function formatToBRL(value: string | number): { display: string; numeric: number
                           onClick={() => moveImage(idx, 'up')}
                           disabled={idx === 0}
                           title="Mover para cima"
-                          className="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition disabled:opacity-30"
+                          className="p-2 rounded-lg hover:bg-stone-100 text-stone-500 hover:text-stone-950 transition disabled:opacity-30"
                         >
                           <ChevronUp className="w-4 h-4" />
                         </button>
@@ -728,8 +728,8 @@ function formatToBRL(value: string | number): { display: string; numeric: number
                           title="Definir como foto principal"
                           className={`p-2 rounded-lg transition ${
                             form.mainImage === url
-                              ? 'bg-gold-500/20 text-gold-400'
-                              : 'text-slate-400 hover:text-gold-400 hover:bg-slate-800'
+                              ? 'bg-amber-100 text-amber-600'
+                              : 'text-stone-500 hover:text-amber-600 hover:bg-stone-100'
                           }`}
                         >
                           <Star className="w-4 h-4" />
@@ -738,7 +738,7 @@ function formatToBRL(value: string | number): { display: string; numeric: number
                           type="button"
                           onClick={() => removeImage(idx)}
                           title="Remover foto"
-                          className="p-2 rounded-lg hover:bg-red-500/20 text-slate-400 hover:text-red-400 transition"
+                          className="p-2 rounded-lg hover:bg-red-50 text-stone-500 hover:text-red-500 transition"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -769,22 +769,22 @@ function formatToBRL(value: string | number): { display: string; numeric: number
             </Field>
 
             {/* Featured toggle */}
-            <div className="flex items-start gap-4 p-4 rounded-xl border border-slate-700 bg-slate-900/60">
+            <div className="flex items-start gap-4 p-4 rounded-xl border border-stone-200 bg-stone-50">
               <button
                 type="button"
                 onClick={() => update('featured', !form.featured)}
                 className={`w-12 h-6 rounded-full relative transition-colors shrink-0 mt-0.5 ${
-                  form.featured ? 'bg-gold-500' : 'bg-slate-700'
+                  form.featured ? 'bg-amber-500' : 'bg-stone-300'
                 }`}
               >
                 <span className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${form.featured ? 'left-7' : 'left-1'}`} />
               </button>
               <div>
-                <p className="text-white text-sm font-semibold flex items-center gap-2">
-                  <Star className={`w-4 h-4 ${form.featured ? 'text-gold-400' : 'text-slate-500'}`} />
+                <p className="text-stone-950 text-sm font-bold flex items-center gap-2">
+                  <Star className={`w-4 h-4 ${form.featured ? 'text-amber-500' : 'text-stone-400'}`} />
                   Imóvel em Destaque
                 </p>
-                <p className="text-slate-400 text-xs mt-0.5">
+                <p className="text-stone-600 text-xs mt-0.5">
                   Imóveis em destaque aparecem na página inicial e têm prioridade nos resultados de busca.
                 </p>
               </div>
@@ -796,13 +796,13 @@ function formatToBRL(value: string | number): { display: string; numeric: number
                 type="button"
                 onClick={() => update('active', !form.active)}
                 className={`w-12 h-6 rounded-full relative transition-colors shrink-0 mt-0.5 ${
-                  form.active ? 'bg-emerald-600' : 'bg-slate-700'
+                  form.active ? 'bg-emerald-600' : 'bg-stone-300'
                 }`}
               >
                 <span className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${form.active ? 'left-7' : 'left-1'}`} />
               </button>
               <div>
-                <p className="text-white text-sm font-semibold">
+                <p className="text-stone-950 text-sm font-bold">
                   {form.active ? '✅ Visível no Site Público' : '🔒 Oculto do Site Público'}
                 </p>
                 <p className="text-slate-400 text-xs mt-0.5">
@@ -816,11 +816,11 @@ function formatToBRL(value: string | number): { display: string; numeric: number
         {/* === DADOS DO PROPRIETÁRIO (PRIVADO) === */}
         {activeSection === 'proprietario' && (
           <div className="space-y-6">
-            <div className="p-4 rounded-xl bg-gold-500/10 border border-gold-500/30 text-gold-300 text-xs flex items-center gap-3">
-              <Shield className="w-5 h-5 shrink-0 text-gold-400" />
+            <div className="p-4 rounded-xl bg-amber-50 border border-amber-300 text-amber-900 text-xs flex items-center gap-3">
+              <Shield className="w-5 h-5 shrink-0 text-amber-700" />
               <div>
-                <p className="font-bold">🔒 Dados Confidenciais do Proprietário</p>
-                <p className="text-[11px] text-slate-300 mt-0.5">
+                <p className="font-extrabold text-amber-900">🔒 Dados Confidenciais do Proprietário</p>
+                <p className="text-[11px] text-stone-600 mt-0.5">
                   Estes dados são estritamente privados para seu controle interno e NUNCA serão exibidos publicamente no site.
                 </p>
               </div>
@@ -878,8 +878,8 @@ function formatToBRL(value: string | number): { display: string; numeric: number
               />
             </Field>
 
-            <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-800">
-              <span className="text-xs text-slate-400">
+            <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-stone-200">
+              <span className="text-xs text-stone-500">
                 🔒 Ao salvar, todos os dados do imóvel e do proprietário serão gravados com segurança no sistema.
               </span>
               <button
@@ -897,7 +897,7 @@ function formatToBRL(value: string | number): { display: string; numeric: number
 
       {/* Submit Action Bar */}
       <div className="pt-4 flex items-center justify-between">
-        <button type="button" onClick={() => router.push('/admin/imoveis')} className="px-4 py-2.5 rounded-xl border border-slate-700 text-slate-300 hover:text-white text-xs font-medium transition flex items-center gap-2">
+        <button type="button" onClick={() => router.push('/admin/imoveis')} className="px-4 py-2.5 rounded-xl border border-stone-300 text-stone-700 hover:text-stone-950 text-xs font-bold transition flex items-center gap-2">
           <ArrowLeft className="w-3.5 h-3.5" /> Voltar aos Imóveis
         </button>
         <button
@@ -911,8 +911,8 @@ function formatToBRL(value: string | number): { display: string; numeric: number
       </div>
 
       {/* Floating Sticky Save Bar on Mobile & Desktop */}
-      <div className="fixed bottom-0 left-0 right-0 z-30 bg-[#0a0f1e]/95 backdrop-blur-md border-t border-slate-800 p-3 px-4 shadow-2xl flex items-center justify-between md:hidden">
-        <button type="button" onClick={() => router.push('/admin/imoveis')} className="text-xs text-slate-400 font-medium">
+      <div className="fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-stone-300 p-3 px-4 shadow-2xl flex items-center justify-between md:hidden">
+        <button type="button" onClick={() => router.push('/admin/imoveis')} className="text-xs text-stone-600 font-bold">
           Cancelar
         </button>
         <button

@@ -66,12 +66,17 @@ export default function PropertyCard({ property, priorityImage = false }: Proper
           </span>
         </div>
 
-        {/* Price inside image */}
-        <div className="absolute bottom-3 left-4 right-4 z-10">
-          <span className="text-[10px] text-stone-300 uppercase tracking-wider block font-medium">
-            {property.purpose === 'aluguel' ? 'Valor do Aluguel' : 'Valor de Venda'}
-          </span>
-          <span className="text-xl sm:text-2xl font-serif font-bold text-white tracking-tight">
+        {/* Price & Code inside image */}
+        <div className="absolute bottom-3 left-4 right-4 z-10 space-y-0.5">
+          <div className="flex items-center gap-2">
+            <span className="bg-black/90 text-amber-400 text-[10px] font-mono font-extrabold px-2 py-0.5 rounded border border-amber-500/40 tracking-wider shadow-sm">
+              CÓD: {property.code}
+            </span>
+            <span className="text-[10px] text-stone-200 uppercase tracking-wider font-semibold">
+              {property.purpose === 'aluguel' ? 'Valor do Aluguel' : 'Valor de Venda'}
+            </span>
+          </div>
+          <span className="text-xl sm:text-2xl font-serif font-bold text-white tracking-tight block">
             {formatCurrency(property.price)}
             {property.purpose === 'aluguel' && <span className="text-sm font-normal text-stone-300">/mês</span>}
           </span>

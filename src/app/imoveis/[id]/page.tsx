@@ -236,11 +236,16 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
         <div className="lg:col-span-4 lg:sticky lg:top-28 space-y-6">
           {/* Pricing Box */}
           <div className="bg-stone-50 rounded-2xl p-6 border border-stone-300 space-y-6 shadow-md">
-            <div className="space-y-1">
-              <span className="text-xs text-stone-600 uppercase tracking-widest font-bold block">
-                Valor do Imóvel
-              </span>
-              <span className="font-serif text-3xl sm:text-4xl font-bold text-stone-950 tracking-tight block">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between gap-2 border-b border-stone-200 pb-2">
+                <span className="bg-black text-amber-400 text-xs font-mono font-extrabold px-3 py-1 rounded-lg border border-amber-500/40 tracking-wider shadow-xs">
+                  CÓDIGO: {property.code}
+                </span>
+                <span className="text-xs text-stone-600 uppercase tracking-wider font-extrabold">
+                  {property.purpose === 'aluguel' ? 'Valor do Aluguel' : 'Valor de Venda'}
+                </span>
+              </div>
+              <span className="font-serif text-3xl sm:text-4xl font-bold text-stone-950 tracking-tight block pt-1">
                 {formatCurrency(property.price)}
               </span>
 
