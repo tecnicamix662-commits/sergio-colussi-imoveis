@@ -116,13 +116,25 @@ export default function ContatoPage() {
               <span className="text-xs text-stone-900 font-bold uppercase tracking-wider block">Redes Sociais:</span>
               <div className="flex items-center gap-3">
                 {settings.instagram && (
-                  <a href={settings.instagram} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white border border-stone-200 flex items-center justify-center hover:bg-stone-100 transition-colors shadow-sm">
-                    <Instagram className="w-5 h-5 text-[#E4405F]" />
+                  <a
+                    href={settings.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-rose-500 to-purple-600 text-white font-bold text-xs shadow-md hover:brightness-110 transition-all"
+                  >
+                    <Instagram className="w-4 h-4 text-white" />
+                    <span>Instagram</span>
                   </a>
                 )}
                 {settings.facebook && (
-                  <a href={settings.facebook} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white border border-stone-200 flex items-center justify-center hover:bg-stone-100 transition-colors shadow-sm">
-                    <Facebook className="w-5 h-5 text-[#1877F2]" />
+                  <a
+                    href={settings.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-[#1877F2] text-white font-bold text-xs shadow-md hover:brightness-110 transition-all"
+                  >
+                    <Facebook className="w-4 h-4 text-white fill-white" />
+                    <span>Facebook</span>
                   </a>
                 )}
               </div>

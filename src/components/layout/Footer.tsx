@@ -114,22 +114,29 @@ export default function Footer() {
               )}
             </div>
 
-            {/* Redes Sociais */}
-            <div className="flex items-center gap-2.5 pt-2 flex-wrap">
+            {/* Redes Sociais com Cores Oficiais Brilhantes */}
+            <div className="flex items-center gap-3 pt-2 flex-wrap">
               <a
                 href={settings.instagram || 'https://www.instagram.com/sjcolussi/'}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-stone-900 border border-stone-800 text-stone-300 hover:text-white hover:border-stone-600 transition-colors text-xs font-semibold"
+                className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-rose-500 to-purple-600 text-white font-bold text-xs shadow-md hover:brightness-110 transition-all"
               >
-                <Instagram className="w-4 h-4 text-[#E4405F]" />
+                <Instagram className="w-4 h-4 text-white" />
                 <span>Instagram</span>
               </a>
+
               {settings.facebook && (
-                <a href={settings.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook"
-                  className="w-9 h-9 rounded-lg bg-stone-900 border border-stone-800 flex items-center justify-center text-stone-300 hover:text-white hover:border-stone-600 transition-colors">
-                  <Facebook className="w-4 h-4 text-[#1877F2]" />
+                <a
+                  href={settings.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                  className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-[#1877F2] text-white font-bold text-xs shadow-md hover:brightness-110 transition-all"
+                >
+                  <Facebook className="w-4 h-4 text-white fill-white" />
+                  <span>Facebook</span>
                 </a>
               )}
             </div>
