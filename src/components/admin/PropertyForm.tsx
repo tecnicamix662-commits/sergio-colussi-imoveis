@@ -48,17 +48,17 @@ function Field({ label, required, hint, children }: {
 }) {
   return (
     <div className="space-y-1.5">
-      <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
-        {label} {required && <span className="text-gold-400">*</span>}
+      <label className="block text-xs font-bold text-stone-900 uppercase tracking-wider">
+        {label} {required && <span className="text-red-600">*</span>}
       </label>
       {children}
-      {hint && <p className="text-[11px] text-slate-500">{hint}</p>}
+      {hint && <p className="text-[11px] text-stone-500 font-medium">{hint}</p>}
     </div>
   );
 }
 
-const inputCls = "w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500/30 transition-all";
-const selectCls = "w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500 transition-all";
+const inputCls = "w-full bg-white border border-stone-300 rounded-xl px-4 py-3 text-sm text-stone-950 font-semibold placeholder-stone-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all shadow-sm";
+const selectCls = "w-full bg-white border border-stone-300 rounded-xl px-4 py-3 text-sm text-stone-950 font-semibold focus:outline-none focus:border-black transition-all shadow-sm cursor-pointer";
 
 interface PropertyFormProps {
   initialData?: Property;
@@ -216,53 +216,53 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
           <button
             type="button"
             onClick={() => router.push('/admin/imoveis')}
-            className="flex items-center gap-1.5 text-slate-400 hover:text-white text-xs mb-3 transition"
+            className="text-xs text-stone-600 hover:text-stone-950 font-bold flex items-center gap-1 mb-2 transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            Voltar para a lista
+            <span>Voltar para a lista</span>
           </button>
-          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-white">
+          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-950">
             {mode === 'create' ? 'Cadastrar Novo Imóvel' : 'Editar Imóvel'}
           </h1>
           {initialData && (
-            <p className="text-slate-400 text-xs mt-1">Código: {initialData.code}</p>
+            <p className="text-stone-600 text-xs font-semibold mt-1">Código de Referência: {initialData.code}</p>
           )}
         </div>
         <button
           type="submit"
           disabled={saving}
-          className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg transition-all flex items-center gap-2 disabled:opacity-50"
+          className="px-6 py-3 rounded-xl bg-stone-950 hover:bg-black text-white font-extrabold text-xs uppercase tracking-wider shadow-md transition-all flex items-center gap-2 disabled:opacity-50 cursor-pointer"
         >
-          {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+          {saving ? <Loader2 className="w-4 h-4 animate-spin text-white" /> : <Save className="w-4 h-4 text-white" />}
           <span>{saving ? 'Salvando...' : mode === 'create' ? 'Publicar Imóvel' : 'Salvar Alterações'}</span>
         </button>
       </div>
 
       {/* Status Banner */}
       {savedMsg && (
-        <div className={`flex items-center gap-3 px-4 py-3 rounded-xl border text-sm font-medium ${
+        <div className={`flex items-center gap-3 px-4 py-3 rounded-xl border text-sm font-bold shadow-sm ${
           savedMsg === 'success'
-            ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
-            : 'bg-red-500/10 border-red-500/30 text-red-400'
+            ? 'bg-emerald-50 border-emerald-300 text-emerald-900'
+            : 'bg-red-50 border-red-300 text-red-900'
         }`}>
           {savedMsg === 'success'
-            ? <><CheckCircle2 className="w-4 h-4" /> Imóvel salvo com sucesso! Redirecionando...</>
-            : <><AlertCircle className="w-4 h-4" /> Erro ao salvar. Verifique os campos obrigatórios.</>
+            ? <><CheckCircle2 className="w-4 h-4 text-emerald-700" /> Imóvel salvo com sucesso! Redirecionando...</>
+            : <><AlertCircle className="w-4 h-4 text-red-700" /> Erro ao salvar. Verifique os campos obrigatórios.</>
           }
         </div>
       )}
 
       {/* Section Tabs */}
-      <div className="flex gap-1.5 bg-slate-900/90 border border-slate-800 rounded-2xl p-1.5 overflow-x-auto">
+      <div className="flex gap-1.5 bg-stone-100 border border-stone-300 rounded-2xl p-1.5 overflow-x-auto shadow-sm">
         {sections.map((s) => (
           <button
             key={s.id}
             type="button"
             onClick={() => setActiveSection(s.id)}
-            className={`px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+            className={`px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
               activeSection === s.id
-                ? 'bg-stone-800 text-white border border-stone-700 shadow-md'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/80 font-medium'
+                ? 'bg-stone-950 text-white shadow-sm font-extrabold'
+                : 'text-stone-700 hover:text-stone-950 hover:bg-stone-200'
             }`}
           >
             {s.label}
@@ -270,7 +270,7 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
         ))}
       </div>
 
-      <div className="bg-slate-900/40 border border-slate-800 rounded-2xl p-6 space-y-6">
+      <div className="bg-white border border-stone-200 rounded-2xl p-6 space-y-6 shadow-sm">
 
         {/* === DADOS BÁSICOS === */}
         {activeSection === 'basico' && (

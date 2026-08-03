@@ -81,45 +81,45 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex font-sans">
+    <div className="min-h-screen bg-stone-50 text-stone-900 flex font-sans">
       {/* Overlay for mobile */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 z-30 bg-black/60 md:hidden"
+          className="fixed inset-0 z-30 bg-black/50 backdrop-blur-xs md:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 z-40 h-screen w-64 bg-[#0a0f1e] border-r border-slate-800/80 flex flex-col justify-between transition-transform duration-300 ${
+        className={`fixed top-0 left-0 z-40 h-screen w-64 bg-white border-r border-stone-200 flex flex-col justify-between transition-transform duration-300 shadow-sm ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
         }`}
       >
         {/* Logo */}
         <div className="flex flex-col h-full">
-          <div className="flex items-center justify-between p-5 border-b border-slate-800">
+          <div className="flex items-center justify-between p-5 border-b border-stone-200 bg-white">
             <Link href="/admin" className="flex items-center gap-3" onClick={() => setSidebarOpen(false)}>
-              <div className="w-9 h-9 rounded-lg bg-gold-gradient p-[1px] shadow-glow-gold">
-                <div className="w-full h-full bg-navy-900 rounded-[7px] flex items-center justify-center">
-                  <ShieldCheck className="w-5 h-5 text-gold-500" />
+              <div className="w-9 h-9 rounded-lg bg-stone-950 p-[1px] shadow-sm">
+                <div className="w-full h-full bg-stone-950 rounded-[7px] flex items-center justify-center border border-stone-800">
+                  <ShieldCheck className="w-5 h-5 text-white" />
                 </div>
               </div>
               <div className="flex flex-col">
-                <span className="font-serif text-sm font-bold text-white tracking-wide">PAINEL ADMIN</span>
-                <span className="text-[9px] text-gold-400 tracking-widest uppercase">Sérgio Colussi</span>
+                <span className="font-serif text-sm font-bold text-stone-950 tracking-wide">PAINEL ADMIN</span>
+                <span className="text-[9px] text-stone-600 tracking-widest uppercase font-bold">Sérgio Colussi</span>
               </div>
             </Link>
-            <button onClick={() => setSidebarOpen(false)} className="md:hidden text-slate-400 hover:text-white p-1">
+            <button onClick={() => setSidebarOpen(false)} className="md:hidden text-stone-600 hover:text-black p-1">
               <X className="w-5 h-5" />
             </button>
           </div>
 
           {/* Nav Groups */}
-          <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-5">
+          <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-5 bg-white">
             {navGroups.map((group) => (
               <div key={group.label}>
-                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-3 mb-2">
+                <p className="text-[10px] font-bold text-stone-500 uppercase tracking-widest px-3 mb-2">
                   {group.label}
                 </p>
                 <div className="space-y-1">
@@ -131,16 +131,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                         key={item.href}
                         href={item.href}
                         onClick={() => setSidebarOpen(false)}
-                        className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold transition-all ${
+                        className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
                           active
-                            ? 'bg-stone-800 text-white border border-stone-700 shadow-md'
-                            : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                            ? 'bg-stone-950 text-white shadow-sm font-extrabold'
+                            : 'text-stone-700 hover:bg-stone-100 hover:text-black'
                         }`}
                       >
-                        <Icon className={`w-4 h-4 shrink-0 ${active ? 'text-gold-400' : 'text-gold-400/80'}`} />
+                        <Icon className={`w-4 h-4 shrink-0 ${active ? 'text-white' : 'text-stone-700'}`} />
                         <span>{item.name}</span>
                         {item.badge && (
-                          <span className="ml-auto bg-gold-500 text-stone-950 text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+                          <span className="ml-auto bg-stone-100 text-stone-950 text-[10px] font-bold px-1.5 py-0.5 rounded-full border border-stone-300">
                             {item.badge}
                           </span>
                         )}
@@ -153,21 +153,21 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </nav>
 
           {/* Footer Actions */}
-          <div className="p-4 border-t border-slate-800 space-y-2">
+          <div className="p-4 border-t border-stone-200 bg-white space-y-2">
             <Link
               href="/"
               target="_blank"
-              className="flex items-center justify-between px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-gold-400 text-xs transition-colors border border-slate-800"
+              className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-900 text-xs transition-colors border border-stone-300 font-bold"
             >
-              <span className="flex items-center gap-2 font-medium">
-                <Globe className="w-4 h-4 text-gold-400" />
+              <span className="flex items-center gap-2">
+                <Globe className="w-4 h-4 text-stone-900" />
                 <span>Ver Site Público</span>
               </span>
-              <ChevronRight className="w-3.5 h-3.5" />
+              <ChevronRight className="w-3.5 h-3.5 text-stone-600" />
             </Link>
             <button
               onClick={handleLogout}
-              className="w-full flex items-center gap-2 px-3 py-2.5 rounded-xl text-red-400 hover:bg-red-500/10 hover:text-red-300 text-xs font-medium transition-colors"
+              className="w-full flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-red-600 hover:bg-red-50 text-xs font-bold transition-colors"
             >
               <LogOut className="w-4 h-4" />
               <span>Sair do Painel</span>
@@ -177,16 +177,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col md:ml-64 min-w-0">
+      <div className="flex-1 flex flex-col md:ml-64 min-w-0 bg-stone-50">
         {/* Mobile Header */}
-        <header className="md:hidden bg-[#0a0f1e] border-b border-slate-800 p-3 px-4 flex items-center justify-between sticky top-0 z-20 shadow-lg">
+        <header className="md:hidden bg-white border-b border-stone-200 p-3 px-4 flex items-center justify-between sticky top-0 z-20 shadow-sm">
           <div className="flex items-center gap-2">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="p-2 rounded-xl bg-stone-900 text-white border border-stone-700 flex items-center gap-1.5"
+              className="p-2 rounded-xl bg-stone-100 text-stone-950 border border-stone-300 flex items-center gap-1.5 font-bold"
               aria-label="Menu do Painel"
             >
-              <Menu className="w-5 h-5 text-gold-400" />
+              <Menu className="w-5 h-5 text-stone-950" />
               <span className="text-xs font-bold">MENU</span>
             </button>
           </div>
@@ -194,16 +194,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div className="flex items-center gap-2">
             <Link
               href="/admin/imoveis/novo"
-              className="px-3 py-1.5 rounded-xl bg-stone-800 border border-stone-700 text-white font-bold text-xs flex items-center gap-1 shadow"
+              className="px-3 py-1.5 rounded-xl bg-stone-950 text-white font-bold text-xs flex items-center gap-1 shadow hover:bg-black transition-colors"
             >
-              <PlusCircle className="w-4 h-4 text-gold-400" />
+              <PlusCircle className="w-4 h-4 text-white" />
               <span>+ Imóvel</span>
             </Link>
             <Link
               href="/admin/configuracoes"
-              className="px-3 py-1.5 rounded-xl bg-stone-800 border border-stone-700 text-white font-bold text-xs flex items-center gap-1 shadow"
+              className="px-3 py-1.5 rounded-xl bg-stone-100 border border-stone-300 text-stone-950 font-bold text-xs flex items-center gap-1 shadow hover:bg-stone-200 transition-colors"
             >
-              <Settings className="w-4 h-4 text-gold-400" />
+              <Settings className="w-4 h-4 text-stone-950" />
               <span>Fotos</span>
             </Link>
           </div>

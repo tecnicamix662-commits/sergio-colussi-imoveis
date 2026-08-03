@@ -112,39 +112,39 @@ export default function AdminImoveisPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 bg-stone-50 min-h-full">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-white">Gerenciar Imóveis</h1>
-          <p className="text-slate-400 text-sm mt-1">{properties.length} imóveis no banco de dados</p>
+          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-950">Gerenciar Imóveis</h1>
+          <p className="text-stone-600 text-sm mt-1 font-medium">{properties.length} imóveis cadastrados no sistema</p>
         </div>
         <Link
           href="/admin/imoveis/novo"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gold-gradient text-navy-950 font-bold text-xs uppercase tracking-wider shadow-glow-gold hover:brightness-110 transition-all"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-stone-950 hover:bg-black text-white font-extrabold text-xs uppercase tracking-wider shadow-md transition-all"
         >
-          <PlusCircle className="w-4 h-4" />
-          Cadastrar Imóvel
+          <PlusCircle className="w-4 h-4 text-white" />
+          <span>Cadastrar Imóvel</span>
         </Link>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { label: 'Total', value: stats.total, icon: Building2, color: 'text-gold-400' },
-          { label: 'Disponíveis', value: stats.disponiveis, icon: CheckSquare, color: 'text-emerald-400' },
-          { label: 'Vendidos', value: stats.vendidos, icon: Tag, color: 'text-red-400' },
-          { label: 'Em Destaque', value: stats.destaque, icon: Star, color: 'text-amber-400' },
+          { label: 'Total', value: stats.total, icon: Building2, color: 'text-stone-950' },
+          { label: 'Disponíveis', value: stats.disponiveis, icon: CheckSquare, color: 'text-emerald-700' },
+          { label: 'Vendidos', value: stats.vendidos, icon: Tag, color: 'text-red-700' },
+          { label: 'Em Destaque', value: stats.destaque, icon: Star, color: 'text-amber-700' },
         ].map((s) => {
           const Icon = s.icon;
           return (
-            <div key={s.label} className="bg-slate-900/60 border border-slate-800 rounded-2xl p-4 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center shrink-0">
+            <div key={s.label} className="bg-white border border-stone-200 rounded-2xl p-4 flex items-center gap-3 shadow-sm">
+              <div className="w-10 h-10 rounded-xl bg-stone-100 border border-stone-200 flex items-center justify-center shrink-0">
                 <Icon className={`w-5 h-5 ${s.color}`} />
               </div>
               <div>
-                <p className="text-slate-400 text-[11px] uppercase tracking-wider">{s.label}</p>
-                <p className="text-white text-xl font-bold">{s.value}</p>
+                <p className="text-stone-500 text-[11px] uppercase tracking-wider font-bold">{s.label}</p>
+                <p className="text-stone-950 text-xl font-extrabold">{s.value}</p>
               </div>
             </div>
           );
@@ -154,19 +154,19 @@ export default function AdminImoveisPage() {
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-500" />
           <input
             type="text"
-            placeholder="Buscar por título, código, bairro..."
+            placeholder="Buscar por título, código, corretor, bairro..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-slate-900 border border-slate-700 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-gold-500"
+            className="w-full bg-white border border-stone-300 rounded-xl pl-10 pr-4 py-2.5 text-sm text-stone-950 placeholder-stone-500 focus:outline-none focus:border-black font-semibold shadow-sm"
           />
         </div>
         <select
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
-          className="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-slate-300 focus:outline-none focus:border-gold-500"
+          className="bg-white border border-stone-300 rounded-xl px-3 py-2.5 text-sm text-stone-950 font-semibold focus:outline-none focus:border-black shadow-sm cursor-pointer"
         >
           <option value="todos">Todos os Status</option>
           <option value="disponivel">Disponível</option>
@@ -178,7 +178,7 @@ export default function AdminImoveisPage() {
         <select
           value={filterType}
           onChange={(e) => setFilterType(e.target.value)}
-          className="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-slate-300 focus:outline-none focus:border-gold-500"
+          className="bg-white border border-stone-300 rounded-xl px-3 py-2.5 text-sm text-stone-950 font-semibold focus:outline-none focus:border-black shadow-sm cursor-pointer"
         >
           <option value="todos">Todos os Tipos</option>
           <option value="apartamento">Apartamento</option>
@@ -191,23 +191,23 @@ export default function AdminImoveisPage() {
 
       {/* Delete Confirm */}
       {deleteConfirm && (
-        <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-3 text-red-400">
+        <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
+          <div className="flex items-center gap-3 text-red-800">
             <AlertTriangle className="w-5 h-5 shrink-0" />
             <div>
-              <p className="font-semibold text-sm">Excluir imóvel permanentemente?</p>
-              <p className="text-xs text-slate-400 mt-0.5">Esta ação não pode ser desfeita.</p>
+              <p className="font-bold text-sm">Excluir imóvel permanentemente?</p>
+              <p className="text-xs text-red-600 mt-0.5 font-medium">Esta ação não pode ser desfeita.</p>
             </div>
           </div>
           <div className="flex gap-2">
-            <button onClick={() => setDeleteConfirm(null)} className="px-4 py-2 rounded-lg border border-slate-700 text-slate-300 text-xs hover:bg-slate-800 transition">Cancelar</button>
+            <button onClick={() => setDeleteConfirm(null)} className="px-4 py-2 rounded-lg border border-stone-300 text-stone-800 text-xs font-bold hover:bg-stone-100 transition">Cancelar</button>
             <button
               onClick={() => handleDelete(deleteConfirm)}
               disabled={loading}
-              className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition flex items-center gap-2"
+              className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-extrabold transition flex items-center gap-2"
             >
               {loading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : null}
-              Excluir
+              <span>Excluir</span>
             </button>
           </div>
         </div>
@@ -215,10 +215,10 @@ export default function AdminImoveisPage() {
 
       {/* Property List */}
       {filtered.length === 0 ? (
-        <div className="text-center py-20 bg-slate-900/40 border border-slate-800 rounded-2xl">
-          <Building2 className="w-12 h-12 text-slate-700 mx-auto mb-3" />
-          <p className="text-slate-400 text-sm">Nenhum imóvel encontrado com os filtros aplicados.</p>
-          <Link href="/admin/imoveis/novo" className="mt-4 inline-flex items-center gap-2 text-gold-400 text-xs hover:text-gold-300 transition">
+        <div className="text-center py-20 bg-white border border-stone-200 rounded-2xl shadow-sm">
+          <Building2 className="w-12 h-12 text-stone-400 mx-auto mb-3" />
+          <p className="text-stone-700 text-sm font-semibold">Nenhum imóvel encontrado com os filtros aplicados.</p>
+          <Link href="/admin/imoveis/novo" className="mt-4 inline-flex items-center gap-2 text-stone-950 font-bold text-xs hover:underline">
             <PlusCircle className="w-3.5 h-3.5" /> Cadastrar primeiro imóvel
           </Link>
         </div>
@@ -230,15 +230,15 @@ export default function AdminImoveisPage() {
             return (
               <div
                 key={p.id}
-                className="bg-slate-900/50 border border-slate-800 rounded-2xl p-4 flex flex-col sm:flex-row gap-4 hover:border-slate-700 transition-colors"
+                className="bg-white border border-stone-200 rounded-2xl p-4 flex flex-col sm:flex-row gap-4 hover:border-stone-950 transition-colors shadow-sm"
               >
                 {/* Thumb */}
-                <div className="w-full sm:w-32 h-24 sm:h-20 rounded-xl overflow-hidden bg-slate-800 shrink-0">
+                <div className="w-full sm:w-32 h-24 sm:h-20 rounded-xl overflow-hidden bg-stone-100 shrink-0 border border-stone-200">
                   {p.mainImage ? (
                     <img src={p.mainImage} alt={p.title} className="w-full h-full object-cover" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
-                      <Building2 className="w-8 h-8 text-slate-600" />
+                      <Building2 className="w-8 h-8 text-stone-400" />
                     </div>
                   )}
                 </div>
@@ -246,38 +246,38 @@ export default function AdminImoveisPage() {
                 {/* Info */}
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-wrap items-center gap-2 mb-1">
-                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">{p.code}</span>
-                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${statusInfo.color}`}>
+                    <span className="text-[10px] font-bold text-stone-950 bg-stone-100 border border-stone-300 px-2 py-0.5 rounded-md uppercase tracking-wider">{p.code}</span>
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${statusInfo.color}`}>
                       {statusInfo.label}
                     </span>
                     {p.featured && (
-                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full border text-amber-400 bg-amber-500/10 border-amber-500/30 flex items-center gap-1">
-                        <Star className="w-2.5 h-2.5" /> Destaque
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full border text-amber-900 bg-amber-50 border-amber-300 flex items-center gap-1">
+                        <Star className="w-2.5 h-2.5 fill-amber-700" /> Destaque
                       </span>
                     )}
                   </div>
-                  <h3 className="text-white font-semibold text-sm leading-snug truncate">{p.title}</h3>
-                  <p className="text-slate-400 text-xs mt-0.5">{p.neighborhood}, {p.city} · {p.area}m² · {p.bedrooms} dorm · {p.parking} vaga{p.parking !== 1 ? 's' : ''}</p>
-                  <div className="flex flex-wrap items-center gap-2 mt-1">
+                  <h3 className="text-stone-950 font-bold text-sm leading-snug truncate">{p.title}</h3>
+                  <p className="text-stone-600 text-xs font-medium mt-0.5">{p.neighborhood}, {p.city} · {p.area}m² · {p.bedrooms} dorm · {p.parking} vaga{p.parking !== 1 ? 's' : ''}</p>
+                  <div className="flex flex-wrap items-center gap-2 mt-1.5">
                     {p.realtorName && (
-                      <div className="text-[11px] text-slate-300 font-medium flex items-center gap-1 bg-slate-800 border border-slate-700 px-2.5 py-0.5 rounded-lg">
+                      <div className="text-[11px] text-stone-900 font-semibold flex items-center gap-1 bg-stone-100 border border-stone-300 px-2.5 py-0.5 rounded-lg">
                         <span>👔 Corretor: <strong>{p.realtorName}</strong></span>
                       </div>
                     )}
                     {(p.ownerName || p.ownerPhone) && (
-                      <div className="text-[11px] text-amber-300 font-medium flex items-center gap-1 bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 rounded-lg">
+                      <div className="text-[11px] text-stone-900 font-semibold flex items-center gap-1 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-lg">
                         <span>👤 Proprietário: <strong>{p.ownerName || 'Não informado'}</strong> {p.ownerPhone ? `(${p.ownerPhone})` : ''}</span>
                       </div>
                     )}
                   </div>
-                  <p className="text-gold-400 font-bold text-sm mt-1">{formatCurrency(p.price)}</p>
+                  <p className="text-stone-950 font-extrabold text-base mt-1.5">{formatCurrency(p.price)}</p>
                 </div>
 
                 {/* Actions */}
                 <div className="flex flex-row sm:flex-col gap-2 items-center sm:items-end justify-end">
                   <Link
                     href={`/admin/imoveis/${p.id}/editar`}
-                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-medium transition"
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-950 text-xs font-bold transition border border-stone-300"
                   >
                     <Edit className="w-3.5 h-3.5" />
                     <span className="hidden sm:inline">Editar</span>
@@ -285,10 +285,10 @@ export default function AdminImoveisPage() {
                   <button
                     onClick={() => handleToggleFeatured(p.id)}
                     title={p.featured ? 'Remover Destaque' : 'Marcar como Destaque'}
-                    className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition ${
+                    className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold transition border ${
                       p.featured
-                        ? 'bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 border border-amber-500/30'
-                        : 'bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400'
+                        ? 'bg-amber-100 text-amber-950 border-amber-300'
+                        : 'bg-stone-100 hover:bg-stone-200 text-stone-800 border-stone-300'
                     }`}
                   >
                     {p.featured ? <StarOff className="w-3.5 h-3.5" /> : <Star className="w-3.5 h-3.5" />}
@@ -297,10 +297,10 @@ export default function AdminImoveisPage() {
                   <button
                     onClick={() => handleToggleStatus(p.id, statusKey)}
                     title={p.active ? 'Desativar' : 'Ativar'}
-                    className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition ${
+                    className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold transition border ${
                       p.active
-                        ? 'bg-emerald-500/10 text-emerald-400 hover:bg-slate-800 border border-emerald-500/30'
-                        : 'bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-emerald-400'
+                        ? 'bg-emerald-50 text-emerald-900 border-emerald-300'
+                        : 'bg-stone-100 hover:bg-stone-200 text-stone-700 border-stone-300'
                     }`}
                   >
                     {p.active ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
@@ -310,7 +310,7 @@ export default function AdminImoveisPage() {
                     href={`/imoveis/${p.slug || p.id}`}
                     target="_blank"
                     title="Ver no site"
-                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-gold-400 text-xs font-medium transition"
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-950 text-xs font-bold transition border border-stone-300"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
                     <span className="hidden sm:inline">Ver Site</span>
@@ -318,7 +318,7 @@ export default function AdminImoveisPage() {
                   <button
                     onClick={() => setDeleteConfirm(p.id)}
                     title="Excluir imóvel"
-                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-800 hover:bg-red-500/20 text-slate-400 hover:text-red-400 text-xs font-medium transition border border-transparent hover:border-red-500/30"
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-700 text-xs font-bold transition border border-red-200"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                     <span className="hidden sm:inline">Excluir</span>
