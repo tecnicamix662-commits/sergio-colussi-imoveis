@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Property } from '@/types/property';
-import { MapPin, Bed, Bath, Car, Maximize2, Star, Phone, ArrowUpRight } from 'lucide-react';
+import { MapPin, Bed, Bath, Car, Maximize2, Star, Phone, ArrowUpRight, MessageCircle } from 'lucide-react';
 import { useSettings } from '@/contexts/SettingsContext';
 import { SettingsService } from '@/services/settingsService';
 
@@ -120,10 +120,11 @@ export default function PropertyCard({ property, priorityImage = false }: Proper
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-stone-900 hover:bg-black text-white p-2.5 rounded-xl transition-all shadow-md flex items-center justify-center border border-stone-800"
-            title="Tenho Interesse"
+            className="bg-[#25D366] hover:bg-[#20ba5a] text-white px-3.5 py-2.5 rounded-xl transition-all shadow-md flex items-center justify-center gap-1.5 font-extrabold text-xs"
+            title="Tenho interesse - Chama no Zap"
           >
-            <Phone className="w-4 h-4 text-emerald-400" />
+            <MessageCircle className="w-4 h-4 text-white fill-white" />
+            <span>Chama no Zap</span>
           </a>
         </div>
       </div>

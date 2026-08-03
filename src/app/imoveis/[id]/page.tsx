@@ -20,6 +20,7 @@ import {
   ShieldCheck,
   Calendar,
   Sparkles,
+  MessageCircle,
 } from 'lucide-react';
 
 export default function PropertyDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -251,15 +252,15 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
               )}
             </div>
 
-            {/* Main WhatsApp Direct CTA Button */}
+            {/* Main WhatsApp Direct CTA Button com Verde Oficial WhatsApp */}
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-4 rounded-xl bg-stone-900 hover:bg-black text-white font-bold text-sm uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 border border-stone-800"
+              className="w-full py-4 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-extrabold text-sm uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2.5"
             >
-              <Phone className="w-5 h-5 text-emerald-400" />
-              <span>Tenho Interesse via WhatsApp</span>
+              <MessageCircle className="w-5 h-5 text-white fill-white" />
+              <span>Tenho Interesse - Chama no Zap</span>
             </a>
 
             <div className="text-center">
