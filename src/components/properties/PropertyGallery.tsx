@@ -14,7 +14,7 @@ export default function PropertyGallery({ images, title }: PropertyGalleryProps)
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   const galleryImages = images && images.length > 0 ? images : [
-    'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80'
+    'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600"><rect width="800" height="600" fill="%23f4f4f5"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="bold" fill="%2371717a">Sem Fotos Cadastradas</text></svg>'
   ];
 
   const handlePrev = () => {

@@ -63,7 +63,7 @@ export const DEFAULT_SETTINGS: SiteSettings = {
 
   logoUrl: '',
   faviconUrl: '',
-  heroBannerUrl: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=90',
+  heroBannerUrl: '',
   realtorPhotoUrl: '/images/sergio-colussi.jpg',
 
   aboutText: 'Com 22 anos de experiência no mercado imobiliário, Sérgio Colussi atua em Santo André, Mauá e região do ABC Paulista, oferecendo um atendimento transparente, seguro e personalizado para compra, venda e avaliação de imóveis.\n\nCom conhecimento profundo da região e compromisso com cada cliente, seu objetivo é tornar o processo imobiliário mais simples, seguro e tranquilo, ajudando pessoas a encontrarem as melhores oportunidades.',
