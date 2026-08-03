@@ -372,52 +372,67 @@ function formatToBRL(value: string | number): { display: string; numeric: number
                   <option value="aluguel">Aluguel</option>
                 </select>
               </Field>
-              <Field label="Preço do Imóvel (R$)" required hint="Digite os números e a formatação em R$ é automática (ex: R$ 5.000.000,00)">
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  value={priceInput}
-                  onChange={(e) => {
-                    const { display, numeric } = formatToBRL(e.target.value);
-                    setPriceInput(display);
-                    update('price', numeric);
-                  }}
-                  placeholder="R$ 0,00"
-                  required
-                  className={inputCls}
-                />
+              <Field label="Preço do Imóvel" required hint="Digite os números e o valor é formatado em R$ automaticamente (ex: 500000000 vira 5.000.000,00)">
+                <div className="relative flex items-center">
+                  <span className="absolute left-3.5 text-stone-950 font-black text-sm pointer-events-none select-none z-10">
+                    R$
+                  </span>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    value={priceInput.replace(/^R\$\s?/, '')}
+                    onChange={(e) => {
+                      const { display, numeric } = formatToBRL(e.target.value);
+                      setPriceInput(display);
+                      update('price', numeric);
+                    }}
+                    placeholder="0,00"
+                    required
+                    className={`${inputCls} pl-10 font-extrabold text-stone-950 text-base`}
+                  />
+                </div>
               </Field>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <Field label="Condomínio (R$/mês)" hint="Formatação automática em R$. Deixe em branco se não houver">
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  value={condoInput}
-                  onChange={(e) => {
-                    const { display, numeric } = formatToBRL(e.target.value);
-                    setCondoInput(display);
-                    update('condoFee', numeric > 0 ? numeric : undefined);
-                  }}
-                  placeholder="R$ 0,00"
-                  className={inputCls}
-                />
+              <Field label="Condomínio (por mês)" hint="Deixe em branco se não houver">
+                <div className="relative flex items-center">
+                  <span className="absolute left-3.5 text-stone-950 font-black text-sm pointer-events-none select-none z-10">
+                    R$
+                  </span>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    value={condoInput.replace(/^R\$\s?/, '')}
+                    onChange={(e) => {
+                      const { display, numeric } = formatToBRL(e.target.value);
+                      setCondoInput(display);
+                      update('condoFee', numeric > 0 ? numeric : undefined);
+                    }}
+                    placeholder="0,00"
+                    className={`${inputCls} pl-10 font-extrabold text-stone-950 text-base`}
+                  />
+                </div>
               </Field>
 
-              <Field label="IPTU (R$/ano)" hint="Formatação automática em R$. Deixe em branco se não souber">
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  value={iptuInput}
-                  onChange={(e) => {
-                    const { display, numeric } = formatToBRL(e.target.value);
-                    setIptuInput(display);
-                    update('iptuFee', numeric > 0 ? numeric : undefined);
-                  }}
-                  placeholder="R$ 0,00"
-                  className={inputCls}
-                />
+              <Field label="IPTU (por ano)" hint="Deixe em branco se não souber">
+                <div className="relative flex items-center">
+                  <span className="absolute left-3.5 text-stone-950 font-black text-sm pointer-events-none select-none z-10">
+                    R$
+                  </span>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    value={iptuInput.replace(/^R\$\s?/, '')}
+                    onChange={(e) => {
+                      const { display, numeric } = formatToBRL(e.target.value);
+                      setIptuInput(display);
+                      update('iptuFee', numeric > 0 ? numeric : undefined);
+                    }}
+                    placeholder="0,00"
+                    className={`${inputCls} pl-10 font-extrabold text-stone-950 text-base`}
+                  />
+                </div>
               </Field>
             </div>
 
