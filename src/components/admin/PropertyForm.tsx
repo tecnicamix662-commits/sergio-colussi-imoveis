@@ -112,7 +112,23 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
     };
   };
 
+function parseCurrency(input: string): number {
+  if (!input) return 0;
+  const clean = input.replace(/[R$\s]/g, '');
+  if (clean.includes(',')) {
+    const formatted = clean.replace(/\./g, '').replace(',', '.');
+    const val = parseFloat(formatted);
+    return isNaN(val) ? 0 : val;
+  }
+  const formatted = clean.replace(/\./g, '');
+  const val = parseFloat(formatted);
+  return isNaN(val) ? 0 : val;
+}
+
   const [form, setForm] = useState<PropertyFormData>(buildInitial);
+  const [priceInput, setPriceInput] = useState<string>(initialData?.price ? String(initialData.price) : '');
+  const [condoInput, setCondoInput] = useState<string>(initialData?.condoFee ? String(initialData.condoFee) : '');
+  const [iptuInput, setIptuInput] = useState<string>(initialData?.iptuFee ? String(initialData.iptuFee) : '');
 
   const update = (key: keyof PropertyFormData, value: unknown) => {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -311,25 +327,66 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
                   <option value="aluguel">Aluguel</option>
                 </select>
               </Field>
-              <Field label="Preço (R$)" required>
+              <Field label="Preço do Imóvel (R$)" required hint="Digite com vírgula ou pontos. Ex: 5.000.000 ou 5000000,00">
                 <input
-                  type="number"
-                  value={form.price || ''}
-                  onChange={(e) => update('price', Number(e.target.value))}
-                  placeholder="Ex: 1500000"
+                  type="text"
+                  value={priceInput}
+                  onChange={(e) => {
+                    setPriceInput(e.target.value);
+                    update('price', parseCurrency(e.target.value));
+                  }}
+                  placeholder="Ex: 5.000.000,00"
                   required
-                  min={0}
                   className={inputCls}
                 />
+                {form.price > 0 && (
+                  <div className="text-xs font-extrabold text-stone-950 bg-stone-100 border border-stone-300 px-3 py-1.5 rounded-lg mt-1.5 flex items-center justify-between">
+                    <span>💵 Valor Confirmado:</span>
+                    <span className="text-stone-950 text-sm font-black">{form.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 2 })}</span>
+                  </div>
+                )}
               </Field>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <Field label="Condomínio (R$/mês)" hint="Deixe em branco se não houver">
-                <input type="number" value={form.condoFee || ''} onChange={(e) => update('condoFee', e.target.value ? Number(e.target.value) : undefined)} placeholder="Ex: 1200" min={0} className={inputCls} />
+              <Field label="Condomínio (R$/mês)" hint="Aceita vírgula e pontos. Deixe em branco se não houver">
+                <input
+                  type="text"
+                  value={condoInput}
+                  onChange={(e) => {
+                    setCondoInput(e.target.value);
+                    const val = parseCurrency(e.target.value);
+                    update('condoFee', val > 0 ? val : undefined);
+                  }}
+                  placeholder="Ex: 1.200,00"
+                  className={inputCls}
+                />
+                {form.condoFee && form.condoFee > 0 ? (
+                  <div className="text-xs font-bold text-stone-900 bg-stone-100 border border-stone-300 px-3 py-1 rounded-lg mt-1 flex items-center justify-between">
+                    <span>💵 Condomínio:</span>
+                    <span>{form.condoFee.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} / mês</span>
+                  </div>
+                ) : null}
               </Field>
-              <Field label="IPTU (R$/ano)" hint="Deixe em branco se não souber">
-                <input type="number" value={form.iptuFee || ''} onChange={(e) => update('iptuFee', e.target.value ? Number(e.target.value) : undefined)} placeholder="Ex: 4800" min={0} className={inputCls} />
+
+              <Field label="IPTU (R$/ano)" hint="Aceita vírgula e pontos. Deixe em branco se não souber">
+                <input
+                  type="text"
+                  value={iptuInput}
+                  onChange={(e) => {
+                    setIptuInput(e.target.value);
+                    const val = parseCurrency(e.target.value);
+                    update('iptuFee', val > 0 ? val : undefined);
+                  }}
+                  placeholder="Ex: 4.800,00"
+                  className={inputCls}
+                />
+                {form.iptuFee && form.iptuFee > 0 ? (
+                  <div className="text-xs font-bold text-stone-900 bg-stone-100 border border-stone-300 px-3 py-1 rounded-lg mt-1 flex items-center justify-between">
+                    <span>💵 IPTU:</span>
+                    <span>{form.iptuFee.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} / ano</span>
+                  </div>
+                ) : null}
               </Field>
             </div>
 
