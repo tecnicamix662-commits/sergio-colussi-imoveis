@@ -723,7 +723,17 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-4 gap-5">
+              <Field label="Corretor Responsável" hint="Nome do corretor de imóveis">
+                <input
+                  type="text"
+                  value={form.realtorName || ''}
+                  onChange={(e) => update('realtorName', e.target.value)}
+                  placeholder="Ex: Sérgio Colussi"
+                  className={inputCls}
+                />
+              </Field>
+
               <Field label="Nome do Proprietário">
                 <input
                   type="text"
