@@ -32,7 +32,7 @@ export default function PropertyCard({ property, priorityImage = false }: Proper
       {/* Image Container — FOTOS PERMANECEM COLORIDAS E NATURAIS */}
       <div className="relative h-64 w-full overflow-hidden bg-stone-100">
         <Image
-          src={property.mainImage || property.images[0] || 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80'}
+          src={property.mainImage || property.images[0] || 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 24 24" fill="none" stroke="%2394a3b8" stroke-width="1.5"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>'}
           alt={property.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

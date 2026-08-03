@@ -18,6 +18,26 @@ export class ImageService {
    * Converte um arquivo de foto do computador para uma URL pronta para salvar no imóvel.
    */
   static async uploadImage(file: File): Promise<ProcessedImageResult> {
+    // 1. Tenta fazer upload para a API do servidor (salva em public/uploads/ de forma permanente)
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.results && data.results.length > 0) {
+          return data.results[0];
+        }
+      }
+    } catch (err) {
+      console.warn('Upload via /api/upload indisponível, usando fallback:', err);
+    }
+
     const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
     const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
 
@@ -56,19 +76,40 @@ export class ImageService {
   }
 
   /**
-   * Processa múltiplos arquivos em paralelo
+   * Processa múltiplos arquivos em lote enviando para o servidor
    */
   static async uploadMultipleImages(
     files: FileList | File[],
     onProgress?: (completed: number, total: number) => void
   ): Promise<ProcessedImageResult[]> {
-    const fileArray = Array.from(files);
-    const results: ProcessedImageResult[] = [];
+    const fileArray = Array.from(files).filter(f => f.type.startsWith('image/'));
+    if (fileArray.length === 0) return [];
 
+    // Tenta upload em lote direto para a API /api/upload
+    try {
+      const formData = new FormData();
+      fileArray.forEach(f => formData.append('files', f));
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.results && Array.isArray(data.results)) {
+          if (onProgress) onProgress(fileArray.length, fileArray.length);
+          return data.results;
+        }
+      }
+    } catch (err) {
+      console.warn('Upload em lote falhou, enviando individualmente:', err);
+    }
+
+    // Fallback item a item
+    const results: ProcessedImageResult[] = [];
     for (let i = 0; i < fileArray.length; i++) {
       const file = fileArray[i];
-      if (!file.type.startsWith('image/')) continue;
-      
       const processed = await this.uploadImage(file);
       results.push(processed);
 
