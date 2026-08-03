@@ -116,18 +116,18 @@ export default function ContatoPage() {
               <span className="text-xs text-stone-900 font-bold uppercase tracking-wider block">Redes Sociais:</span>
               <div className="flex items-center gap-3">
                 {settings.instagram && (
-                  <a href={settings.instagram} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-stone-900 hover:bg-stone-100 transition-colors shadow-sm">
-                    <Instagram className="w-5 h-5" />
+                  <a href={settings.instagram} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white border border-stone-200 flex items-center justify-center hover:bg-stone-100 transition-colors shadow-sm">
+                    <Instagram className="w-5 h-5 text-[#E4405F]" />
                   </a>
                 )}
                 {settings.facebook && (
-                  <a href={settings.facebook} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-stone-900 hover:bg-stone-100 transition-colors shadow-sm">
-                    <Facebook className="w-5 h-5" />
+                  <a href={settings.facebook} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white border border-stone-200 flex items-center justify-center hover:bg-stone-100 transition-colors shadow-sm">
+                    <Facebook className="w-5 h-5 text-[#1877F2]" />
                   </a>
                 )}
                 {settings.linkedin && (
-                  <a href={settings.linkedin} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-stone-900 hover:bg-stone-100 transition-colors shadow-sm">
-                    <Linkedin className="w-5 h-5" />
+                  <a href={settings.linkedin} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white border border-stone-200 flex items-center justify-center hover:bg-stone-100 transition-colors shadow-sm">
+                    <Linkedin className="w-5 h-5 text-[#0A66C2]" />
                   </a>
                 )}
               </div>

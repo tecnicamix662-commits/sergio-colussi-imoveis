@@ -100,7 +100,7 @@ export default function Footer() {
               )}
               {(settings.phone || settings.whatsapp) && (
                 <div className="flex items-center gap-3">
-                  <Phone className="w-4 h-4 text-white shrink-0" />
+                  <Phone className="w-4 h-4 text-[#25D366] shrink-0" />
                   <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                     {settings.phone || settings.whatsapp}
                   </a>
@@ -123,25 +123,25 @@ export default function Footer() {
                 aria-label="Instagram"
                 className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-stone-900 border border-stone-800 text-stone-300 hover:text-white hover:border-stone-600 transition-colors text-xs font-semibold"
               >
-                <Instagram className="w-4 h-4 text-white" />
+                <Instagram className="w-4 h-4 text-[#E4405F]" />
                 <span>Instagram</span>
               </a>
               {settings.facebook && (
                 <a href={settings.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook"
                   className="w-9 h-9 rounded-lg bg-stone-900 border border-stone-800 flex items-center justify-center text-stone-300 hover:text-white hover:border-stone-600 transition-colors">
-                  <Facebook className="w-4 h-4" />
+                  <Facebook className="w-4 h-4 text-[#1877F2]" />
                 </a>
               )}
               {settings.linkedin && (
                 <a href={settings.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
                   className="w-9 h-9 rounded-lg bg-stone-900 border border-stone-800 flex items-center justify-center text-stone-300 hover:text-white hover:border-stone-600 transition-colors">
-                  <Linkedin className="w-4 h-4" />
+                  <Linkedin className="w-4 h-4 text-[#0A66C2]" />
                 </a>
               )}
               {settings.youtube && (
                 <a href={settings.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube"
                   className="w-9 h-9 rounded-lg bg-stone-900 border border-stone-800 flex items-center justify-center text-stone-300 hover:text-white hover:border-stone-600 transition-colors">
-                  <Youtube className="w-4 h-4" />
+                  <Youtube className="w-4 h-4 text-[#FF0000]" />
                 </a>
               )}
             </div>

@@ -127,7 +127,7 @@ export default function CartaoDigitalPage() {
               rel="noopener noreferrer"
               className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-stone-900 hover:bg-stone-800 border border-stone-700 text-stone-200 hover:text-white transition text-xs font-semibold"
             >
-              <Instagram className="w-4 h-4 text-white" />
+              <Instagram className="w-4 h-4 text-[#E4405F]" />
               <span>Instagram</span>
             </a>
           )}
@@ -138,7 +138,7 @@ export default function CartaoDigitalPage() {
               rel="noopener noreferrer"
               className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-stone-900 hover:bg-stone-800 border border-stone-700 text-stone-200 hover:text-white transition text-xs font-semibold"
             >
-              <Facebook className="w-4 h-4 text-white" />
+              <Facebook className="w-4 h-4 text-[#1877F2]" />
               <span>Facebook</span>
             </a>
           )}
