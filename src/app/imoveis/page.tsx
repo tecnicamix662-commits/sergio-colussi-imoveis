@@ -35,9 +35,15 @@ function CatalogContent() {
     };
 
     setFilters(initialFilters);
-    loadData(initialFilters);
 
-    const handleUpdate = () => loadData(filters);
+    // Sincroniza com o banco na nuvem antes de carregar os imóveis
+    const initLoad = async () => {
+      await PropertyService.syncWithServer();
+      loadData(initialFilters);
+    };
+    initLoad();
+
+    const handleUpdate = () => loadData(initialFilters);
     window.addEventListener('properties_updated', handleUpdate);
     return () => window.removeEventListener('properties_updated', handleUpdate);
   }, [searchParams]);

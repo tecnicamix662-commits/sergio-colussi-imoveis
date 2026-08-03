@@ -37,14 +37,30 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
   const [submittedSuccess, setSubmittedSuccess] = useState(false);
 
   useEffect(() => {
-    const loaded = PropertyService.getPropertyBySlug(propertyId) || PropertyService.getPropertyById(propertyId);
-    if (loaded) {
-      setProperty(loaded);
-      const similar = PropertyService.getActiveProperties()
-        .filter((p) => p.id !== loaded.id && p.city === loaded.city)
-        .slice(0, 3);
-      setSimilarProperties(similar);
-    }
+    const loadProperty = async () => {
+      // Sempre sincroniza com o banco de dados na nuvem antes de exibir
+      await PropertyService.syncWithServer();
+
+      const loaded = PropertyService.getPropertyBySlug(propertyId) || PropertyService.getPropertyById(propertyId);
+      if (loaded) {
+        setProperty(loaded);
+        const similar = PropertyService.getActiveProperties()
+          .filter((p) => p.id !== loaded.id && p.city === loaded.city)
+          .slice(0, 3);
+        setSimilarProperties(similar);
+      }
+    };
+
+    loadProperty();
+
+    const handleUpdate = () => {
+      const loaded = PropertyService.getPropertyBySlug(propertyId) || PropertyService.getPropertyById(propertyId);
+      if (loaded) {
+        setProperty(loaded);
+      }
+    };
+    window.addEventListener('properties_updated', handleUpdate);
+    return () => window.removeEventListener('properties_updated', handleUpdate);
   }, [propertyId]);
 
   if (!property) {

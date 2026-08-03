@@ -35,7 +35,12 @@ export default function HomePage() {
       setFeaturedProperties(featured);
     };
 
-    loadProperties();
+    // Sincroniza com o banco na nuvem antes de exibir os imóveis em destaque
+    const initLoad = async () => {
+      await PropertyService.syncWithServer();
+      loadProperties();
+    };
+    initLoad();
 
     window.addEventListener('properties_updated', loadProperties);
     return () => window.removeEventListener('properties_updated', loadProperties);
