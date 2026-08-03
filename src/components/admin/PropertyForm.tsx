@@ -207,13 +207,45 @@ function parseCurrency(input: string): number {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!form.title.trim()) {
+      setActiveSection('basico');
+      setSavedMsg('error');
+      alert('⚠️ Por favor preencha o Título do Imóvel.');
+      return;
+    }
+
+    const priceVal = parseCurrency(priceInput);
+    if (!priceVal || priceVal <= 0) {
+      setActiveSection('basico');
+      setSavedMsg('error');
+      alert('⚠️ Por favor informe o Preço do Imóvel (ex: 5.000.000 ou 5000000,00).');
+      return;
+    }
+
+    if (!form.city) {
+      setActiveSection('basico');
+      setSavedMsg('error');
+      alert('⚠️ Por favor selecione a Cidade do Imóvel.');
+      return;
+    }
+
+    if (!form.neighborhood) {
+      setActiveSection('basico');
+      setSavedMsg('error');
+      alert('⚠️ Por favor informe o Bairro do Imóvel.');
+      return;
+    }
+
+    const updatedForm = { ...form, price: priceVal };
+
     setSaving(true);
     try {
       await new Promise((r) => setTimeout(r, 400));
       if (mode === 'create') {
-        PropertyService.addProperty(form);
+        PropertyService.addProperty(updatedForm);
       } else if (initialData) {
-        PropertyService.updateProperty(initialData.id, form);
+        PropertyService.updateProperty(initialData.id, updatedForm);
       }
       setSavedMsg('success');
       setTimeout(() => router.push('/admin/imoveis'), 1200);
@@ -234,7 +266,7 @@ function parseCurrency(input: string): number {
   const [newImageUrl, setNewImageUrl] = useState('');
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 max-w-4xl">
+    <form onSubmit={handleSubmit} noValidate className="space-y-6 max-w-4xl">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
