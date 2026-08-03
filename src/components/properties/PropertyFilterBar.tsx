@@ -47,7 +47,6 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
     const officialList = NeighborhoodService.getNeighborhoodsByCity(city);
     const set = new Set<string>(officialList);
 
-    // Complement standard list with any existing neighborhood from registered properties
     if (city !== 'todas' && city !== 'Todas') {
       const activeForCity = activeProperties.filter((p) => p.city.toLowerCase() === city.toLowerCase());
       activeForCity.forEach((p) => p.neighborhood && set.add(p.neighborhood));
@@ -112,14 +111,14 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
   };
 
   return (
-    <div className="w-full glass-card p-4 sm:p-6 rounded-2xl border border-slate-800 shadow-2xl space-y-4">
+    <div className="w-full bg-white p-5 sm:p-7 rounded-2xl border border-stone-200 shadow-xl space-y-5">
       {/* Title */}
       {!compact && (
-        <div className="border-b border-slate-800/80 pb-3">
-          <h2 className="text-sm sm:text-base font-serif font-bold text-white tracking-wide">
+        <div className="border-b border-stone-200 pb-3.5">
+          <h2 className="text-base sm:text-lg font-serif font-bold text-stone-950 tracking-wide">
             Encontre o imóvel ideal para a sua família
           </h2>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-stone-600 mt-0.5">
             Selecione os filtros abaixo para encontrar as melhores opções no ABC Paulista
           </p>
         </div>
@@ -127,19 +126,19 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
 
       {/* 
         EXACT SEQUENCE REQUIRED:
-        1. TIPO ➔ 2. CIDADE ➔ 3. BAIRROS ➔ 4. CONDOMÍNIOS ➔ 5. BUSCAR IMÓVEIS
+        1. TIPO ➔ 2. CIDADE ➔ 3. BAIRROS ➔ 4. CONDOMÍNIO ➔ 5. BUSCAR IMÓVEIS (FUNDO PRETO, TEXTO BRANCO)
       */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3.5 items-end">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
         
         {/* 1. TIPO */}
         <div className="space-y-1.5">
-          <label className="text-[11px] font-bold uppercase tracking-wider text-gold-400 flex items-center gap-1.5">
-            <Building2 className="w-3.5 h-3.5 text-gold-400 shrink-0" /> Tipo
+          <label className="text-[11px] font-bold uppercase tracking-wider text-stone-900 flex items-center gap-1.5">
+            <Building2 className="w-3.5 h-3.5 text-stone-900 shrink-0" /> Tipo
           </label>
           <select
             value={type}
             onChange={(e) => setType(e.target.value)}
-            className="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3.5 py-3.5 text-white text-xs font-semibold focus:outline-none focus:border-gold-500 transition-colors shadow-sm cursor-pointer"
+            className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3.5 py-3.5 text-stone-900 text-xs font-semibold focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-colors shadow-sm cursor-pointer"
           >
             <option value="todos">Todos os Tipos</option>
             <option value="casa">Casa</option>
@@ -155,13 +154,13 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
 
         {/* 2. CIDADE */}
         <div className="space-y-1.5">
-          <label className="text-[11px] font-bold uppercase tracking-wider text-gold-400 flex items-center gap-1.5">
-            <MapPin className="w-3.5 h-3.5 text-gold-400 shrink-0" /> Cidade
+          <label className="text-[11px] font-bold uppercase tracking-wider text-stone-900 flex items-center gap-1.5">
+            <MapPin className="w-3.5 h-3.5 text-stone-900 shrink-0" /> Cidade
           </label>
           <select
             value={city}
             onChange={(e) => handleCityChange(e.target.value)}
-            className="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3.5 py-3.5 text-white text-xs font-semibold focus:outline-none focus:border-gold-500 transition-colors shadow-sm cursor-pointer"
+            className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3.5 py-3.5 text-stone-900 text-xs font-semibold focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-colors shadow-sm cursor-pointer"
           >
             <option value="todas">Todas as Cidades</option>
             <option value="Santo André">Santo André</option>
@@ -173,13 +172,13 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
 
         {/* 3. BAIRROS */}
         <div className="space-y-1.5">
-          <label className="text-[11px] font-bold uppercase tracking-wider text-gold-400 flex items-center gap-1.5">
-            <Home className="w-3.5 h-3.5 text-gold-400 shrink-0" /> Bairros
+          <label className="text-[11px] font-bold uppercase tracking-wider text-stone-900 flex items-center gap-1.5">
+            <Home className="w-3.5 h-3.5 text-stone-900 shrink-0" /> Bairros
           </label>
           <select
             value={neighborhood}
             onChange={(e) => setNeighborhood(e.target.value)}
-            className="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3.5 py-3.5 text-white text-xs font-semibold focus:outline-none focus:border-gold-500 transition-colors shadow-sm cursor-pointer"
+            className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3.5 py-3.5 text-stone-900 text-xs font-semibold focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-colors shadow-sm cursor-pointer"
           >
             <option value="todos">
               {city !== 'todas' && city !== 'Todas' ? `Todos os Bairros de ${city}` : 'Todos os Bairros'}
@@ -194,13 +193,13 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
 
         {/* 4. CONDOMÍNIOS */}
         <div className="space-y-1.5">
-          <label className="text-[11px] font-bold uppercase tracking-wider text-gold-400 flex items-center gap-1.5">
-            <Shield className="w-3.5 h-3.5 text-gold-400 shrink-0" /> Condomínio
+          <label className="text-[11px] font-bold uppercase tracking-wider text-stone-900 flex items-center gap-1.5">
+            <Shield className="w-3.5 h-3.5 text-stone-900 shrink-0" /> Condomínio
           </label>
           <select
             value={condominium}
             onChange={(e) => setCondominium(e.target.value)}
-            className="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3.5 py-3.5 text-white text-xs font-semibold focus:outline-none focus:border-gold-500 transition-colors shadow-sm cursor-pointer"
+            className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3.5 py-3.5 text-stone-900 text-xs font-semibold focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-colors shadow-sm cursor-pointer"
           >
             <option value="todos">Todos os Condomínios</option>
             {availableCondominiums.map((condo) => (
@@ -211,34 +210,34 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
           </select>
         </div>
 
-        {/* 5. BOTÃO BUSCAR IMÓVEIS */}
+        {/* 5. BOTÃO "PESQUISAR IMÓVEL" / "BUSCAR IMÓVEIS" (EXCEÇÃO: FUNDO PRETO, TEXTO BRANCO) */}
         <div className="w-full md:col-span-2 lg:col-span-1">
           <button
             type="button"
             onClick={handleApply}
-            className="w-full py-3.5 rounded-xl bg-gold-gradient hover:opacity-95 text-stone-950 font-extrabold text-xs uppercase tracking-wider transition-all shadow-glow-gold flex items-center justify-center gap-2 border border-gold-400/40 cursor-pointer"
+            className="w-full py-3.5 rounded-xl bg-black hover:bg-stone-800 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 border border-black cursor-pointer"
           >
-            <Search className="w-4 h-4 text-stone-950 stroke-[2.5]" />
+            <Search className="w-4 h-4 text-white stroke-[2.5]" />
             <span>Buscar Imóveis</span>
           </button>
         </div>
       </div>
 
       {/* Advanced Filters Toggle & Reset Button */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 border-t border-slate-800/80">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t border-stone-200">
         <button
           type="button"
           onClick={() => setShowAdvanced(!showAdvanced)}
-          className="text-xs text-slate-400 hover:text-gold-400 flex items-center gap-1.5 transition-colors self-start sm:self-center cursor-pointer"
+          className="text-xs text-stone-700 hover:text-black font-semibold flex items-center gap-1.5 transition-colors self-start sm:self-center cursor-pointer"
         >
-          <SlidersHorizontal className="w-3.5 h-3.5 text-gold-400" />
+          <SlidersHorizontal className="w-3.5 h-3.5 text-stone-900" />
           <span>{showAdvanced ? 'Ocultar Filtros Adicionais' : 'Mais Filtros (Preço, Quartos, Vagas, Código)'}</span>
         </button>
 
         <button
           type="button"
           onClick={handleReset}
-          className="text-xs text-slate-400 hover:text-rose-400 flex items-center gap-1.5 transition-colors self-end sm:self-center cursor-pointer"
+          className="text-xs text-stone-500 hover:text-rose-600 flex items-center gap-1.5 transition-colors self-end sm:self-center cursor-pointer font-medium"
         >
           <RotateCcw className="w-3.5 h-3.5" />
           <span>Limpar Filtros</span>
@@ -247,11 +246,11 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
 
       {/* Expanded Advanced Filters */}
       {showAdvanced && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-3 border-t border-slate-800 animate-in fade-in duration-200">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-3 border-t border-stone-200 animate-in fade-in duration-200">
           {/* Min & Max Price */}
           <div className="space-y-1">
-            <label className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1">
-              <DollarSign className="w-3.5 h-3.5 text-gold-400" /> Faixa de Preço (R$)
+            <label className="text-[11px] font-bold uppercase tracking-wider text-stone-700 flex items-center gap-1">
+              <DollarSign className="w-3.5 h-3.5 text-stone-900" /> Faixa de Preço (R$)
             </label>
             <div className="flex items-center gap-2">
               <input
@@ -259,15 +258,15 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
                 placeholder="Mínimo"
                 value={minPrice}
                 onChange={(e) => setMinPrice(e.target.value)}
-                className="w-1/2 bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-gold-500"
+                className="w-1/2 bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-stone-900 text-xs focus:outline-none focus:border-black"
               />
-              <span className="text-slate-500">-</span>
+              <span className="text-stone-400">-</span>
               <input
                 type="number"
                 placeholder="Máximo"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value)}
-                className="w-1/2 bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-gold-500"
+                className="w-1/2 bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-stone-900 text-xs focus:outline-none focus:border-black"
               />
             </div>
           </div>
@@ -275,13 +274,13 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
           {/* Bedrooms & Parking */}
           <div className="grid grid-cols-2 gap-2">
             <div className="space-y-1">
-              <label className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1">
-                <Bed className="w-3.5 h-3.5 text-gold-400" /> Quartos
+              <label className="text-[11px] font-bold uppercase tracking-wider text-stone-700 flex items-center gap-1">
+                <Bed className="w-3.5 h-3.5 text-stone-900" /> Quartos
               </label>
               <select
                 value={bedrooms}
                 onChange={(e) => setBedrooms(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-gold-500"
+                className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-stone-900 text-xs focus:outline-none focus:border-black"
               >
                 <option value="todos">Qualquer</option>
                 <option value="1">1+</option>
@@ -292,13 +291,13 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
             </div>
 
             <div className="space-y-1">
-              <label className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1">
-                <Car className="w-3.5 h-3.5 text-gold-400" /> Vagas
+              <label className="text-[11px] font-bold uppercase tracking-wider text-stone-700 flex items-center gap-1">
+                <Car className="w-3.5 h-3.5 text-stone-900" /> Vagas
               </label>
               <select
                 value={parking}
                 onChange={(e) => setParking(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-gold-500"
+                className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-stone-900 text-xs focus:outline-none focus:border-black"
               >
                 <option value="todos">Qualquer</option>
                 <option value="1">1+</option>
@@ -311,8 +310,8 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
 
           {/* Search Query */}
           <div className="space-y-1">
-            <label className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1">
-              <Search className="w-3.5 h-3.5 text-gold-400" /> Palavra-Chave / Código
+            <label className="text-[11px] font-bold uppercase tracking-wider text-stone-700 flex items-center gap-1">
+              <Search className="w-3.5 h-3.5 text-stone-900" /> Palavra-Chave / Código
             </label>
             <input
               type="text"
@@ -320,7 +319,7 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleApply()}
-              className="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3.5 py-2 text-white text-xs placeholder-slate-500 focus:outline-none focus:border-gold-500"
+              className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3.5 py-2 text-stone-900 text-xs placeholder-stone-400 focus:outline-none focus:border-black"
             />
           </div>
         </div>

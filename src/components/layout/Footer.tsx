@@ -16,7 +16,7 @@ export default function Footer() {
   const fullAddress = SettingsService.getFullAddress(settings);
 
   return (
-    <footer className="bg-stone-900 border-t border-stone-700 text-stone-200 text-sm mt-auto">
+    <footer className="bg-stone-950 border-t border-stone-800 text-stone-300 text-sm mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
 
@@ -27,26 +27,26 @@ export default function Footer() {
                 <img src={settings.logoUrl} alt={settings.companyName} className="h-10 w-auto object-contain" />
               ) : (
                 <>
-                  <div className="w-10 h-10 rounded-lg bg-gold-gradient p-[1px] shadow-glow-gold">
-                    <div className="w-full h-full bg-stone-900 rounded-[7px] flex items-center justify-center">
-                      <Building2 className="w-5 h-5 text-gold-400" />
+                  <div className="w-10 h-10 rounded-lg bg-white p-[1px] shadow-sm">
+                    <div className="w-full h-full bg-stone-950 rounded-[7px] flex items-center justify-center border border-stone-800">
+                      <Building2 className="w-5 h-5 text-white" />
                     </div>
                   </div>
                   <div className="flex flex-col">
                     <span className="font-serif text-lg font-bold text-white tracking-wide uppercase">
                       {settings.realtorName || settings.companyName}
                     </span>
-                    <span className="text-[9px] tracking-[0.2em] text-gold-400 uppercase font-medium">
+                    <span className="text-[9px] tracking-[0.2em] text-stone-400 uppercase font-medium">
                       {settings.tagline}
                     </span>
                   </div>
                 </>
               )}
             </Link>
-            <p className="text-stone-300 text-xs leading-relaxed font-normal">{settings.footerDescription}</p>
+            <p className="text-stone-400 text-xs leading-relaxed font-normal">{settings.footerDescription}</p>
             {settings.creci && (
-              <div className="flex items-center gap-2 text-gold-400 font-semibold text-xs pt-1">
-                <ShieldCheck className="w-4 h-4 text-gold-400" />
+              <div className="flex items-center gap-2 text-white font-bold text-xs pt-1">
+                <ShieldCheck className="w-4 h-4 text-white" />
                 <span>CRECI: {settings.creci} | Registro Ativo</span>
               </div>
             )}
@@ -54,7 +54,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h3 className="font-serif text-white font-semibold text-base uppercase tracking-wider">Navegação</h3>
+            <h3 className="font-serif text-white font-bold text-base uppercase tracking-wider">Navegação</h3>
             <ul className="space-y-2.5 text-xs">
               {[
                 { label: 'Página Inicial', href: '/' },
@@ -64,7 +64,7 @@ export default function Footer() {
                 { label: 'Fale Conosco', href: '/contato' },
               ].map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="hover:text-gold-400 transition-colors">{l.label}</Link>
+                  <Link href={l.href} className="hover:text-white text-stone-400 transition-colors font-medium">{l.label}</Link>
                 </li>
               ))}
             </ul>
@@ -72,7 +72,7 @@ export default function Footer() {
 
           {/* Regiões */}
           <div className="space-y-4">
-            <h3 className="font-serif text-white font-semibold text-base uppercase tracking-wider">Regiões Atendidas</h3>
+            <h3 className="font-serif text-white font-bold text-base uppercase tracking-wider">Regiões Atendidas</h3>
             <ul className="space-y-2.5 text-xs">
               {[
                 { label: 'Santo André e Mauá (Foco Principal)', bold: true },
@@ -80,9 +80,9 @@ export default function Footer() {
                 { label: 'São Caetano do Sul', bold: false },
                 { label: 'Grande São Paulo e ABC Paulista', bold: false },
               ].map((r) => (
-                <li key={r.label} className="flex items-center justify-between border-b border-stone-700/60 pb-2 last:border-0 last:pb-0">
-                  <span className={r.bold ? 'font-bold text-gold-400' : 'text-stone-300'}>{r.label}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-gold-500 shrink-0 ml-2" />
+                <li key={r.label} className="flex items-center justify-between border-b border-stone-800 pb-2 last:border-0 last:pb-0">
+                  <span className={r.bold ? 'font-bold text-white' : 'text-stone-400'}>{r.label}</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-stone-400 shrink-0 ml-2" />
                 </li>
               ))}
             </ul>
@@ -90,25 +90,25 @@ export default function Footer() {
 
           {/* Contato */}
           <div className="space-y-4">
-            <h3 className="font-serif text-white font-semibold text-base uppercase tracking-wider">Contato</h3>
-            <div className="space-y-3 text-xs">
+            <h3 className="font-serif text-white font-bold text-base uppercase tracking-wider">Contato</h3>
+            <div className="space-y-3 text-xs text-stone-300">
               {fullAddress && (
                 <div className="flex items-start gap-3">
-                  <MapPin className="w-4 h-4 text-gold-400 shrink-0 mt-0.5" />
+                  <MapPin className="w-4 h-4 text-white shrink-0 mt-0.5" />
                   <span>{fullAddress}</span>
                 </div>
               )}
               {(settings.phone || settings.whatsapp) && (
                 <div className="flex items-center gap-3">
-                  <Phone className="w-4 h-4 text-gold-400 shrink-0" />
-                  <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-gold-400 transition-colors">
+                  <Phone className="w-4 h-4 text-white shrink-0" />
+                  <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                     {settings.phone || settings.whatsapp}
                   </a>
                 </div>
               )}
               {settings.email && (
                 <div className="flex items-center gap-3">
-                  <Mail className="w-4 h-4 text-gold-400 shrink-0" />
+                  <Mail className="w-4 h-4 text-white shrink-0" />
                   <span>{settings.email}</span>
                 </div>
               )}
@@ -118,25 +118,25 @@ export default function Footer() {
             <div className="flex items-center gap-2.5 pt-2 flex-wrap">
               {settings.instagram && (
                 <a href={settings.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-                  className="w-9 h-9 rounded-lg bg-stone-700 border border-stone-600 flex items-center justify-center text-stone-300 hover:text-gold-400 hover:border-gold-500/40 transition-colors">
+                  className="w-9 h-9 rounded-lg bg-stone-900 border border-stone-800 flex items-center justify-center text-stone-300 hover:text-white hover:border-stone-600 transition-colors">
                   <Instagram className="w-4 h-4" />
                 </a>
               )}
               {settings.facebook && (
                 <a href={settings.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook"
-                  className="w-9 h-9 rounded-lg bg-stone-700 border border-stone-600 flex items-center justify-center text-stone-300 hover:text-gold-400 hover:border-gold-500/40 transition-colors">
+                  className="w-9 h-9 rounded-lg bg-stone-900 border border-stone-800 flex items-center justify-center text-stone-300 hover:text-white hover:border-stone-600 transition-colors">
                   <Facebook className="w-4 h-4" />
                 </a>
               )}
               {settings.linkedin && (
                 <a href={settings.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-                  className="w-9 h-9 rounded-lg bg-stone-700 border border-stone-600 flex items-center justify-center text-stone-300 hover:text-gold-400 hover:border-gold-500/40 transition-colors">
+                  className="w-9 h-9 rounded-lg bg-stone-900 border border-stone-800 flex items-center justify-center text-stone-300 hover:text-white hover:border-stone-600 transition-colors">
                   <Linkedin className="w-4 h-4" />
                 </a>
               )}
               {settings.youtube && (
                 <a href={settings.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube"
-                  className="w-9 h-9 rounded-lg bg-stone-700 border border-stone-600 flex items-center justify-center text-stone-300 hover:text-gold-400 hover:border-gold-500/40 transition-colors">
+                  className="w-9 h-9 rounded-lg bg-stone-900 border border-stone-800 flex items-center justify-center text-stone-300 hover:text-white hover:border-stone-600 transition-colors">
                   <Youtube className="w-4 h-4" />
                 </a>
               )}
@@ -145,11 +145,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-stone-700 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-300 gap-4">
+        <div className="pt-8 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-400 gap-4">
           <p>© {new Date().getFullYear()} {settings.companyName}. Todos os direitos reservados.</p>
           <div className="flex items-center gap-6 font-medium">
-            <Link href="/sobre" className="hover:text-gold-400 transition-colors">Termos de Uso</Link>
-            <Link href="/sobre" className="hover:text-gold-400 transition-colors">Privacidade</Link>
+            <Link href="/sobre" className="hover:text-white transition-colors">Termos de Uso</Link>
+            <Link href="/sobre" className="hover:text-white transition-colors">Privacidade</Link>
           </div>
         </div>
       </div>

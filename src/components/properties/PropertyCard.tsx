@@ -24,12 +24,12 @@ export default function PropertyCard({ property, priorityImage = false }: Proper
   const statusBadge = property.status === 'vendido'
     ? { label: 'Vendido', cls: 'bg-red-600 text-white' }
     : property.status === 'alugado'
-    ? { label: 'Alugado', cls: 'bg-blue-600 text-white' }
+    ? { label: 'Alugado', cls: 'bg-stone-800 text-white' }
     : null;
 
   return (
-    <div className="group bg-white rounded-2xl overflow-hidden border border-cream-300 hover:border-gold-400 transition-all duration-300 hover:-translate-y-1.5 shadow-soft hover:shadow-card-hover flex flex-col h-full">
-      {/* Image Container */}
+    <div className="group bg-white rounded-2xl overflow-hidden border border-stone-200 hover:border-black transition-all duration-300 hover:-translate-y-1.5 shadow-sm hover:shadow-xl flex flex-col h-full">
+      {/* Image Container — FOTOS PERMANECEM COLORIDAS E NATURAIS */}
       <div className="relative h-64 w-full overflow-hidden bg-stone-100">
         <Image
           src={property.mainImage || property.images[0] || 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80'}
@@ -41,16 +41,16 @@ export default function PropertyCard({ property, priorityImage = false }: Proper
         />
 
         {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover:opacity-65 transition-opacity" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent opacity-80 group-hover:opacity-65 transition-opacity" />
 
         {/* Top Badges */}
         <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 z-10">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="bg-stone-900/90 text-gold-400 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md border border-gold-500/30 capitalize">
+            <span className="bg-black/90 text-white text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md border border-stone-700 capitalize">
               {property.type}
             </span>
             {property.featured && (
-              <span className="bg-gold-gradient text-white text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md shadow-glow-gold flex items-center gap-1">
+              <span className="bg-black text-white text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md border border-stone-600 flex items-center gap-1 shadow-sm">
                 <Star className="w-3 h-3 fill-white" />
                 Destaque
               </span>
@@ -61,7 +61,7 @@ export default function PropertyCard({ property, priorityImage = false }: Proper
               </span>
             )}
           </div>
-          <span className="bg-stone-900/80 text-stone-300 text-[10px] font-mono font-medium px-2 py-1 rounded-md">
+          <span className="bg-black/80 text-white text-[10px] font-mono font-medium px-2 py-1 rounded-md border border-stone-700">
             {property.code}
           </span>
         </div>
@@ -82,27 +82,27 @@ export default function PropertyCard({ property, priorityImage = false }: Proper
       <div className="p-5 flex-1 flex flex-col justify-between space-y-4 bg-white">
         <div>
           <div className="flex items-center gap-1.5 text-stone-700 font-medium text-xs mb-2">
-            <MapPin className="w-3.5 h-3.5 text-gold-600 shrink-0" />
+            <MapPin className="w-3.5 h-3.5 text-stone-900 shrink-0" />
             <span className="truncate">{property.neighborhood}, {property.city}</span>
           </div>
           <Link href={`/imoveis/${property.id}`} className="group/title">
-            <h3 className="font-serif text-lg font-bold text-stone-900 group-hover/title:text-gold-600 transition-colors line-clamp-2 leading-snug">
+            <h3 className="font-serif text-lg font-bold text-stone-950 group-hover/title:text-stone-600 transition-colors line-clamp-2 leading-snug">
               {property.title}
             </h3>
           </Link>
         </div>
 
         {/* Specs */}
-        <div className="grid grid-cols-4 gap-2 pt-3 border-t border-cream-300 text-xs text-stone-700">
+        <div className="grid grid-cols-4 gap-2 pt-3 border-t border-stone-200 text-xs text-stone-700">
           {[
             { Icon: Maximize2, value: `${property.area} m²` },
             { Icon: Bed, value: `${property.bedrooms} Dorm.` },
             { Icon: Bath, value: `${property.bathrooms} Banh.` },
             { Icon: Car, value: `${property.parking} Vaga${property.parking !== 1 ? 's' : ''}` },
           ].map(({ Icon, value }) => (
-            <div key={value} className="flex flex-col items-center justify-center p-2 rounded-lg bg-cream-100/90 border border-cream-300 shadow-sm">
-              <Icon className="w-4 h-4 text-gold-600 mb-1" />
-              <span className="font-bold text-stone-900 text-center leading-none">{value}</span>
+            <div key={value} className="flex flex-col items-center justify-center p-2 rounded-lg bg-stone-50 border border-stone-200">
+              <Icon className="w-4 h-4 text-stone-900 mb-1" />
+              <span className="font-bold text-stone-950 text-center leading-none">{value}</span>
             </div>
           ))}
         </div>
@@ -111,19 +111,19 @@ export default function PropertyCard({ property, priorityImage = false }: Proper
         <div className="flex items-center gap-2 pt-1">
           <Link
             href={`/imoveis/${property.id}`}
-            className="flex-1 bg-cream-100/80 hover:bg-cream-200 text-stone-900 hover:text-navy-950 border border-cream-300 hover:border-gold-400 font-bold text-xs py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5"
+            className="flex-1 bg-stone-100 hover:bg-stone-900 text-stone-900 hover:text-white border border-stone-300 font-bold text-xs py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5"
           >
             <span>Ver Detalhes</span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-gold-600" />
+            <ArrowUpRight className="w-3.5 h-3.5" />
           </Link>
           <a
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-emerald-600 hover:bg-emerald-500 text-white p-2.5 rounded-xl transition-all shadow-md flex items-center justify-center"
+            className="bg-stone-900 hover:bg-black text-white p-2.5 rounded-xl transition-all shadow-md flex items-center justify-center border border-stone-800"
             title="Tenho Interesse"
           >
-            <Phone className="w-4 h-4" />
+            <Phone className="w-4 h-4 text-emerald-400" />
           </a>
         </div>
       </div>
