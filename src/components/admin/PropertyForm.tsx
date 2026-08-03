@@ -4,6 +4,7 @@ import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { PropertyService } from '@/services/propertyService';
 import { ImageService } from '@/services/imageService';
+import { NeighborhoodService } from '@/services/neighborhoodService';
 import { Property, PropertyType, PropertyPurpose, PropertyStatus } from '@/types/property';
 import {
   Save, ArrowLeft, PlusCircle, X, Star, Loader2, Grip,
@@ -22,10 +23,13 @@ const FEATURES_SUGGESTIONS = [
 ];
 
 const TYPE_LABELS: Record<PropertyType, string> = {
-  apartamento: 'Apartamento',
   casa: 'Casa',
-  cobertura: 'Cobertura',
+  sobrado: 'Sobrado',
+  apartamento: 'Apartamento',
+  sala_comercial: 'Sala Comercial',
+  galpao: 'Galpão',
   terreno: 'Terreno',
+  cobertura: 'Cobertura',
   comercial: 'Comercial',
 };
 
@@ -317,10 +321,37 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
 
             <div className="grid grid-cols-1 sm:grid-cols-4 gap-5">
               <Field label="Cidade" required>
-                <input type="text" value={form.city} onChange={(e) => update('city', e.target.value)} placeholder="Ex: Santo André" required className={inputCls} />
+                <select
+                  value={form.city}
+                  onChange={(e) => {
+                    update('city', e.target.value);
+                    update('neighborhood', '');
+                  }}
+                  required
+                  className={selectCls}
+                >
+                  <option value="">Selecione a Cidade...</option>
+                  <option value="Santo André">Santo André</option>
+                  <option value="São Bernardo do Campo">São Bernardo do Campo</option>
+                  <option value="Mauá">Mauá</option>
+                  <option value="São Caetano do Sul">São Caetano do Sul</option>
+                </select>
               </Field>
-              <Field label="Bairro" required>
-                <input type="text" value={form.neighborhood} onChange={(e) => update('neighborhood', e.target.value)} placeholder="Ex: Bairro Jardim" required className={inputCls} />
+              <Field label="Bairro" required hint="Selecione ou digite um bairro">
+                <input
+                  type="text"
+                  list="neighborhoods-list"
+                  value={form.neighborhood}
+                  onChange={(e) => update('neighborhood', e.target.value)}
+                  placeholder="Ex: Bairro Jardim"
+                  required
+                  className={inputCls}
+                />
+                <datalist id="neighborhoods-list">
+                  {NeighborhoodService.getNeighborhoodsByCity(form.city).map((n) => (
+                    <option key={n} value={n} />
+                  ))}
+                </datalist>
               </Field>
               <Field label="Condomínio / Edifício">
                 <input type="text" value={form.condominium || ''} onChange={(e) => update('condominium', e.target.value)} placeholder="Ex: Swiss Park, Edifício Figueiras" className={inputCls} />

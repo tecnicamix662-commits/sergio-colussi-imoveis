@@ -16,6 +16,7 @@ import {
   Menu,
   X,
   MessageSquare,
+  MapPin,
 } from 'lucide-react';
 
 interface NavGroup {
@@ -62,6 +63,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       items: [
         { name: 'Todos os Imóveis', href: '/admin/imoveis', icon: ListFilter },
         { name: 'Cadastrar Imóvel', href: '/admin/imoveis/novo', icon: PlusCircle },
+        { name: 'Gerenciar Bairros', href: '/admin/bairros', icon: MapPin },
       ],
     },
     {

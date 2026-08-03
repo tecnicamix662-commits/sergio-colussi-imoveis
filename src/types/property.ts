@@ -1,4 +1,4 @@
-export type PropertyType = 'apartamento' | 'casa' | 'cobertura' | 'terreno' | 'comercial';
+export type PropertyType = 'casa' | 'sobrado' | 'apartamento' | 'sala_comercial' | 'galpao' | 'terreno' | 'cobertura' | 'comercial';
 export type PropertyPurpose = 'venda' | 'aluguel';
 export type PropertyStatus = 'disponivel' | 'vendido' | 'alugado' | 'inativo';
 

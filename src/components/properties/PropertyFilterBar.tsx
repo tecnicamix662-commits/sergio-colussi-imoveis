@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { PropertyFilterParams, PropertyType } from '@/types/property';
 import { PropertyService } from '@/services/propertyService';
+import { NeighborhoodService } from '@/services/neighborhoodService';
 import { Search, Building2, MapPin, Home, Shield, RotateCcw, SlidersHorizontal, DollarSign, Bed, Car } from 'lucide-react';
 
 interface PropertyFilterBarProps {
@@ -10,40 +11,6 @@ interface PropertyFilterBarProps {
   compact?: boolean;
   initialFilters?: PropertyFilterParams;
 }
-
-const NEIGHBORHOODS_BY_CITY: Record<string, string[]> = {
-  'Santo André': [
-    'Bairro Jardim',
-    'Campestre',
-    'Vila Assunção',
-    'Vila Gilda',
-    'Vila Bastos',
-    'Parque das Nações',
-    'Vila Valparaíso',
-    'Centro',
-  ],
-  'São Bernardo do Campo': [
-    'Swiss Park',
-    'Nova Petrópolis',
-    'Anchieta',
-    'Rudge Ramos',
-    'Baeta Neves',
-    'Centro',
-  ],
-  'Mauá': [
-    'Vila Bocaina',
-    'Jardim Guapituba',
-    'Parque São Vicente',
-    'Centro',
-  ],
-  'São Caetano do Sul': [
-    'Santa Maria',
-    'Santo Antônio',
-    'Jardim São Caetano',
-    'Barcelona',
-    'Centro',
-  ],
-};
 
 export default function PropertyFilterBar({ onFilterChange, compact = false, initialFilters }: PropertyFilterBarProps) {
   const [type, setType] = useState<string>(initialFilters?.type || 'todos');
@@ -63,7 +30,11 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
   useEffect(() => {
     const handleUpdate = () => setPropertiesVersion((v) => v + 1);
     window.addEventListener('properties_updated', handleUpdate);
-    return () => window.removeEventListener('properties_updated', handleUpdate);
+    window.addEventListener('neighborhoods_updated', handleUpdate);
+    return () => {
+      window.removeEventListener('properties_updated', handleUpdate);
+      window.removeEventListener('neighborhoods_updated', handleUpdate);
+    };
   }, []);
 
   const activeProperties = useMemo(() => {
@@ -71,34 +42,41 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
     // eslint-disable-next-deps
   }, [propertiesVersion]);
 
-  // Neighborhoods strictly separated by selected city
+  // Neighborhoods strictly dependent on selected city + registered official list
   const availableNeighborhoods = useMemo(() => {
-    const set = new Set<string>();
+    const officialList = NeighborhoodService.getNeighborhoodsByCity(city);
+    const set = new Set<string>(officialList);
 
-    if (city !== 'todas' && city !== 'Todas' && NEIGHBORHOODS_BY_CITY[city]) {
-      NEIGHBORHOODS_BY_CITY[city].forEach((n) => set.add(n));
+    // Complement standard list with any existing neighborhood from registered properties
+    if (city !== 'todas' && city !== 'Todas') {
       const activeForCity = activeProperties.filter((p) => p.city.toLowerCase() === city.toLowerCase());
       activeForCity.forEach((p) => p.neighborhood && set.add(p.neighborhood));
     } else {
       activeProperties.forEach((p) => p.neighborhood && set.add(p.neighborhood));
-      Object.values(NEIGHBORHOODS_BY_CITY).forEach((list) => list.forEach((n) => set.add(n)));
     }
 
-    return Array.from(set).sort();
+    return Array.from(set).sort((a, b) => a.localeCompare(b, 'pt-BR'));
   }, [activeProperties, city]);
 
-  // Condominiums
+  // Condominiums available in active properties
   const availableCondominiums = useMemo(() => {
     const set = new Set<string>();
-    activeProperties.forEach((p) => p.condominium && set.add(p.condominium));
+    
+    let filteredProps = activeProperties;
+    if (city !== 'todas' && city !== 'Todas') {
+      filteredProps = filteredProps.filter((p) => p.city.toLowerCase() === city.toLowerCase());
+    }
+    
+    filteredProps.forEach((p) => p.condominium && set.add(p.condominium));
+    
     if (set.size === 0) {
       set.add('Condomínio Swiss Park');
       set.add('Edifício Neoclássico Figueiras');
       set.add('Residencial Jardinage');
       set.add('Residencial Barão de Mauá');
     }
-    return Array.from(set).sort();
-  }, [activeProperties]);
+    return Array.from(set).sort((a, b) => a.localeCompare(b, 'pt-BR'));
+  }, [activeProperties, city]);
 
   const handleCityChange = (newCity: string) => {
     setCity(newCity);
@@ -135,18 +113,24 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
 
   return (
     <div className="w-full glass-card p-4 sm:p-6 rounded-2xl border border-slate-800 shadow-2xl space-y-4">
+      {/* Title */}
+      {!compact && (
+        <div className="border-b border-slate-800/80 pb-3">
+          <h2 className="text-sm sm:text-base font-serif font-bold text-white tracking-wide">
+            Encontre o imóvel ideal para a sua família
+          </h2>
+          <p className="text-xs text-slate-400">
+            Selecione os filtros abaixo para encontrar as melhores opções no ABC Paulista
+          </p>
+        </div>
+      )}
+
       {/* 
-        EXACT SEQUENCE:
-        1. TIPO
-        2. CIDADE
-        3. BAIRROS
-        4. CONDOMÍNIOS
-        5. BOTÃO BUSCAR IMÓVEIS
-        
-        Desktop: 5 Columns Left to Right
-        Mobile: Vertical Stack with Touch-Friendly Inputs
+        EXACT SEQUENCE REQUIRED:
+        1. TIPO ➔ 2. CIDADE ➔ 3. BAIRROS ➔ 4. CONDOMÍNIOS ➔ 5. BUSCAR IMÓVEIS
       */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3.5 items-end">
+        
         {/* 1. TIPO */}
         <div className="space-y-1.5">
           <label className="text-[11px] font-bold uppercase tracking-wider text-gold-400 flex items-center gap-1.5">
@@ -158,10 +142,13 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
             className="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3.5 py-3.5 text-white text-xs font-semibold focus:outline-none focus:border-gold-500 transition-colors shadow-sm cursor-pointer"
           >
             <option value="todos">Todos os Tipos</option>
+            <option value="casa">Casa</option>
+            <option value="sobrado">Sobrado</option>
             <option value="apartamento">Apartamento</option>
-            <option value="casa">Casa / Mansão</option>
-            <option value="cobertura">Cobertura</option>
+            <option value="sala_comercial">Sala Comercial</option>
+            <option value="galpao">Galpão</option>
             <option value="terreno">Terreno</option>
+            <option value="cobertura">Cobertura</option>
             <option value="comercial">Comercial</option>
           </select>
         </div>
@@ -181,7 +168,6 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
             <option value="São Bernardo do Campo">São Bernardo do Campo</option>
             <option value="Mauá">Mauá</option>
             <option value="São Caetano do Sul">São Caetano do Sul</option>
-            <option value="São Paulo">São Paulo</option>
           </select>
         </div>
 
@@ -195,7 +181,9 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
             onChange={(e) => setNeighborhood(e.target.value)}
             className="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3.5 py-3.5 text-white text-xs font-semibold focus:outline-none focus:border-gold-500 transition-colors shadow-sm cursor-pointer"
           >
-            <option value="todos">Todos os Bairros</option>
+            <option value="todos">
+              {city !== 'todas' && city !== 'Todas' ? `Todos os Bairros de ${city}` : 'Todos os Bairros'}
+            </option>
             {availableNeighborhoods.map((n) => (
               <option key={n} value={n}>
                 {n}
@@ -207,7 +195,7 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
         {/* 4. CONDOMÍNIOS */}
         <div className="space-y-1.5">
           <label className="text-[11px] font-bold uppercase tracking-wider text-gold-400 flex items-center gap-1.5">
-            <Shield className="w-3.5 h-3.5 text-gold-400 shrink-0" /> Condomínios
+            <Shield className="w-3.5 h-3.5 text-gold-400 shrink-0" /> Condomínio
           </label>
           <select
             value={condominium}
