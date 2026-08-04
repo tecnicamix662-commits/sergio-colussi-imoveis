@@ -169,36 +169,42 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
           {/* Gallery Component (FOTOS 100% COLORIDAS E VIVAS) */}
           <PropertyGallery images={property.images} title={property.title} />
 
-          {/* Quick Specifications Bar */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-6 bg-stone-50 rounded-2xl border border-stone-200 text-center shadow-sm">
+          {/* Quick Specifications Bar - Estilo Casari */}
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 p-5 bg-stone-50 rounded-2xl border border-stone-200 text-center shadow-xs">
             <div className="space-y-1">
-              <div className="flex items-center justify-center gap-1.5 text-stone-900 text-xs uppercase font-bold">
-                <Maximize2 className="w-4 h-4" /> Área Útil
-              </div>
-              <span className="font-serif text-2xl font-bold text-stone-950">{property.area} m²</span>
+              <Maximize2 className="w-5 h-5 text-stone-900 mx-auto" />
+              <span className="font-serif text-lg font-bold text-stone-950 block">{property.area} m²</span>
+              <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">Área Principal</span>
             </div>
 
             <div className="space-y-1">
-              <div className="flex items-center justify-center gap-1.5 text-stone-900 text-xs uppercase font-bold">
-                <Bed className="w-4 h-4" /> Dormitórios
-              </div>
-              <span className="font-serif text-2xl font-bold text-stone-950">
-                {property.bedrooms} <span className="text-xs text-stone-600 font-sans">({property.suites} suítes)</span>
-              </span>
+              <Building2 className="w-5 h-5 text-stone-900 mx-auto" />
+              <span className="font-serif text-lg font-bold text-stone-950 block">{property.area} m²</span>
+              <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">Área Lote</span>
             </div>
 
             <div className="space-y-1">
-              <div className="flex items-center justify-center gap-1.5 text-stone-900 text-xs uppercase font-bold">
-                <Bath className="w-4 h-4" /> Banheiros
-              </div>
-              <span className="font-serif text-2xl font-bold text-stone-950">{property.bathrooms}</span>
+              <Bed className="w-5 h-5 text-stone-900 mx-auto" />
+              <span className="font-serif text-lg font-bold text-stone-950 block">{property.bedrooms}</span>
+              <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">Quartos</span>
             </div>
 
             <div className="space-y-1">
-              <div className="flex items-center justify-center gap-1.5 text-stone-900 text-xs uppercase font-bold">
-                <Car className="w-4 h-4" /> Vagas
-              </div>
-              <span className="font-serif text-2xl font-bold text-stone-950">{property.parking}</span>
+              <Bath className="w-5 h-5 text-stone-900 mx-auto" />
+              <span className="font-serif text-lg font-bold text-stone-950 block">{property.bathrooms}</span>
+              <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">Banheiro</span>
+            </div>
+
+            <div className="space-y-1">
+              <Car className="w-5 h-5 text-stone-900 mx-auto" />
+              <span className="font-serif text-lg font-bold text-stone-950 block">{property.parking}</span>
+              <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">Vagas</span>
+            </div>
+
+            <div className="space-y-1">
+              <Sparkles className="w-5 h-5 text-stone-900 mx-auto" />
+              <span className="font-serif text-lg font-bold text-stone-950 block">{property.suites || 0}</span>
+              <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">Suíte</span>
             </div>
           </div>
 
@@ -251,126 +257,184 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
           </div>
         </div>
 
-        {/* Right Sticky Column (Pricing & Lead Capture Form) */}
+        {/* Right Sticky Column (Pricing & Lead Capture Form - Estilo Casari, Mantendo Cores do Site) */}
         <div className="lg:col-span-4 lg:sticky lg:top-28 space-y-6">
-          {/* Pricing Box */}
-          <div className="bg-stone-50 rounded-2xl p-6 border border-stone-300 space-y-6 shadow-md">
+          <div className="bg-stone-50/90 rounded-2xl p-6 border border-stone-300 space-y-5 shadow-xl">
+            {/* Header: IMÓVEL + Cód. imóvel */}
+            <div className="flex items-center justify-between border-b border-stone-200 pb-3">
+              <span className="text-[11px] font-extrabold text-stone-500 uppercase tracking-widest">
+                IMÓVEL
+              </span>
+              <span className="text-xs font-mono font-extrabold text-stone-950 bg-white px-2.5 py-1 rounded-lg border border-stone-300 shadow-xs">
+                Cód. imóvel: {property.code}
+              </span>
+            </div>
+
+            {/* Price Block: VALOR, Condomínio, IPTU */}
             <div className="space-y-2">
-              <div className="flex items-center justify-between gap-2 border-b border-stone-200 pb-2">
-                <span className="bg-black text-amber-400 text-xs font-mono font-extrabold px-3 py-1 rounded-lg border border-amber-500/40 tracking-wider shadow-xs">
-                  CÓDIGO: {property.code}
-                </span>
-                <span className="text-xs text-stone-600 uppercase tracking-wider font-extrabold">
-                  {property.purpose === 'aluguel' ? 'Valor do Aluguel' : 'Valor de Venda'}
+              <div className="flex items-baseline justify-between">
+                <span className="text-xs font-extrabold text-stone-600 uppercase tracking-wider">VALOR</span>
+                <span className="font-serif text-3xl font-bold text-stone-950">
+                  {formatCurrency(property.price)}
+                  {property.purpose === 'aluguel' && <span className="text-xs font-normal text-stone-500">/mês</span>}
                 </span>
               </div>
-              <span className="font-serif text-3xl sm:text-4xl font-bold text-stone-950 tracking-tight block pt-1">
-                {formatCurrency(property.price)}
-              </span>
 
-              {(property.condoFee || property.iptuFee) && (
-                <div className="flex items-center gap-4 text-xs text-stone-700 pt-2 border-t border-stone-200">
-                  {property.condoFee && <span>Condomínio: <strong>{formatCurrency(property.condoFee)}</strong>/mês</span>}
-                  {property.iptuFee && <span>IPTU: <strong>{formatCurrency(property.iptuFee)}</strong>/ano</span>}
+              <div className="space-y-1 text-xs text-stone-600 pt-2 border-t border-stone-200">
+                <div className="flex justify-between">
+                  <span>Condomínio</span>
+                  <span className="font-semibold text-stone-900">{property.condoFee ? formatCurrency(property.condoFee) : 'R$ 0,00'}</span>
                 </div>
-              )}
+                <div className="flex justify-between">
+                  <span>IPTU</span>
+                  <span className="font-semibold text-stone-900">{property.iptuFee ? formatCurrency(property.iptuFee) : 'R$ 0,00'}</span>
+                </div>
+              </div>
             </div>
 
-            {/* Main WhatsApp Direct CTA Button com Verde Oficial WhatsApp */}
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full py-4 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-extrabold text-sm uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2.5"
-            >
-              <MessageCircle className="w-5 h-5 text-white fill-white" />
-              <span>Tenho Interesse - Chama no Zap</span>
-            </a>
-
-            <div className="text-center">
-              <span className="text-[11px] text-stone-600 font-medium flex items-center justify-center gap-1">
-                <ShieldCheck className="w-3.5 h-3.5 text-stone-900" /> Sérgio Colussi | Atendimento direto sem intermediários
-              </span>
-            </div>
-          </div>
-
-          {/* Lead Capture Form */}
-          <div className="bg-white rounded-2xl p-6 border border-stone-200 space-y-4 shadow-sm">
-            <h3 className="font-serif text-lg font-bold text-stone-950 border-b border-stone-200 pb-3 flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-stone-900" />
-              <span>Agendar Visita / Enviar Mensagem</span>
-            </h3>
-
+            {/* Lead Capture Form */}
             {submittedSuccess ? (
-              <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-800 text-xs space-y-2 text-center font-medium">
+              <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs space-y-2 text-center font-medium">
                 <CheckCircle2 className="w-8 h-8 text-emerald-600 mx-auto" />
                 <h4 className="font-bold text-stone-950 text-sm">Mensagem Enviada!</h4>
-                <p>Obrigado pelo interesse. O corretor Sérgio Colussi entrará em contato em instantes.</p>
+                <p>Obrigado pelo contato. O corretor Sérgio Colussi retornará em instantes.</p>
                 <button
                   onClick={() => setSubmittedSuccess(false)}
-                  className="text-stone-900 underline font-bold pt-1 block mx-auto"
+                  className="text-stone-950 underline font-bold pt-1 block mx-auto cursor-pointer"
                 >
                   Enviar outra mensagem
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleLeadSubmit} className="space-y-3.5 text-xs">
+              <form onSubmit={handleLeadSubmit} className="space-y-3.5 text-xs pt-2 border-t border-stone-200">
                 <div>
-                  <label className="block text-stone-700 font-bold mb-1">Seu Nome Completo *</label>
+                  <label className="block text-[11px] font-bold text-stone-800 uppercase tracking-wider mb-1">
+                    SEU NOME <span className="text-red-500">*</span>
+                  </label>
                   <input
                     type="text"
                     required
-                    placeholder="Ex: Dra. Mariana Costa"
+                    placeholder="EX: José da Silva"
                     value={leadName}
                     onChange={(e) => setLeadName(e.target.value)}
-                    className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3.5 py-2.5 text-stone-900 text-xs placeholder-stone-400 focus:outline-none focus:border-black font-semibold"
+                    className="w-full bg-white border border-stone-300 rounded-xl px-3.5 py-2.5 text-stone-950 text-xs placeholder-stone-400 focus:outline-none focus:border-black font-semibold shadow-xs"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-stone-700 font-bold mb-1">Telefone / WhatsApp *</label>
+                  <label className="block text-[11px] font-bold text-stone-800 uppercase tracking-wider mb-1">
+                    SEU E-MAIL <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    placeholder="EX: email@email.com"
+                    value={leadEmail}
+                    onChange={(e) => setLeadEmail(e.target.value)}
+                    className="w-full bg-white border border-stone-300 rounded-xl px-3.5 py-2.5 text-stone-950 text-xs placeholder-stone-400 focus:outline-none focus:border-black font-semibold shadow-xs"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold text-stone-800 uppercase tracking-wider mb-1">
+                    CELULAR <span className="text-red-500">*</span>
+                  </label>
                   <input
                     type="tel"
                     required
-                    placeholder="(11) 99999-9999"
+                    placeholder="EX: (XX) X XXXX-XXXX"
                     value={leadPhone}
                     onChange={(e) => setLeadPhone(e.target.value)}
-                    className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3.5 py-2.5 text-stone-900 text-xs placeholder-stone-400 focus:outline-none focus:border-black font-semibold"
+                    className="w-full bg-white border border-stone-300 rounded-xl px-3.5 py-2.5 text-stone-950 text-xs placeholder-stone-400 focus:outline-none focus:border-black font-semibold shadow-xs"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-stone-700 font-bold mb-1">Seu E-mail</label>
-                  <input
-                    type="email"
-                    placeholder="seuemail@dominio.com"
-                    value={leadEmail}
-                    onChange={(e) => setLeadEmail(e.target.value)}
-                    className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3.5 py-2.5 text-stone-900 text-xs placeholder-stone-400 focus:outline-none focus:border-black font-semibold"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-stone-700 font-bold mb-1">Mensagem</label>
+                  <label className="block text-[11px] font-bold text-stone-800 uppercase tracking-wider mb-1">
+                    MENSAGEM (NÃO OBRIGATÓRIO)
+                  </label>
                   <textarea
                     rows={3}
-                    placeholder="Gostaria de agendar uma visita presencial nesta semana..."
+                    placeholder={`Olá, gostaria de mais informações sobre o imóvel: ${property.code}.`}
                     value={leadMessage}
                     onChange={(e) => setLeadMessage(e.target.value)}
-                    className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3.5 py-2.5 text-stone-900 text-xs placeholder-stone-400 focus:outline-none focus:border-black font-semibold"
+                    className="w-full bg-white border border-stone-300 rounded-xl px-3.5 py-2.5 text-stone-950 text-xs placeholder-stone-400 focus:outline-none focus:border-black font-semibold shadow-xs"
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-3 rounded-xl bg-black hover:bg-stone-800 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 border border-black"
-                >
-                  <Send className="w-4 h-4 text-white" />
-                  <span>{isSubmitting ? 'Enviando...' : 'Enviar Solicitação'}</span>
-                </button>
+                <p className="text-[10px] text-stone-500 leading-tight">
+                  Ao informar meus dados, eu concordo com a <span className="underline cursor-pointer font-semibold">Política de Privacidade</span>.
+                </p>
+
+                {/* Stacked Action Buttons */}
+                <div className="space-y-2 pt-1">
+                  {/* Botão 1: TENHO INTERESSE (Principal escuro elegante do site) */}
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full py-3.5 rounded-xl bg-stone-950 hover:bg-black text-white font-extrabold text-xs uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2 border border-stone-950 cursor-pointer disabled:opacity-50"
+                  >
+                    <Send className="w-4 h-4 text-white" />
+                    <span>{isSubmitting ? 'ENVIANDO...' : 'TENHO INTERESSE'}</span>
+                  </button>
+
+                  {/* Botão 2: AGENDAR UMA VISITA (Botão secundário limpo) */}
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full py-3.5 rounded-xl bg-white hover:bg-stone-100 text-stone-950 border border-stone-300 font-extrabold text-xs uppercase tracking-wider shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                  >
+                    <Calendar className="w-4 h-4 text-stone-800" />
+                    <span>AGENDAR UMA VISITA</span>
+                  </button>
+
+                  {/* Botão 3: CHAMAR NO WHATSAPP (Verde oficial WhatsApp) */}
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3.5 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-extrabold text-xs uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2"
+                  >
+                    <MessageCircle className="w-4 h-4 text-white fill-white" />
+                    <span>CHAMAR NO WHATSAPP</span>
+                  </a>
+                </div>
               </form>
             )}
+
+            {/* Social Share Row */}
+            <div className="pt-4 border-t border-stone-200 text-center space-y-2">
+              <span className="text-[11px] font-bold text-stone-600 block">Compartilhar nas redes sociais</span>
+              <div className="flex items-center justify-center gap-3">
+                <a
+                  href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`Confira este imóvel: ${property.title} (Cód: ${property.code})`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center hover:scale-110 transition"
+                  title="Compartilhar no WhatsApp"
+                >
+                  <MessageCircle className="w-4 h-4 fill-emerald-700" />
+                </a>
+                <a
+                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs hover:scale-110 transition"
+                  title="Compartilhar no Facebook"
+                >
+                  f
+                </a>
+                <a
+                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center font-bold text-xs hover:scale-110 transition"
+                  title="Compartilhar no LinkedIn"
+                >
+                  in
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
