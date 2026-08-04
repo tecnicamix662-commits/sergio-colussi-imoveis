@@ -86,9 +86,14 @@ export default function PropertyCard({ property, priorityImage = false }: Proper
       {/* Content */}
       <div className="p-5 flex-1 flex flex-col justify-between space-y-4 bg-white">
         <div>
-          <div className="flex items-center gap-1.5 text-stone-700 font-medium text-xs mb-2">
-            <MapPin className="w-3.5 h-3.5 text-stone-900 shrink-0" />
-            <span className="truncate">{property.neighborhood}, {property.city}</span>
+          <div className="flex items-center justify-between gap-2 mb-2">
+            <div className="flex items-center gap-1 text-stone-700 font-medium text-xs min-w-0">
+              <MapPin className="w-3.5 h-3.5 text-stone-900 shrink-0" />
+              <span className="truncate">{property.neighborhood}, {property.city}</span>
+            </div>
+            <span className="bg-stone-100 border border-stone-300 text-stone-950 font-mono font-bold text-[10px] px-2 py-0.5 rounded-md shrink-0 shadow-xs">
+              CÓD: {property.code}
+            </span>
           </div>
           <Link href={`/imoveis/${property.id}`} className="group/title">
             <h3 className="font-serif text-lg font-bold text-stone-950 group-hover/title:text-stone-600 transition-colors line-clamp-2 leading-snug">

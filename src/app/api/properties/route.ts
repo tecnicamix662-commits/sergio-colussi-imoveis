@@ -47,9 +47,14 @@ interface DbRow {
 /** Converte uma linha do Supabase para o tipo Property do app */
 function rowToProperty(row: DbRow): Property {
   const diff = (row.differentials || {}) as Record<string, any>;
+  const fallbackCode = `REF-${row.id ? row.id.substring(0, 4).toUpperCase() : '001'}`;
+  const code = diff.code && typeof diff.code === 'string' && diff.code.trim() !== ''
+    ? diff.code
+    : fallbackCode;
+
   return {
     id: row.id,
-    code: diff.code || '',
+    code,
     title: row.title || '',
     slug: diff.slug || row.id,
     price: row.price || 0,
@@ -130,7 +135,7 @@ function propertyToRow(data: Partial<Property> & { code?: string; slug?: string 
   return row as Partial<DbRow>;
 }
 
-/** Conta os códigos SC existentes para gerar o próximo */
+/** Conta os códigos sequenciais existentes para gerar o próximo */
 async function getNextCodeIndex(): Promise<number> {
   const supabase = getSupabaseAdmin();
   const { data } = await supabase
@@ -142,8 +147,9 @@ async function getNextCodeIndex(): Promise<number> {
   if (data) {
     for (const row of data) {
       const diff = row.differentials as Record<string, any> | null;
-      if (diff?.code && typeof diff.code === 'string' && diff.code.startsWith('SC')) {
-        const num = parseInt(diff.code.replace('SC', ''), 10);
+      if (diff?.code && typeof diff.code === 'string') {
+        const digits = diff.code.replace(/\D/g, '');
+        const num = parseInt(digits, 10);
         if (!isNaN(num) && num > maxIndex) maxIndex = num;
       }
     }
@@ -185,9 +191,9 @@ export async function POST(request: Request) {
     const body = await request.json();
     const supabase = getSupabaseAdmin();
 
-    // Gera código sequencial SC001, SC002...
+    // Gera código sequencial único REF-001, REF-002...
     const codeNumber = await getNextCodeIndex();
-    const code = `SC${String(codeNumber).padStart(3, '0')}`;
+    const code = `REF-${String(codeNumber).padStart(3, '0')}`;
 
     // Gera slug
     const slugTitle = (body.title || 'imovel')

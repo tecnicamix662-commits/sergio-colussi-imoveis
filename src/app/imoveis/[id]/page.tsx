@@ -134,14 +134,17 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
       {/* Header Info */}
       <div className="space-y-4">
         <div className="flex flex-wrap items-center gap-3">
-          <span className="bg-black text-white font-bold text-xs uppercase tracking-widest px-3 py-1 rounded-lg">
+          <span className="bg-stone-950 text-white font-mono font-extrabold text-xs tracking-wider px-3 py-1.5 rounded-lg border border-stone-800 shadow-sm">
+            🏷️ CÓDIGO: {property.code}
+          </span>
+          <span className="bg-stone-100 text-stone-900 font-bold text-xs uppercase tracking-widest px-3 py-1.5 rounded-lg border border-stone-300">
             {property.type}
           </span>
-          <span className="bg-stone-100 text-stone-800 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-lg border border-stone-300">
+          <span className="bg-stone-100 text-stone-800 text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg border border-stone-300">
             Para {property.purpose}
           </span>
           {property.featured && (
-            <span className="bg-stone-900 text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-lg border border-stone-700 flex items-center gap-1">
+            <span className="bg-stone-900 text-white text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg border border-stone-700 flex items-center gap-1">
               <Sparkles className="w-3.5 h-3.5" /> Destaque Exclusivo
             </span>
           )}

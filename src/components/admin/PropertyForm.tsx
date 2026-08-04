@@ -49,7 +49,7 @@ function Field({ label, required, hint, children }: {
   return (
     <div className="space-y-1.5">
       <label className="block text-xs font-bold text-stone-900 uppercase tracking-wider">
-        {label} {required && <span className="text-red-600">*</span>}
+        {label} {required && <span className="text-stone-400 font-medium text-[10px] tracking-normal lowercase ml-1">(obrigatório)</span>}
       </label>
       {children}
       {hint && <p className="text-[11px] text-stone-500 font-medium">{hint}</p>}
@@ -317,8 +317,18 @@ function formatToBRL(value: string | number): { display: string; numeric: number
           <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-950">
             {mode === 'create' ? 'Cadastrar Novo Imóvel' : 'Editar Imóvel'}
           </h1>
-          {initialData && (
-            <p className="text-stone-600 text-xs font-semibold mt-1">Código de Referência: {initialData.code}</p>
+          {mode === 'edit' && initialData ? (
+            <div className="mt-1">
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-stone-100 border border-stone-300 text-stone-950 font-mono text-xs font-extrabold shadow-sm">
+                🏷️ CÓDIGO: {initialData.code}
+              </span>
+            </div>
+          ) : (
+            <div className="mt-1">
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-stone-100 border border-stone-300 text-stone-700 text-xs font-semibold">
+                ✨ Código único automático (ex: REF-001) será gerado no envio
+              </span>
+            </div>
           )}
         </div>
 
