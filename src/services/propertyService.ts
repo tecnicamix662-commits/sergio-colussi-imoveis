@@ -2,6 +2,7 @@ import { Property, PropertyFilterParams, LeadSubmission, SellerSubmission, Prope
 
 export const INITIAL_PROPERTIES: Property[] = [];
 
+const PROPERTIES_KEY = 'sergio_colussi_properties_v2';
 const LEADS_KEY = 'sergio_colussi_leads_v1';
 const SELLERS_KEY = 'sergio_colussi_seller_leads_v1';
 
@@ -13,42 +14,86 @@ export class PropertyService {
     return typeof window !== 'undefined';
   }
 
+  private static loadFromLocalStorage(): Property[] {
+    if (!this.isBrowser()) return [];
+    try {
+      const stored = localStorage.getItem(PROPERTIES_KEY);
+      if (stored) {
+        const parsed: Property[] = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
+      }
+    } catch (e) {
+      console.error('Error loading properties from localStorage:', e);
+    }
+    return [];
+  }
+
+  private static saveToLocalStorage(properties: Property[]): void {
+    if (!this.isBrowser()) return;
+    try {
+      localStorage.setItem(PROPERTIES_KEY, JSON.stringify(properties));
+    } catch (e) {
+      console.error('Error saving properties to localStorage:', e);
+    }
+  }
+
   /**
-   * Sincroniza dados de imóveis com o Supabase via API route.
-   * Esta é a FONTE PRIMÁRIA de dados - busca sempre do servidor.
+   * Retorna os imóveis salvos.
+   * Busca primeiro do cache/localStorage garantindo que NUNCA zere na troca de telas.
+   */
+  public static getProperties(): Property[] {
+    if (inMemoryCache === null) {
+      const local = this.loadFromLocalStorage();
+      inMemoryCache = local;
+      this.syncWithServer();
+    }
+    return inMemoryCache || [];
+  }
+
+  /**
+   * Sincroniza dados com o servidor Supabase via API route.
    */
   public static async syncWithServer(): Promise<Property[]> {
-    if (!this.isBrowser() || isSyncing) return inMemoryCache || [];
+    if (!this.isBrowser() || isSyncing) return inMemoryCache || this.loadFromLocalStorage();
     isSyncing = true;
     try {
       const res = await fetch('/api/properties', { cache: 'no-store' });
       if (res.ok) {
         const data = await res.json();
         const serverList: Property[] = data.properties || [];
-        inMemoryCache = serverList;
-        window.dispatchEvent(new Event('properties_updated'));
-        return serverList;
+        
+        if (serverList.length > 0) {
+          this.updateCache(serverList);
+          return serverList;
+        } else if (!inMemoryCache || inMemoryCache.length === 0) {
+          const local = this.loadFromLocalStorage();
+          if (local.length > 0) {
+            this.updateCache(local);
+            return local;
+          }
+        }
       }
     } catch (e) {
       console.warn('Sincronização com o servidor indisponível:', e);
     } finally {
       isSyncing = false;
     }
-    return inMemoryCache || [];
-  }
-
-  public static getProperties(): Property[] {
-    if (inMemoryCache !== null) return inMemoryCache;
-
-    if (!this.isBrowser()) return INITIAL_PROPERTIES;
-
-    // Dispara sincronização com o Supabase e retorna cache vazio
-    this.syncWithServer();
-    return INITIAL_PROPERTIES;
+    return inMemoryCache || this.loadFromLocalStorage();
   }
 
   private static updateCache(properties: Property[]): void {
-    inMemoryCache = properties;
+    // Ordena por data de criação / código decrescente para manter a sequência exata
+    const sorted = [...properties].sort((a, b) => {
+      const timeA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+      const timeB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+      return timeB - timeA;
+    });
+
+    inMemoryCache = sorted;
+    this.saveToLocalStorage(sorted);
+
     if (this.isBrowser()) {
       window.dispatchEvent(new Event('properties_updated'));
     }

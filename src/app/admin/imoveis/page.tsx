@@ -47,9 +47,15 @@ export default function AdminImoveisPage() {
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
 
   const loadData = useCallback(async () => {
-    await PropertyService.syncWithServer();
-    const list = PropertyService.getProperties();
-    setProperties(list);
+    // Carrega os imóveis salvos imediatamente sem piscar ou zerar a lista
+    const initialList = PropertyService.getProperties();
+    setProperties(initialList);
+
+    // Sincroniza com a nuvem em segundo plano
+    const updatedList = await PropertyService.syncWithServer();
+    if (updatedList && updatedList.length > 0) {
+      setProperties(updatedList);
+    }
   }, []);
 
   useEffect(() => {
