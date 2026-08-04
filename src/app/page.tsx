@@ -31,7 +31,10 @@ export default function HomePage() {
 
   useEffect(() => {
     const loadProperties = () => {
-      const featured = PropertyService.getFeaturedProperties();
+      let featured = PropertyService.getFeaturedProperties();
+      if (featured.length === 0) {
+        featured = PropertyService.getActiveProperties().slice(0, 6);
+      }
       setFeaturedProperties(featured);
     };
 

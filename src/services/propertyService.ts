@@ -84,8 +84,10 @@ export class PropertyService {
   }
 
   private static updateCache(properties: Property[]): void {
-    // Ordena por data de criação / código decrescente para manter a sequência exata
+    // Ordena garantindo os imóveis em DESTAQUE fixados em 1º lugar (no topo)
     const sorted = [...properties].sort((a, b) => {
+      if (a.featured && !b.featured) return -1;
+      if (!a.featured && b.featured) return 1;
       const timeA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
       const timeB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
       return timeB - timeA;

@@ -56,16 +56,22 @@ function CatalogContent() {
 
   const applySort = (list: Property[], sort: string) => {
     const sorted = [...list];
-    if (sort === 'preco-asc') {
-      sorted.sort((a, b) => a.price - b.price);
-    } else if (sort === 'preco-desc') {
-      sorted.sort((a, b) => b.price - a.price);
-    } else if (sort === 'area-desc') {
-      sorted.sort((a, b) => b.area - a.area);
-    } else {
-      // recentes
-      sorted.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-    }
+    sorted.sort((a, b) => {
+      // Fixa imóveis em Destaque em 1º lugar no topo sem saírem do lugar
+      if (a.featured && !b.featured) return -1;
+      if (!a.featured && b.featured) return 1;
+
+      if (sort === 'preco-asc') {
+        return a.price - b.price;
+      } else if (sort === 'preco-desc') {
+        return b.price - a.price;
+      } else if (sort === 'area-desc') {
+        return b.area - a.area;
+      } else {
+        // recentes
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      }
+    });
     setFilteredProperties(sorted);
   };
 

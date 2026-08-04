@@ -296,15 +296,15 @@ export default function AdminImoveisPage() {
                   </Link>
                   <button
                     onClick={() => handleToggleFeatured(p.id)}
-                    title={p.featured ? 'Remover Destaque' : 'Marcar como Destaque'}
-                    className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold transition border ${
+                    title={p.featured ? 'Remover Fixação em Destaque' : 'Fixar este imóvel em Destaque no Topo do Site'}
+                    className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-extrabold transition border cursor-pointer ${
                       p.featured
-                        ? 'bg-amber-100 text-amber-950 border-amber-300'
+                        ? 'bg-amber-400 text-stone-950 border-amber-500 shadow-xs'
                         : 'bg-stone-100 hover:bg-stone-200 text-stone-800 border-stone-300'
                     }`}
                   >
-                    {p.featured ? <StarOff className="w-3.5 h-3.5" /> : <Star className="w-3.5 h-3.5" />}
-                    <span className="hidden sm:inline">{p.featured ? 'Destaque' : 'Destacar'}</span>
+                    <Star className={`w-3.5 h-3.5 ${p.featured ? 'fill-stone-950 text-stone-950' : 'text-stone-700'}`} />
+                    <span className="hidden sm:inline">{p.featured ? '★ Fixado no Topo' : '📌 Fixar Destaque'}</span>
                   </button>
                   <button
                     onClick={() => handleToggleStatus(p.id, statusKey)}
