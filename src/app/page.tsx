@@ -319,12 +319,15 @@ export default function HomePage() {
       {/* REALTOR PRESENTATION / SOBRE PREVIEW */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-stone-50 rounded-3xl p-8 sm:p-12 border border-stone-200 shadow-sm relative overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Photo — BRILHANTE, NÍTIDA E SEM ESCURECIMENTO */}
+          {/* Photo — BRILHANTE, NÍTIDA E GARANTIDA */}
           <div className="lg:col-span-5 relative">
             <div className="relative h-[420px] sm:h-[480px] w-full rounded-2xl overflow-hidden border-2 border-stone-300 shadow-xl bg-stone-200">
               <img
-                src={settings.realtorPhotoUrl || "/images/sergio-colussi.jpg"}
+                src={settings.realtorPhotoUrl && settings.realtorPhotoUrl.trim() ? settings.realtorPhotoUrl : "/images/sergio-colussi.jpg"}
                 alt={settings.realtorName || "Sérgio Colussi"}
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).src = "/images/sergio-colussi.jpg";
+                }}
                 className="w-full h-full object-cover object-top"
               />
               <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none" />

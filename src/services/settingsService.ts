@@ -13,8 +13,12 @@ export class SettingsService {
     try {
       const stored = localStorage.getItem(SETTINGS_KEY);
       if (!stored) return DEFAULT_SETTINGS;
-      // Merge with defaults to handle new fields added after first save
-      return { ...DEFAULT_SETTINGS, ...JSON.parse(stored) };
+      const parsed = JSON.parse(stored);
+      const merged = { ...DEFAULT_SETTINGS, ...parsed };
+      if (!merged.realtorPhotoUrl || !merged.realtorPhotoUrl.trim()) {
+        merged.realtorPhotoUrl = '/images/sergio-colussi.jpg';
+      }
+      return merged;
     } catch (e) {
       console.error('Error reading settings from storage', e);
       return DEFAULT_SETTINGS;

@@ -30,12 +30,15 @@ export default function SobrePage() {
 
         {/* Profile Detail Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-          {/* Photo — BRILHANTE, NÍTIDA E SEM ESCURECIMENTO */}
+          {/* Photo — BRILHANTE, NÍTIDA E GARANTIDA */}
           <div className="lg:col-span-5 relative">
             <div className="relative h-[480px] sm:h-[540px] w-full rounded-2xl overflow-hidden border-2 border-stone-300 shadow-xl bg-stone-200">
               <img
-                src={settings.realtorPhotoUrl || "/images/sergio-colussi.jpg"}
+                src={settings.realtorPhotoUrl && settings.realtorPhotoUrl.trim() ? settings.realtorPhotoUrl : "/images/sergio-colussi.jpg"}
                 alt={settings.realtorName || "Sérgio Colussi"}
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).src = "/images/sergio-colussi.jpg";
+                }}
                 className="w-full h-full object-cover object-top"
               />
               <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none" />
