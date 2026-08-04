@@ -51,7 +51,7 @@ export const DEFAULT_SETTINGS: SiteSettings = {
 
   phone: '(11) 99713-5790',
   whatsapp: '5511997135790',
-  email: 'contato@sergiocolussi.com.br',
+  email: 'sjcolussi@gmail.com',
 
   address: 'Av. Saudade',
   neighborhood: 'Bairro Assunção',

@@ -286,6 +286,20 @@ export class PropertyService {
         const leads: LeadSubmission[] = stored ? JSON.parse(stored) : [];
         leads.unshift(newLead);
         localStorage.setItem(LEADS_KEY, JSON.stringify(leads));
+
+        // Dispara notificação por e-mail para sjcolussi@gmail.com
+        fetch('/api/send-lead-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: lead.name,
+            phone: lead.phone,
+            email: lead.email,
+            message: lead.message,
+            propertyTitle: lead.propertyTitle,
+            type: 'lead',
+          }),
+        }).catch((err) => console.warn('Erro ao disparar e-mail de notificação:', err));
       } catch (e) {
         console.error('Error saving lead', e);
       }
@@ -316,6 +330,19 @@ export class PropertyService {
         const list: SellerSubmission[] = stored ? JSON.parse(stored) : [];
         list.unshift(newSub);
         localStorage.setItem(SELLERS_KEY, JSON.stringify(list));
+
+        // Dispara notificação por e-mail para sjcolussi@gmail.com
+        fetch('/api/send-lead-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: submission.name,
+            phone: submission.phone,
+            email: submission.email,
+            message: `Solicitação de anúncio de imóvel (${submission.propertyType || 'Imóvel'}, ${submission.city || 'Santo André'}). ${submission.message || ''}`,
+            type: 'seller',
+          }),
+        }).catch((err) => console.warn('Erro ao disparar e-mail de notificação:', err));
       } catch (e) {
         console.error('Error saving seller submission', e);
       }
