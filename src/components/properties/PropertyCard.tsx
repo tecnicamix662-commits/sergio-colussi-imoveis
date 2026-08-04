@@ -50,9 +50,9 @@ export default function PropertyCard({ property, priorityImage = false }: Proper
               {property.type}
             </span>
             {property.featured && (
-              <span className="bg-black text-white text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md border border-stone-600 flex items-center gap-1 shadow-sm">
-                <Star className="w-3 h-3 fill-white" />
-                Destaque
+              <span className="bg-black text-white text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md border border-stone-600 flex items-center gap-1.5 shadow-sm">
+                <Star className="w-3.5 h-3.5 text-[#00FF66] fill-[#00FF66] drop-shadow-[0_0_6px_rgba(0,255,102,0.9)]" />
+                <span>Destaque</span>
               </span>
             )}
             {statusBadge && (
@@ -61,21 +61,16 @@ export default function PropertyCard({ property, priorityImage = false }: Proper
               </span>
             )}
           </div>
-          <span className="bg-black/80 text-white text-[10px] font-mono font-medium px-2 py-1 rounded-md border border-stone-700">
-            {property.code}
+          <span className="bg-black/90 text-white text-[11px] font-mono font-extrabold px-2.5 py-1 rounded-md border border-stone-600 shadow-sm">
+            CÓD: {property.code}
           </span>
         </div>
 
-        {/* Price & Code inside image */}
+        {/* Price inside image */}
         <div className="absolute bottom-3 left-4 right-4 z-10 space-y-0.5">
-          <div className="flex items-center gap-2">
-            <span className="bg-black/90 text-amber-400 text-[10px] font-mono font-extrabold px-2 py-0.5 rounded border border-amber-500/40 tracking-wider shadow-sm">
-              CÓD: {property.code}
-            </span>
-            <span className="text-[10px] text-stone-200 uppercase tracking-wider font-semibold">
-              {property.purpose === 'aluguel' ? 'Valor do Aluguel' : 'Valor de Venda'}
-            </span>
-          </div>
+          <span className="text-[10px] text-stone-200 uppercase tracking-wider font-semibold block">
+            {property.purpose === 'aluguel' ? 'Valor do Aluguel' : 'Valor de Venda'}
+          </span>
           <span className="text-xl sm:text-2xl font-serif font-bold text-white tracking-tight block">
             {formatCurrency(property.price)}
             {property.purpose === 'aluguel' && <span className="text-sm font-normal text-stone-300">/mês</span>}
@@ -91,9 +86,6 @@ export default function PropertyCard({ property, priorityImage = false }: Proper
               <MapPin className="w-3.5 h-3.5 text-stone-900 shrink-0" />
               <span className="truncate">{property.neighborhood}, {property.city}</span>
             </div>
-            <span className="bg-stone-100 border border-stone-300 text-stone-950 font-mono font-bold text-[10px] px-2 py-0.5 rounded-md shrink-0 shadow-xs">
-              CÓD: {property.code}
-            </span>
           </div>
           <Link href={`/imoveis/${property.id}`} className="group/title">
             <h3 className="font-serif text-lg font-bold text-stone-950 group-hover/title:text-stone-600 transition-colors line-clamp-2 leading-snug">
