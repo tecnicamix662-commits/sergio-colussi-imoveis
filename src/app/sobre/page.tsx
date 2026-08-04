@@ -30,20 +30,18 @@ export default function SobrePage() {
 
         {/* Profile Detail Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-          {/* Photo — COLORIDA E NATURAL */}
+          {/* Photo — BRILHANTE, NÍTIDA E SEM ESCURECIMENTO */}
           <div className="lg:col-span-5 relative">
-            <div className="relative h-[480px] sm:h-[540px] w-full rounded-2xl overflow-hidden border-2 border-stone-300 shadow-md">
-              <Image
+            <div className="relative h-[480px] sm:h-[540px] w-full rounded-2xl overflow-hidden border-2 border-stone-300 shadow-xl bg-stone-200">
+              <img
                 src={settings.realtorPhotoUrl || "/images/sergio-colussi.jpg"}
                 alt={settings.realtorName || "Sérgio Colussi"}
-                fill
-                priority
-                className="object-cover object-top"
+                className="w-full h-full object-cover object-top"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-75" />
-              <div className="absolute bottom-6 left-6 right-6 space-y-1">
-                <span className="font-serif text-2xl font-bold text-white block">Sérgio Colussi</span>
-                <span className="text-xs text-stone-300 font-bold uppercase tracking-wider block">
+              <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none" />
+              <div className="absolute bottom-6 left-6 right-6 space-y-1 z-10">
+                <span className="font-serif text-2xl font-bold text-white block drop-shadow-md">Sérgio Colussi</span>
+                <span className="text-xs text-stone-200 font-bold uppercase tracking-wider block drop-shadow-sm">
                   Corretor de Imóveis | CRECI {settings.creci || '92.920-F'}
                 </span>
               </div>
