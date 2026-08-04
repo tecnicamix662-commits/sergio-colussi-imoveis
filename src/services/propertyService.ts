@@ -2,7 +2,6 @@ import { Property, PropertyFilterParams, LeadSubmission, SellerSubmission, Prope
 
 export const INITIAL_PROPERTIES: Property[] = [];
 
-const STORAGE_KEY = 'sergio_colussi_imoveis_data_v2';
 const LEADS_KEY = 'sergio_colussi_leads_v1';
 const SELLERS_KEY = 'sergio_colussi_seller_leads_v1';
 
@@ -15,18 +14,18 @@ export class PropertyService {
   }
 
   /**
-   * Sincroniza dados de imóveis com o banco de dados permanente no servidor (/api/properties).
+   * Sincroniza dados de imóveis com o Supabase via API route.
+   * Esta é a FONTE PRIMÁRIA de dados - busca sempre do servidor.
    */
   public static async syncWithServer(): Promise<Property[]> {
     if (!this.isBrowser() || isSyncing) return inMemoryCache || [];
     isSyncing = true;
     try {
-      const res = await fetch('/api/properties');
+      const res = await fetch('/api/properties', { cache: 'no-store' });
       if (res.ok) {
         const data = await res.json();
         const serverList: Property[] = data.properties || [];
         inMemoryCache = serverList;
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(serverList));
         window.dispatchEvent(new Event('properties_updated'));
         return serverList;
       }
@@ -35,37 +34,23 @@ export class PropertyService {
     } finally {
       isSyncing = false;
     }
-    return inMemoryCache || this.getProperties();
+    return inMemoryCache || [];
   }
 
   public static getProperties(): Property[] {
     if (inMemoryCache !== null) return inMemoryCache;
 
     if (!this.isBrowser()) return INITIAL_PROPERTIES;
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (!stored) {
-        this.syncWithServer();
-        return INITIAL_PROPERTIES;
-      }
-      const parsed = JSON.parse(stored);
-      inMemoryCache = parsed;
-      this.syncWithServer();
-      return parsed;
-    } catch (e) {
-      console.error('Error reading properties from storage', e);
-      return INITIAL_PROPERTIES;
-    }
+
+    // Dispara sincronização com o Supabase e retorna cache vazio
+    this.syncWithServer();
+    return INITIAL_PROPERTIES;
   }
 
-  private static saveProperties(properties: Property[]): void {
+  private static updateCache(properties: Property[]): void {
     inMemoryCache = properties;
-    if (!this.isBrowser()) return;
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(properties));
+    if (this.isBrowser()) {
       window.dispatchEvent(new Event('properties_updated'));
-    } catch (e) {
-      console.error('Error saving properties to storage', e);
     }
   }
 
@@ -186,121 +171,103 @@ export class PropertyService {
     return { types, cities, neighborhoods, condominiums };
   }
 
-  public static addProperty(data: Omit<Property, 'id' | 'code' | 'slug' | 'createdAt' | 'updatedAt'>): Property {
-    const list = [...this.getProperties()];
-    const now = new Date().toISOString();
-    const tempId = `prop-${Date.now()}`;
-    const tempCode = `SC${String(list.length + 1).padStart(3, '0')}`;
-    const slugTitle = (data.title || 'imovel')
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9]/g, '-')
-      .replace(/-+/g, '-')
-      .replace(/^-|-$/g, '');
-    const tempSlug = `${slugTitle}-${tempId}`;
+  /**
+   * Cadastra um novo imóvel no Supabase via API.
+   * Aguarda a resposta do servidor antes de atualizar o cache.
+   */
+  public static async addProperty(data: Omit<Property, 'id' | 'code' | 'slug' | 'createdAt' | 'updatedAt'>): Promise<Property> {
+    const response = await fetch('/api/properties', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
 
-    const newProperty: Property = {
-      ...data,
-      id: tempId,
-      code: tempCode,
-      slug: tempSlug,
-      createdAt: now,
-      updatedAt: now,
-    };
-
-    // Atualização otimista local
-    list.unshift(newProperty);
-    this.saveProperties(list);
-
-    // Envia para persistência permanente no servidor (/api/properties)
-    if (this.isBrowser()) {
-      fetch('/api/properties', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      })
-        .then((res) => (res.ok ? res.json() : null))
-        .then((saved: Property | null) => {
-          if (saved && saved.id) {
-            const current = [...this.getProperties()];
-            const idx = current.findIndex((p) => p.id === tempId);
-            if (idx !== -1) {
-              current[idx] = saved;
-            } else {
-              current.unshift(saved);
-            }
-            this.saveProperties(current);
-          }
-        })
-        .catch((err) => console.error('Erro ao salvar imóvel no servidor:', err));
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error || 'Erro ao cadastrar imóvel');
     }
 
-    return newProperty;
+    const saved: Property = await response.json();
+
+    // Atualiza cache local
+    const current = inMemoryCache ? [...inMemoryCache] : [];
+    current.unshift(saved);
+    this.updateCache(current);
+
+    return saved;
   }
 
-  public static updateProperty(id: string, data: Partial<Property>): Property | null {
-    const list = [...this.getProperties()];
-    const index = list.findIndex((p) => p.id === id);
-    if (index === -1) return null;
+  /**
+   * Atualiza um imóvel existente no Supabase via API.
+   * Aguarda a resposta do servidor antes de atualizar o cache.
+   */
+  public static async updateProperty(id: string, data: Partial<Property>): Promise<Property | null> {
+    const response = await fetch('/api/properties', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, ...data }),
+    });
 
-    const existing = list[index];
-    const updated: Property = {
-      ...existing,
-      ...data,
-      id: existing.id,
-      code: existing.code, // CÓDIGO NUNCA MUDA AO EDITAR
-      updatedAt: new Date().toISOString(),
-    };
+    if (!response.ok) {
+      console.error('Erro ao atualizar imóvel no servidor');
+      return null;
+    }
 
-    list[index] = updated;
-    this.saveProperties(list);
+    const updated: Property = await response.json();
 
-    // Envia atualização para o servidor
-    if (this.isBrowser()) {
-      fetch('/api/properties', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, ...data }),
-      }).catch((err) => console.error('Erro ao atualizar imóvel no servidor:', err));
+    // Atualiza cache local
+    if (inMemoryCache) {
+      const list = [...inMemoryCache];
+      const index = list.findIndex((p) => p.id === id);
+      if (index !== -1) {
+        list[index] = updated;
+      }
+      this.updateCache(list);
     }
 
     return updated;
   }
 
-  public static deleteProperty(id: string): boolean {
-    const list = this.getProperties();
-    const filtered = list.filter((p) => p.id !== id);
-    if (filtered.length === list.length) return false;
-    this.saveProperties(filtered);
+  /**
+   * Exclui um imóvel do Supabase via API.
+   * Aguarda confirmação do servidor antes de atualizar o cache.
+   */
+  public static async deleteProperty(id: string): Promise<boolean> {
+    const response = await fetch(`/api/properties?id=${encodeURIComponent(id)}`, {
+      method: 'DELETE',
+    });
 
-    // Envia requisição de exclusão para o servidor (código não é reutilizado)
-    if (this.isBrowser()) {
-      fetch(`/api/properties?id=${encodeURIComponent(id)}`, {
-        method: 'DELETE',
-      }).catch((err) => console.error('Erro ao excluir imóvel no servidor:', err));
+    if (!response.ok) {
+      console.error('Erro ao excluir imóvel no servidor');
+      return false;
+    }
+
+    // Atualiza cache local
+    if (inMemoryCache) {
+      const filtered = inMemoryCache.filter((p) => p.id !== id);
+      this.updateCache(filtered);
     }
 
     return true;
   }
 
-  public static toggleActive(id: string): boolean {
+  public static async toggleActive(id: string): Promise<boolean> {
     const property = this.getPropertyById(id);
     if (!property) return false;
-    this.updateProperty(id, { active: !property.active });
+    await this.updateProperty(id, { active: !property.active });
     return true;
   }
 
-  public static toggleFeatured(id: string): boolean {
+  public static async toggleFeatured(id: string): Promise<boolean> {
     const property = this.getPropertyById(id);
     if (!property) return false;
-    this.updateProperty(id, { featured: !property.featured });
+    await this.updateProperty(id, { featured: !property.featured });
     return true;
   }
 
   public static resetToDefaults(): void {
+    inMemoryCache = [];
     if (this.isBrowser()) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_PROPERTIES));
       window.dispatchEvent(new Event('properties_updated'));
     }
   }

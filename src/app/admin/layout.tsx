@@ -41,7 +41,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }, [pathname, router]);
 
   if (pathname === '/admin/login') {
-    return <div className="min-h-screen bg-slate-950 text-slate-100">{children}</div>;
+    return <div className="min-h-screen bg-white text-stone-900">{children}</div>;
   }
 
   if (isAuthenticated === false) return null;

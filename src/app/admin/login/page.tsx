@@ -34,24 +34,24 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col justify-center items-center px-4 py-12 relative overflow-hidden">
-      {/* Glow background */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl pointer-events-none" />
+    <div className="min-h-screen bg-white flex flex-col justify-center items-center px-4 py-12 relative overflow-hidden">
+      {/* Subtle background circle */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-stone-100 rounded-full blur-3xl pointer-events-none" />
 
       <div className="w-full max-w-md space-y-8 relative z-10">
         {/* Brand */}
         <div className="text-center space-y-3">
           <Link href="/" className="inline-flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-gold-gradient p-[1px] shadow-glow-gold">
-              <div className="w-full h-full bg-navy-900 rounded-[11px] flex items-center justify-center">
-                <Building2 className="w-6 h-6 text-gold-500" />
+            <div className="w-12 h-12 rounded-xl bg-stone-950 p-[1px] shadow-md">
+              <div className="w-full h-full bg-stone-950 rounded-[11px] flex items-center justify-center">
+                <Building2 className="w-6 h-6 text-white" />
               </div>
             </div>
           </Link>
-          <h1 className="font-serif text-3xl font-bold text-white tracking-tight">
+          <h1 className="font-serif text-3xl font-bold text-stone-950 tracking-tight">
             Sérgio Colussi Imóveis
           </h1>
-          <p className="text-xs text-gold-400 font-semibold uppercase tracking-widest">
+          <p className="text-xs text-stone-600 font-bold uppercase tracking-widest">
             Painel de Gestão Administrativa
           </p>
         </div>
@@ -134,7 +134,7 @@ export default function AdminLoginPage() {
         </div>
 
         <div className="text-center">
-          <Link href="/" className="text-xs text-slate-400 hover:text-gold-400 transition-colors">
+          <Link href="/" className="text-xs text-stone-600 hover:text-stone-950 font-bold transition-colors">
             ← Voltar para o site público
           </Link>
         </div>

@@ -1,114 +1,195 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import { getSupabaseAdmin } from '@/lib/supabase';
 import { Property } from '@/types/property';
 
-const DATA_DIR = path.join(process.cwd(), 'data');
-const FILE_PATH = path.join(DATA_DIR, 'properties.json');
-const CLOUD_DB_URL = 'https://jsonblob.com/api/jsonBlob/019fc88c-27a8-74e3-853c-c41f5c32cea1';
+const TABLE = 'properties';
 
-interface DatabaseSchema {
-  nextCodeIndex: number;
-  properties: Property[];
+/* ───────────────────────────────────────────────
+   Mapeamento entre colunas do Supabase e o tipo Property do app.
+
+   Colunas existentes no Supabase (tabela "properties"):
+     id (uuid PK), title, purpose, price, condominium (numeric=condoFee),
+     iptu (numeric=iptuFee), city, neighborhood, address, description,
+     owner (=ownerName), status, area, bedrooms, suites, bathrooms,
+     garages (=parking), features (jsonb), differentials (jsonb),
+     images (jsonb), created_at, updated_at
+
+   Campos extras do app armazenados em "differentials" (jsonb):
+     code, slug, type, condominium_name, mainImage, featured, active,
+     realtorName, ownerPhone, ownerEmail, ownerNotes
+   ─────────────────────────────────────────────── */
+
+interface DbRow {
+  id: string;
+  title: string | null;
+  purpose: string | null;
+  price: number | null;
+  condominium: number | null;
+  iptu: number | null;
+  city: string | null;
+  neighborhood: string | null;
+  address: string | null;
+  description: string | null;
+  owner: string | null;
+  status: string | null;
+  area: number | null;
+  bedrooms: number | null;
+  suites: number | null;
+  bathrooms: number | null;
+  garages: number | null;
+  features: string[] | null;
+  differentials: Record<string, unknown> | null;
+  images: string[] | null;
+  created_at: string | null;
+  updated_at: string | null;
 }
 
-function sanitizeDb(parsed: any): DatabaseSchema {
-  let nextIndex = typeof parsed?.nextCodeIndex === 'number' ? parsed.nextCodeIndex : 1;
-  const list: Property[] = Array.isArray(parsed?.properties) ? parsed.properties : [];
+/** Converte uma linha do Supabase para o tipo Property do app */
+function rowToProperty(row: DbRow): Property {
+  const diff = (row.differentials || {}) as Record<string, any>;
+  return {
+    id: row.id,
+    code: diff.code || '',
+    title: row.title || '',
+    slug: diff.slug || row.id,
+    price: row.price || 0,
+    condoFee: row.condominium || undefined,
+    iptuFee: row.iptu || undefined,
+    type: diff.type || 'apartamento',
+    purpose: (row.purpose as any) || 'venda',
+    status: (row.status as any) || 'disponivel',
+    city: row.city || '',
+    neighborhood: row.neighborhood || '',
+    condominium: diff.condominium_name || undefined,
+    address: row.address || undefined,
+    area: row.area || 0,
+    bedrooms: row.bedrooms || 0,
+    suites: row.suites || 0,
+    bathrooms: row.bathrooms || 0,
+    parking: row.garages || 0,
+    description: row.description || '',
+    features: Array.isArray(row.features) ? row.features : [],
+    images: Array.isArray(row.images) ? row.images : [],
+    mainImage: diff.mainImage || (Array.isArray(row.images) && row.images.length > 0 ? row.images[0] : ''),
+    featured: diff.featured === true,
+    active: diff.active !== false, // default true
+    realtorName: diff.realtorName || undefined,
+    ownerName: row.owner || undefined,
+    ownerPhone: diff.ownerPhone || undefined,
+    ownerEmail: diff.ownerEmail || undefined,
+    ownerNotes: diff.ownerNotes || undefined,
+    createdAt: row.created_at || new Date().toISOString(),
+    updatedAt: row.updated_at || new Date().toISOString(),
+  };
+}
 
-  list.forEach((p) => {
-    if (p.code && p.code.startsWith('SC')) {
-      const numPart = parseInt(p.code.replace('SC', ''), 10);
-      if (!isNaN(numPart) && numPart >= nextIndex) {
-        nextIndex = numPart + 1;
+/** Converte os dados do app para o formato do Supabase */
+function propertyToRow(data: Partial<Property> & { code?: string; slug?: string }): Partial<DbRow> {
+  const row: Record<string, unknown> = {};
+  const diff: Record<string, unknown> = {};
+
+  // Campos mapeados diretamente
+  if (data.title !== undefined) row.title = data.title;
+  if (data.purpose !== undefined) row.purpose = data.purpose;
+  if (data.price !== undefined) row.price = data.price;
+  if (data.condoFee !== undefined) row.condominium = data.condoFee || null;
+  if (data.iptuFee !== undefined) row.iptu = data.iptuFee || null;
+  if (data.city !== undefined) row.city = data.city;
+  if (data.neighborhood !== undefined) row.neighborhood = data.neighborhood;
+  if (data.address !== undefined) row.address = data.address || null;
+  if (data.description !== undefined) row.description = data.description;
+  if (data.ownerName !== undefined) row.owner = data.ownerName || null;
+  if (data.status !== undefined) row.status = data.status;
+  if (data.area !== undefined) row.area = data.area;
+  if (data.bedrooms !== undefined) row.bedrooms = data.bedrooms;
+  if (data.suites !== undefined) row.suites = data.suites;
+  if (data.bathrooms !== undefined) row.bathrooms = data.bathrooms;
+  if (data.parking !== undefined) row.garages = data.parking;
+  if (data.features !== undefined) row.features = data.features;
+  if (data.images !== undefined) row.images = data.images;
+
+  // Campos extras armazenados em differentials
+  if (data.code !== undefined) diff.code = data.code;
+  if (data.slug !== undefined) diff.slug = data.slug;
+  if (data.type !== undefined) diff.type = data.type;
+  if (data.condominium !== undefined) diff.condominium_name = data.condominium;
+  if (data.mainImage !== undefined) diff.mainImage = data.mainImage;
+  if (data.featured !== undefined) diff.featured = data.featured;
+  if (data.active !== undefined) diff.active = data.active;
+  if (data.realtorName !== undefined) diff.realtorName = data.realtorName;
+  if (data.ownerPhone !== undefined) diff.ownerPhone = data.ownerPhone;
+  if (data.ownerEmail !== undefined) diff.ownerEmail = data.ownerEmail;
+  if (data.ownerNotes !== undefined) diff.ownerNotes = data.ownerNotes;
+
+  if (Object.keys(diff).length > 0) {
+    row.differentials = diff;
+  }
+
+  row.updated_at = new Date().toISOString();
+
+  return row as Partial<DbRow>;
+}
+
+/** Conta os códigos SC existentes para gerar o próximo */
+async function getNextCodeIndex(): Promise<number> {
+  const supabase = getSupabaseAdmin();
+  const { data } = await supabase
+    .from(TABLE)
+    .select('differentials')
+    .not('differentials', 'is', null);
+
+  let maxIndex = 0;
+  if (data) {
+    for (const row of data) {
+      const diff = row.differentials as Record<string, any> | null;
+      if (diff?.code && typeof diff.code === 'string' && diff.code.startsWith('SC')) {
+        const num = parseInt(diff.code.replace('SC', ''), 10);
+        if (!isNaN(num) && num > maxIndex) maxIndex = num;
       }
     }
-  });
-
-  return { nextCodeIndex: nextIndex, properties: list };
-}
-
-function readDatabaseLocal(): DatabaseSchema {
-  try {
-    if (!fs.existsSync(DATA_DIR)) {
-      fs.mkdirSync(DATA_DIR, { recursive: true });
-    }
-    if (!fs.existsSync(FILE_PATH)) {
-      const initial: DatabaseSchema = { nextCodeIndex: 1, properties: [] };
-      fs.writeFileSync(FILE_PATH, JSON.stringify(initial, null, 2), 'utf-8');
-      return initial;
-    }
-    const raw = fs.readFileSync(FILE_PATH, 'utf-8');
-    return sanitizeDb(JSON.parse(raw));
-  } catch (err) {
-    return { nextCodeIndex: 1, properties: [] };
   }
+  return maxIndex + 1;
 }
 
-function writeDatabaseLocal(data: DatabaseSchema): void {
-  try {
-    if (!fs.existsSync(DATA_DIR)) {
-      fs.mkdirSync(DATA_DIR, { recursive: true });
-    }
-    fs.writeFileSync(FILE_PATH, JSON.stringify(data, null, 2), 'utf-8');
-  } catch (err) {
-    // Ignore local filesystem write errors on serverless
-  }
-}
-
-async function readDatabase(): Promise<DatabaseSchema> {
-  try {
-    const res = await fetch(CLOUD_DB_URL, { cache: 'no-store' });
-    if (res.ok) {
-      const data = await res.json();
-      if (data && Array.isArray(data.properties)) {
-        return sanitizeDb(data);
-      }
-    }
-  } catch (err) {
-    console.warn('Fallback to local database:', err);
-  }
-  return readDatabaseLocal();
-}
-
-async function writeDatabase(data: DatabaseSchema): Promise<void> {
-  const sanitized = sanitizeDb(data);
-  writeDatabaseLocal(sanitized);
-  try {
-    await fetch(CLOUD_DB_URL, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(sanitized),
-    });
-  } catch (err) {
-    console.error('Error syncing to cloud DB:', err);
-  }
-}
-
-function generateCode(index: number): string {
-  return `SC${String(index).padStart(3, '0')}`;
-}
-
+// ═══════════════════════════════════════════
+// GET - Listar todos os imóveis
+// ═══════════════════════════════════════════
 export async function GET() {
-  const db = await readDatabase();
-  return NextResponse.json(db, {
-    headers: {
-      'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
-    },
-  });
+  try {
+    const supabase = getSupabaseAdmin();
+    const { data, error } = await supabase
+      .from(TABLE)
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('Supabase GET error:', error);
+      return NextResponse.json({ properties: [] }, { status: 200 });
+    }
+
+    const properties = (data || []).map(rowToProperty);
+    return NextResponse.json({ properties }, {
+      headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0' },
+    });
+  } catch (err: any) {
+    console.error('Error fetching properties:', err);
+    return NextResponse.json({ properties: [] }, { status: 200 });
+  }
 }
 
+// ═══════════════════════════════════════════
+// POST - Cadastrar novo imóvel
+// ═══════════════════════════════════════════
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const db = await readDatabase();
+    const supabase = getSupabaseAdmin();
 
-    // Generate unique code: SC001, SC002, SC003...
-    const codeNumber = db.nextCodeIndex;
-    const code = generateCode(codeNumber);
-    db.nextCodeIndex = codeNumber + 1;
+    // Gera código sequencial SC001, SC002...
+    const codeNumber = await getNextCodeIndex();
+    const code = `SC${String(codeNumber).padStart(3, '0')}`;
 
-    const id = `prop-${Date.now()}`;
+    // Gera slug
     const slugTitle = (body.title || 'imovel')
       .toLowerCase()
       .normalize('NFD')
@@ -117,20 +198,42 @@ export async function POST(request: Request) {
       .replace(/-+/g, '-')
       .replace(/^-|-$/g, '');
     const slug = `${slugTitle}-${code.toLowerCase()}`;
-    const now = new Date().toISOString();
 
-    const newProperty: Property = {
-      ...body,
-      id,
-      code,
-      slug,
-      createdAt: now,
-      updatedAt: now,
-    };
+    // Monta o objeto completo para o Supabase
+    const fullData = { ...body, code, slug };
+    const row = propertyToRow(fullData);
 
-    db.properties.unshift(newProperty);
-    await writeDatabase(db);
+    // Merge differentials com code e slug
+    const diff = (row.differentials || {}) as Record<string, any>;
+    diff.code = code;
+    diff.slug = slug;
+    diff.type = body.type || 'apartamento';
+    diff.mainImage = body.mainImage || (Array.isArray(body.images) && body.images.length > 0 ? body.images[0] : '');
+    diff.featured = body.featured === true;
+    diff.active = body.active !== false;
+    diff.condominium_name = body.condominium || null;
+    diff.realtorName = body.realtorName || null;
+    diff.ownerPhone = body.ownerPhone || null;
+    diff.ownerEmail = body.ownerEmail || null;
+    diff.ownerNotes = body.ownerNotes || null;
+    row.differentials = diff;
 
+    // Remove campos que não existem no Supabase
+    delete (row as any).id;
+    row.created_at = new Date().toISOString();
+
+    const { data, error } = await supabase
+      .from(TABLE)
+      .insert(row)
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Supabase INSERT error:', error);
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    const newProperty = rowToProperty(data);
     return NextResponse.json(newProperty, { status: 201 });
   } catch (err: any) {
     console.error('Error adding property:', err);
@@ -138,6 +241,9 @@ export async function POST(request: Request) {
   }
 }
 
+// ═══════════════════════════════════════════
+// PUT - Atualizar imóvel existente
+// ═══════════════════════════════════════════
 export async function PUT(request: Request) {
   try {
     const body = await request.json();
@@ -147,34 +253,51 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: 'ID do imóvel é obrigatório' }, { status: 400 });
     }
 
-    const db = await readDatabase();
-    const index = db.properties.findIndex((p) => p.id === id);
+    const supabase = getSupabaseAdmin();
 
-    if (index === -1) {
+    // Lê o registro atual para preservar differentials existentes
+    const { data: existing } = await supabase
+      .from(TABLE)
+      .select('differentials')
+      .eq('id', id)
+      .single();
+
+    const existingDiff = (existing?.differentials || {}) as Record<string, any>;
+    const row = propertyToRow(dataToUpdate);
+
+    // Merge differentials: preserva valores antigos, sobrescreve com novos
+    const newDiff = { ...existingDiff, ...((row.differentials || {}) as Record<string, any>) };
+
+    // Garante que o código nunca muda na edição
+    if (existingDiff.code) newDiff.code = existingDiff.code;
+    row.differentials = newDiff;
+
+    const { data, error } = await supabase
+      .from(TABLE)
+      .update(row)
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Supabase UPDATE error:', error);
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    if (!data) {
       return NextResponse.json({ error: 'Imóvel não encontrado' }, { status: 404 });
     }
 
-    const existing = db.properties[index];
-
-    const updatedProperty: Property = {
-      ...existing,
-      ...dataToUpdate,
-      id: existing.id,
-      code: existing.code, // CÓDIGO NUNCA MUDA AO EDITAR
-      createdAt: existing.createdAt,
-      updatedAt: new Date().toISOString(),
-    };
-
-    db.properties[index] = updatedProperty;
-    await writeDatabase(db);
-
-    return NextResponse.json(updatedProperty);
+    return NextResponse.json(rowToProperty(data));
   } catch (err: any) {
     console.error('Error updating property:', err);
     return NextResponse.json({ error: err.message || 'Erro ao atualizar imóvel' }, { status: 500 });
   }
 }
 
+// ═══════════════════════════════════════════
+// DELETE - Excluir imóvel
+// ═══════════════════════════════════════════
 export async function DELETE(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -184,15 +307,20 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ error: 'ID do imóvel é obrigatório' }, { status: 400 });
     }
 
-    const db = await readDatabase();
-    const initialCount = db.properties.length;
-    db.properties = db.properties.filter((p) => p.id !== id);
+    const supabase = getSupabaseAdmin();
+    const { error, count } = await supabase
+      .from(TABLE)
+      .delete({ count: 'exact' })
+      .eq('id', id);
 
-    if (db.properties.length === initialCount) {
-      return NextResponse.json({ error: 'Imóvel não encontrado' }, { status: 404 });
+    if (error) {
+      console.error('Supabase DELETE error:', error);
+      return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    await writeDatabase(db);
+    if (count === 0) {
+      return NextResponse.json({ error: 'Imóvel não encontrado' }, { status: 404 });
+    }
 
     return NextResponse.json({ success: true });
   } catch (err: any) {

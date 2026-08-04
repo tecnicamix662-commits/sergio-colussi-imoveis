@@ -46,7 +46,8 @@ export default function AdminImoveisPage() {
   const [loading, setLoading] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
 
-  const loadData = useCallback(() => {
+  const loadData = useCallback(async () => {
+    await PropertyService.syncWithServer();
     const list = PropertyService.getProperties();
     setProperties(list);
   }, []);
@@ -83,13 +84,13 @@ export default function AdminImoveisPage() {
   }, [properties, search, filterStatus, filterType]);
 
   const handleToggleFeatured = async (id: string) => {
-    PropertyService.toggleFeatured(id);
+    await PropertyService.toggleFeatured(id);
     loadData();
   };
 
   const handleToggleStatus = async (id: string, currentStatus: string) => {
     const next = currentStatus === 'disponivel' ? 'inativo' : 'disponivel';
-    PropertyService.updateProperty(id, {
+    await PropertyService.updateProperty(id, {
       status: next as any,
       active: next === 'disponivel',
     });
@@ -98,9 +99,9 @@ export default function AdminImoveisPage() {
 
   const handleDelete = async (id: string) => {
     setLoading(true);
-    PropertyService.deleteProperty(id);
+    await PropertyService.deleteProperty(id);
     setDeleteConfirm(null);
-    loadData();
+    await loadData();
     setLoading(false);
   };
 

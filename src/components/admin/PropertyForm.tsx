@@ -245,11 +245,10 @@ function formatToBRL(value: string | number): { display: string; numeric: number
 
     setSaving(true);
     try {
-      await new Promise((r) => setTimeout(r, 400));
       if (mode === 'create') {
-        PropertyService.addProperty(updatedForm);
+        await PropertyService.addProperty(updatedForm);
       } else if (initialData) {
-        PropertyService.updateProperty(initialData.id, updatedForm);
+        await PropertyService.updateProperty(initialData.id, updatedForm);
       }
       setSavedMsg('success');
       setTimeout(() => router.push('/admin/imoveis'), 1200);

@@ -16,12 +16,16 @@ export interface ProcessedImageResult {
 export class ImageService {
   /**
    * Converte um arquivo de foto do computador para uma URL pronta para salvar no imóvel.
+   * Prioridade: /api/upload (Supabase Storage) → Cloudinary → DataURL local
    */
   static async uploadImage(file: File): Promise<ProcessedImageResult> {
-    // 1. Tenta fazer upload para a API do servidor (salva em public/uploads/ de forma permanente)
+    // 1. Comprime a imagem antes do upload para otimizar tamanho
+    const compressedFile = await this.compressToFile(file);
+
+    // 2. Envia para Supabase Storage via /api/upload
     try {
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append('file', compressedFile);
 
       const response = await fetch('/api/upload', {
         method: 'POST',
@@ -45,7 +49,7 @@ export class ImageService {
     if (cloudName && uploadPreset) {
       try {
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append('file', compressedFile);
         formData.append('upload_preset', uploadPreset);
 
         const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
@@ -85,10 +89,17 @@ export class ImageService {
     const fileArray = Array.from(files).filter(f => f.type.startsWith('image/'));
     if (fileArray.length === 0) return [];
 
-    // Tenta upload em lote direto para a API /api/upload
+    // Comprime todos os arquivos antes do upload
+    const compressedFiles: File[] = [];
+    for (const file of fileArray) {
+      const compressed = await this.compressToFile(file);
+      compressedFiles.push(compressed);
+    }
+
+    // Tenta upload em lote direto para a API /api/upload (Supabase Storage)
     try {
       const formData = new FormData();
-      fileArray.forEach(f => formData.append('files', f));
+      compressedFiles.forEach(f => formData.append('files', f));
 
       const response = await fetch('/api/upload', {
         method: 'POST',
@@ -119,6 +130,66 @@ export class ImageService {
     }
 
     return results;
+  }
+
+  /**
+   * Comprime uma imagem e retorna como File (para upload via FormData)
+   */
+  private static compressToFile(file: File, maxWidth = 1600, maxHeight = 1200, quality = 0.82): Promise<File> {
+    return new Promise((resolve) => {
+      // Se o arquivo já é pequeno (<500KB), não precisa comprimir
+      if (file.size < 500 * 1024) {
+        resolve(file);
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          let width = img.width;
+          let height = img.height;
+
+          if (width > maxWidth || height > maxHeight) {
+            if (width / height > maxWidth / maxHeight) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            } else {
+              width = Math.round((width * maxHeight) / height);
+              height = maxHeight;
+            }
+          }
+
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) { resolve(file); return; }
+
+          ctx.drawImage(img, 0, 0, width, height);
+
+          canvas.toBlob(
+            (blob) => {
+              if (blob) {
+                const compressedFile = new File([blob], file.name, {
+                  type: blob.type,
+                  lastModified: Date.now(),
+                });
+                resolve(compressedFile);
+              } else {
+                resolve(file);
+              }
+            },
+            'image/webp',
+            quality
+          );
+        };
+        img.onerror = () => resolve(file);
+        img.src = e.target?.result as string;
+      };
+      reader.onerror = () => resolve(file);
+      reader.readAsDataURL(file);
+    });
   }
 
   /**

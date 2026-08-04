@@ -14,10 +14,13 @@ export default function EditarImovelPage() {
   const [property, setProperty] = useState<Property | null | undefined>(undefined); // undefined = loading
 
   useEffect(() => {
-    if (id) {
+    const loadProperty = async () => {
+      if (!id) return;
+      await PropertyService.syncWithServer();
       const found = PropertyService.getPropertyById(id);
       setProperty(found ?? null);
-    }
+    };
+    loadProperty();
   }, [id]);
 
   if (property === undefined) {
