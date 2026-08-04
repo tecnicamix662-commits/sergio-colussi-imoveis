@@ -209,8 +209,8 @@ export class PropertyService {
     });
 
     if (!response.ok) {
-      console.error('Erro ao atualizar imóvel no servidor');
-      return null;
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error || 'Erro ao atualizar imóvel no servidor');
     }
 
     const updated: Property = await response.json();

@@ -9,7 +9,7 @@ import { Property, PropertyType, PropertyPurpose, PropertyStatus } from '@/types
 import {
   Save, ArrowLeft, PlusCircle, X, Star, Loader2, Grip,
   Upload, Camera, Image as ImageIcon, CheckCircle2, AlertCircle,
-  Trash2, ChevronUp, ChevronDown, FolderOpen, Shield, User,
+  Trash2, ChevronUp, ChevronDown, FolderOpen, Shield, User, FileText,
 } from 'lucide-react';
 
 export type PropertyFormData = Omit<Property, 'id' | 'code' | 'slug' | 'createdAt' | 'updatedAt'>;
@@ -69,7 +69,10 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [saving, setSaving] = useState(false);
+  const [saveType, setSaveType] = useState<'publish' | 'draft' | null>(null);
   const [savedMsg, setSavedMsg] = useState<'success' | 'error' | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successDetails, setSuccessDetails] = useState<string | null>(null);
   const [featureInput, setFeatureInput] = useState('');
   const [activeSection, setActiveSection] = useState<'basico' | 'detalhes' | 'fotos' | 'proprietario' | 'status'>('basico');
   const [uploading, setUploading] = useState(false);
@@ -209,41 +212,59 @@ function formatToBRL(value: string | number): { display: string; numeric: number
     update('features', form.features.filter((f) => f !== feat));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const executeSave = async (isDraft: boolean = false) => {
+    setSavedMsg(null);
+    setErrorMessage(null);
+    setSuccessDetails(null);
 
-    if (!form.title.trim()) {
+    if (!form.title || !form.title.trim()) {
       setActiveSection('basico');
       setSavedMsg('error');
-      alert('⚠️ Por favor preencha o Título do Imóvel.');
+      setErrorMessage('Por favor, preencha o Título do Imóvel.');
       return;
     }
 
-    const priceVal = form.price || formatToBRL(priceInput).numeric;
+    const priceVal = form.price > 0 ? form.price : formatToBRL(priceInput).numeric;
     if (!priceVal || priceVal <= 0) {
       setActiveSection('basico');
       setSavedMsg('error');
-      alert('⚠️ Por favor informe o Preço do Imóvel (ex: 5.000.000,00).');
+      setErrorMessage('Por favor, informe um Preço válido para o Imóvel (ex: 500.000,00).');
       return;
     }
 
     if (!form.city) {
       setActiveSection('basico');
       setSavedMsg('error');
-      alert('⚠️ Por favor selecione a Cidade do Imóvel.');
+      setErrorMessage('Por favor, selecione a Cidade do Imóvel.');
       return;
     }
 
-    if (!form.neighborhood) {
+    if (!form.neighborhood || !form.neighborhood.trim()) {
       setActiveSection('basico');
       setSavedMsg('error');
-      alert('⚠️ Por favor informe o Bairro do Imóvel.');
+      setErrorMessage('Por favor, informe o Bairro do Imóvel.');
       return;
     }
 
-    const updatedForm = { ...form, price: priceVal };
+    if (!form.description || !form.description.trim()) {
+      setActiveSection('basico');
+      setSavedMsg('error');
+      setErrorMessage('Por favor, preencha a Descrição Completa do Imóvel.');
+      return;
+    }
+
+    const targetStatus: PropertyStatus = isDraft ? 'inativo' : (form.status === 'inativo' ? 'disponivel' : form.status || 'disponivel');
+    const targetActive = !isDraft && targetStatus !== 'inativo';
+
+    const updatedForm = {
+      ...form,
+      price: priceVal,
+      status: targetStatus,
+      active: targetActive,
+    };
 
     setSaving(true);
+    setSaveType(isDraft ? 'draft' : 'publish');
     try {
       if (mode === 'create') {
         await PropertyService.addProperty(updatedForm);
@@ -251,11 +272,23 @@ function formatToBRL(value: string | number): { display: string; numeric: number
         await PropertyService.updateProperty(initialData.id, updatedForm);
       }
       setSavedMsg('success');
-      setTimeout(() => router.push('/admin/imoveis'), 1200);
-    } catch {
+      setSuccessDetails(
+        isDraft
+          ? '📋 Rascunho salvo com sucesso! O imóvel foi gravado como inativo e não aparecerá no site público até ser publicado.'
+          : '🚀 Imóvel publicado com sucesso no site! Redirecionando para a lista...'
+      );
+      setTimeout(() => router.push('/admin/imoveis'), 1400);
+    } catch (err: any) {
+      console.error('Erro ao salvar imóvel:', err);
       setSavedMsg('error');
+      setErrorMessage(err.message || 'Erro ao salvar imóvel no servidor. Verifique os dados e tente novamente.');
       setSaving(false);
     }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await executeSave(false);
   };
 
   const sections = [
@@ -288,14 +321,38 @@ function formatToBRL(value: string | number): { display: string; numeric: number
             <p className="text-stone-600 text-xs font-semibold mt-1">Código de Referência: {initialData.code}</p>
           )}
         </div>
-        <button
-          type="submit"
-          disabled={saving}
-          className="px-6 py-3 rounded-xl bg-stone-950 hover:bg-black text-white font-extrabold text-xs uppercase tracking-wider shadow-md transition-all flex items-center gap-2 disabled:opacity-50 cursor-pointer"
-        >
-          {saving ? <Loader2 className="w-4 h-4 animate-spin text-white" /> : <Save className="w-4 h-4 text-white" />}
-          <span>{saving ? 'Salvando...' : mode === 'create' ? 'Publicar Imóvel' : 'Salvar Alterações'}</span>
-        </button>
+
+        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+          {/* Botão Salvar Rascunho */}
+          <button
+            type="button"
+            disabled={saving}
+            onClick={() => executeSave(true)}
+            className="px-4 py-3 rounded-xl bg-white border border-stone-300 hover:border-stone-400 hover:bg-stone-100 text-stone-900 font-bold text-xs tracking-wide shadow-sm transition-all flex items-center gap-2 disabled:opacity-50 cursor-pointer"
+          >
+            {saving && saveType === 'draft' ? (
+              <Loader2 className="w-4 h-4 animate-spin text-stone-700" />
+            ) : (
+              <FileText className="w-4 h-4 text-stone-600" />
+            )}
+            <span>{saving && saveType === 'draft' ? 'Salvando Rascunho...' : 'Salvar Rascunho'}</span>
+          </button>
+
+          {/* Botão Publicar Imóvel */}
+          <button
+            type="button"
+            disabled={saving}
+            onClick={() => executeSave(false)}
+            className="px-6 py-3 rounded-xl bg-stone-950 hover:bg-black text-white font-extrabold text-xs uppercase tracking-wider shadow-lg transition-all transform hover:scale-[1.02] flex items-center gap-2 disabled:opacity-50 cursor-pointer"
+          >
+            {saving && saveType === 'publish' ? (
+              <Loader2 className="w-4 h-4 animate-spin text-white" />
+            ) : (
+              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            )}
+            <span>{saving && saveType === 'publish' ? 'Publicando...' : mode === 'create' ? 'Publicar Imóvel' : 'Salvar Alterações'}</span>
+          </button>
+        </div>
       </div>
 
       {/* Status Banner */}
@@ -305,10 +362,11 @@ function formatToBRL(value: string | number): { display: string; numeric: number
             ? 'bg-emerald-50 border-emerald-300 text-emerald-900'
             : 'bg-red-50 border-red-300 text-red-900'
         }`}>
-          {savedMsg === 'success'
-            ? <><CheckCircle2 className="w-4 h-4 text-emerald-700" /> Imóvel salvo com sucesso! Redirecionando...</>
-            : <><AlertCircle className="w-4 h-4 text-red-700" /> Erro ao salvar. Verifique os campos obrigatórios.</>
-          }
+          {savedMsg === 'success' ? (
+            <><CheckCircle2 className="w-4 h-4 text-emerald-700" /> {successDetails || 'Imóvel salvo com sucesso! Redirecionando...'}</>
+          ) : (
+            <><AlertCircle className="w-4 h-4 text-red-700" /> {errorMessage || 'Erro ao salvar. Verifique os campos obrigatórios.'}</>
+          )}
         </div>
       )}
 
@@ -894,34 +952,53 @@ function formatToBRL(value: string | number): { display: string; numeric: number
         )}
       </div>
 
-      {/* Submit Action Bar */}
-      <div className="pt-4 flex items-center justify-between">
-        <button type="button" onClick={() => router.push('/admin/imoveis')} className="px-4 py-2.5 rounded-xl border border-stone-300 text-stone-700 hover:text-stone-950 text-xs font-bold transition flex items-center gap-2">
-          <ArrowLeft className="w-3.5 h-3.5" /> Voltar aos Imóveis
-        </button>
-        <button
-          type="submit"
-          disabled={saving}
-          className="px-8 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm uppercase tracking-wider shadow-lg transition-all flex items-center gap-2 disabled:opacity-50"
-        >
-          {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
-          <span>{saving ? 'Salvando...' : mode === 'create' ? 'Publicar Imóvel' : 'Salvar Alterações'}</span>
-        </button>
-      </div>
+      {/* Floating Sticky Save Bar (Desktop & Mobile) */}
+      <div className="sticky bottom-4 z-30 bg-white/95 backdrop-blur-md border border-stone-300 shadow-2xl rounded-2xl p-3 px-5 flex flex-col sm:flex-row items-center justify-between gap-3 mt-8">
+        <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
+          <button
+            type="button"
+            onClick={() => router.push('/admin/imoveis')}
+            className="text-xs text-stone-600 hover:text-stone-950 font-bold flex items-center gap-1 transition-colors"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Voltar aos Imóveis</span>
+          </button>
+          <span className="text-[11px] font-semibold text-stone-600 bg-stone-100 px-2.5 py-1 rounded-lg border border-stone-200">
+            {form.active ? '🟢 Status: Visível no site' : '🔒 Status: Rascunho / Inativo'}
+          </span>
+        </div>
 
-      {/* Floating Sticky Save Bar on Mobile & Desktop */}
-      <div className="fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-stone-300 p-3 px-4 shadow-2xl flex items-center justify-between md:hidden">
-        <button type="button" onClick={() => router.push('/admin/imoveis')} className="text-xs text-stone-600 font-bold">
-          Cancelar
-        </button>
-        <button
-          type="submit"
-          disabled={saving}
-          className="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg flex items-center gap-2"
-        >
-          {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-          <span>{saving ? 'Salvando...' : 'Salvar Imóvel'}</span>
-        </button>
+        <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-end">
+          {/* Botão Rascunho no Rodapé */}
+          <button
+            type="button"
+            disabled={saving}
+            onClick={() => executeSave(true)}
+            className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-white border border-stone-300 hover:bg-stone-100 text-stone-900 font-bold text-xs tracking-wide shadow-sm transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
+          >
+            {saving && saveType === 'draft' ? (
+              <Loader2 className="w-3.5 h-3.5 animate-spin text-stone-700" />
+            ) : (
+              <FileText className="w-3.5 h-3.5 text-stone-600" />
+            )}
+            <span>{saving && saveType === 'draft' ? 'Salvando Rascunho...' : 'Salvar Rascunho'}</span>
+          </button>
+
+          {/* Botão Publicar no Rodapé */}
+          <button
+            type="button"
+            disabled={saving}
+            onClick={() => executeSave(false)}
+            className="flex-1 sm:flex-initial px-6 py-2.5 rounded-xl bg-stone-950 hover:bg-black text-white font-extrabold text-xs uppercase tracking-wider shadow-lg transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
+          >
+            {saving && saveType === 'publish' ? (
+              <Loader2 className="w-3.5 h-3.5 animate-spin text-white" />
+            ) : (
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+            )}
+            <span>{saving && saveType === 'publish' ? 'Publicando...' : mode === 'create' ? 'Publicar Imóvel' : 'Salvar Alterações'}</span>
+          </button>
+        </div>
       </div>
     </form>
   );
