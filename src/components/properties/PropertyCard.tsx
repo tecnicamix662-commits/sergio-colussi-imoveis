@@ -131,10 +131,10 @@ export default function PropertyCard({ property, priorityImage = false }: Proper
             target="_blank"
             rel="noopener noreferrer"
             className="bg-[#25D366] hover:bg-[#20ba5a] text-white px-3.5 py-2.5 rounded-xl transition-all shadow-md flex items-center justify-center gap-1.5 font-extrabold text-xs"
-            title="Tenho interesse - Chama no Zap"
+            title="Tenho interesse - Chamar no WhatsApp"
           >
             <MessageCircle className="w-4 h-4 text-white fill-white" />
-            <span>Chama no Zap</span>
+            <span>Chamar no WhatsApp</span>
           </a>
         </div>
       </div>
