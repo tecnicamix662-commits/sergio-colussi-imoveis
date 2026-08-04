@@ -35,6 +35,7 @@ export const OFFICIAL_NEIGHBORHOODS_BY_CITY: Record<string, string[]> = {
     'Parque das Nações',
     'Parque Erasmo Assunção',
     'Parque Jaçatuba',
+    'Parque João Ramalho',
     'Parque Novo Oratório',
     'Parque Oratório',
     'Recreio da Borda do Campo',
