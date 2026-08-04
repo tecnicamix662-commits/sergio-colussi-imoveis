@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { PropertyService } from '@/services/propertyService';
-import { LeadSubmission } from '@/types/property';
-import { MessageSquare, Phone, Mail, Clock, Building2, Trash2, AlertTriangle, Search } from 'lucide-react';
+import { LeadSubmission, SellerSubmission } from '@/types/property';
+import { MessageSquare, Phone, Mail, Clock, Building2, Trash2, AlertTriangle, Search, UserCheck } from 'lucide-react';
 
 function formatDate(dateStr: string) {
   try {
@@ -45,109 +45,120 @@ export default function MensagensPage() {
   }, [leads, search]);
 
   const handleDelete = (id: string) => {
-    // Note: In a real app you'd have a deleteLead method. Here we just filter in state
-    setLeads((prev) => prev.filter((l) => l.id !== id));
+    const updated = leads.filter((l) => l.id !== id);
+    setLeads(updated);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('sergio_colussi_leads_v1', JSON.stringify(updated));
+    }
     setDeleteId(null);
   };
 
   return (
-    <div className="space-y-6 max-w-4xl">
+    <div className="space-y-6 max-w-5xl bg-stone-50 min-h-full">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-white">Mensagens e Leads</h1>
-          <p className="text-slate-400 text-sm mt-1">
-            {leads.length} mensagem{leads.length !== 1 ? 's' : ''} recebida{leads.length !== 1 ? 's' : ''}
+          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-950">Mensagens e Leads</h1>
+          <p className="text-stone-600 text-sm mt-1 font-medium">
+            {leads.length} mensagem{leads.length !== 1 ? 's' : ''} recebida{leads.length !== 1 ? 's' : ''} dos clientes no site
           </p>
         </div>
       </div>
 
       {/* Search */}
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
         <input
           type="text"
-          placeholder="Buscar por nome, e-mail, imóvel..."
+          placeholder="Buscar por nome, e-mail, telefone ou mensagem..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full bg-slate-900 border border-slate-700 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-gold-500"
+          className="w-full bg-white border border-stone-300 rounded-xl pl-10 pr-4 py-2.5 text-sm text-stone-950 placeholder-stone-400 focus:outline-none focus:border-black font-semibold shadow-xs"
         />
       </div>
 
       {/* Delete Confirm */}
       {deleteId && (
-        <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3 text-red-400">
-            <AlertTriangle className="w-5 h-5 shrink-0" />
-            <p className="text-sm font-semibold">Excluir esta mensagem?</p>
+        <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-center justify-between gap-4 shadow-sm">
+          <div className="flex items-center gap-3 text-red-800">
+            <AlertTriangle className="w-5 h-5 shrink-0 text-red-600" />
+            <p className="text-sm font-bold">Excluir esta mensagem permanentemente?</p>
           </div>
           <div className="flex gap-2">
-            <button onClick={() => setDeleteId(null)} className="px-4 py-2 rounded-lg border border-slate-700 text-slate-300 text-xs hover:bg-slate-800 transition">Cancelar</button>
-            <button onClick={() => handleDelete(deleteId)} className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition">Excluir</button>
+            <button onClick={() => setDeleteId(null)} className="px-4 py-2 rounded-lg border border-stone-300 text-stone-800 text-xs font-bold hover:bg-stone-100 transition">Cancelar</button>
+            <button onClick={() => handleDelete(deleteId)} className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-extrabold transition">Excluir</button>
           </div>
         </div>
       )}
 
       {/* Leads List */}
       {filtered.length === 0 ? (
-        <div className="text-center py-20 bg-slate-900/40 border border-slate-800 rounded-2xl">
-          <MessageSquare className="w-12 h-12 text-slate-700 mx-auto mb-3" />
-          <p className="text-slate-400 text-sm">
-            {leads.length === 0 ? 'Nenhuma mensagem recebida ainda.' : 'Nenhuma mensagem encontrada com essa busca.'}
+        <div className="text-center py-20 bg-white border border-stone-200 rounded-2xl shadow-sm space-y-3">
+          <MessageSquare className="w-12 h-12 text-stone-400 mx-auto" />
+          <p className="text-stone-700 text-sm font-bold">
+            {leads.length === 0 ? 'Nenhuma mensagem recebida ainda.' : 'Nenhuma mensagem encontrada para esta busca.'}
+          </p>
+          <p className="text-xs text-stone-500 max-w-sm mx-auto">
+            Quando um cliente preencher o formulário de um imóvel ou entrar em contato pelo site, a mensagem aparecerá aqui e também no seu e-mail sjcolussi@gmail.com.
           </p>
         </div>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-4">
           {filtered.map((lead) => (
-            <div key={lead.id} className="bg-slate-900/50 border border-slate-800 rounded-2xl p-5 hover:border-slate-700 transition">
-              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-                <div className="space-y-2 flex-1 min-w-0">
+            <div key={lead.id} className="bg-white border border-stone-200 rounded-2xl p-6 hover:border-stone-400 transition shadow-sm space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-stone-100 pb-3">
+                <div className="space-y-1">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="font-semibold text-white text-sm">{lead.name}</span>
-                    <span className="text-[10px] text-slate-500 flex items-center gap-1">
-                      <Clock className="w-3 h-3" /> {formatDate(lead.createdAt)}
+                    <UserCheck className="w-4 h-4 text-stone-900" />
+                    <span className="font-serif text-lg font-bold text-stone-950">{lead.name}</span>
+                    <span className="text-[11px] text-stone-500 font-mono flex items-center gap-1 bg-stone-100 px-2 py-0.5 rounded-md border border-stone-200">
+                      <Clock className="w-3 h-3 text-stone-600" /> {formatDate(lead.createdAt)}
                     </span>
                   </div>
 
-                  <div className="flex flex-wrap gap-3 text-xs text-slate-400">
-                    <a href={`tel:${lead.phone}`} className="flex items-center gap-1.5 hover:text-gold-400 transition">
-                      <Phone className="w-3.5 h-3.5 text-gold-400" /> {lead.phone}
+                  <div className="flex flex-wrap gap-4 text-xs font-semibold text-stone-700 pt-1">
+                    <a href={`tel:${lead.phone}`} className="flex items-center gap-1.5 hover:text-black transition">
+                      <Phone className="w-3.5 h-3.5 text-stone-900" /> {lead.phone}
                     </a>
-                    <a href={`mailto:${lead.email}`} className="flex items-center gap-1.5 hover:text-gold-400 transition">
-                      <Mail className="w-3.5 h-3.5 text-gold-400" /> {lead.email}
+                    <a href={`mailto:${lead.email}`} className="flex items-center gap-1.5 hover:text-black transition">
+                      <Mail className="w-3.5 h-3.5 text-stone-900" /> {lead.email}
                     </a>
-                  </div>
-
-                  {lead.propertyTitle && (
-                    <div className="flex items-center gap-1.5 text-xs text-gold-400 font-medium">
-                      <Building2 className="w-3.5 h-3.5" />
-                      <span>Interesse em: {lead.propertyTitle}</span>
-                    </div>
-                  )}
-
-                  <div className="bg-slate-900 border border-slate-800 rounded-xl p-3 mt-2">
-                    <p className="text-slate-300 text-xs leading-relaxed">{lead.message}</p>
                   </div>
                 </div>
 
-                <div className="flex gap-2 shrink-0">
+                <div className="flex items-center gap-2 shrink-0">
                   {lead.phone && (
                     <a
-                      href={`https://wa.me/${lead.phone.replace(/\D/g, '')}?text=${encodeURIComponent(`Olá ${lead.name}, recebi sua mensagem sobre imóveis. Como posso ajudá-lo?`)}`}
+                      href={`https://wa.me/${lead.phone.replace(/\D/g, '')}?text=${encodeURIComponent(`Olá ${lead.name}, sou Sérgio Colussi Corretor. Recebi sua mensagem sobre imóveis. Como posso ajudá-lo?`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-3 py-2 rounded-lg bg-emerald-600/20 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-600/30 text-xs font-semibold transition"
+                      className="px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white text-xs font-extrabold uppercase tracking-wider transition shadow-sm flex items-center gap-1.5"
                     >
-                      WhatsApp
+                      <span>Responder no WhatsApp</span>
                     </a>
                   )}
                   <button
                     onClick={() => setDeleteId(lead.id)}
-                    className="p-2 rounded-lg hover:bg-red-500/20 text-slate-500 hover:text-red-400 transition"
+                    className="p-2.5 rounded-xl border border-stone-200 hover:border-red-300 hover:bg-red-50 text-stone-500 hover:text-red-700 transition"
+                    title="Excluir mensagem"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
+              </div>
+
+              {lead.propertyTitle && (
+                <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs font-semibold text-amber-950 flex items-center gap-2">
+                  <Building2 className="w-4 h-4 text-amber-800 shrink-0" />
+                  <span><strong>Interesse no Imóvel:</strong> {lead.propertyTitle}</span>
+                </div>
+              )}
+
+              <div className="bg-stone-50 border border-stone-200 rounded-xl p-4 space-y-1">
+                <span className="text-[10px] font-extrabold text-stone-500 uppercase tracking-wider block">MENSAGEM DO CLIENTE:</span>
+                <p className="text-stone-950 text-xs sm:text-sm font-medium leading-relaxed whitespace-pre-line">
+                  {lead.message}
+                </p>
               </div>
             </div>
           ))}
