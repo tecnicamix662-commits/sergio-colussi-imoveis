@@ -35,6 +35,7 @@ export interface Property {
   ownerName?: string;
   ownerPhone?: string;
   ownerEmail?: string;
+  ownerAddress?: string;
   ownerNotes?: string;
   createdAt: string;
   updatedAt: string;

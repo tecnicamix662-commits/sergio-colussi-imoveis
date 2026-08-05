@@ -276,9 +276,10 @@ export default function AdminImoveisPage() {
                         <span>👔 Corretor: <strong>{p.realtorName}</strong></span>
                       </div>
                     )}
-                    {(p.ownerName || p.ownerPhone) && (
-                      <div className="text-[11px] text-stone-900 font-semibold flex items-center gap-1 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-lg">
+                    {(p.ownerName || p.ownerPhone || p.ownerAddress) && (
+                      <div className="text-[11px] text-stone-900 font-semibold flex items-center gap-1 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-lg flex-wrap">
                         <span>👤 Proprietário: <strong>{p.ownerName || 'Não informado'}</strong> {p.ownerPhone ? `(${p.ownerPhone})` : ''}</span>
+                        {p.ownerAddress && <span className="text-stone-700 font-normal border-l border-amber-300 pl-1.5 ml-1">📍 {p.ownerAddress}</span>}
                       </div>
                     )}
                   </div>

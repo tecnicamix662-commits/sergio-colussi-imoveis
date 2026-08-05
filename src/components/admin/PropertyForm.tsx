@@ -935,6 +935,16 @@ function formatToBRL(value: string | number): { display: string; numeric: number
               </Field>
             </div>
 
+            <Field label="Endereço Privado do Imóvel / Proprietário (Exclusivo ADM)" hint="Endereço exato do imóvel ou residência do proprietário (não exibido no site público)">
+              <input
+                type="text"
+                value={form.ownerAddress || ''}
+                onChange={(e) => update('ownerAddress', e.target.value)}
+                placeholder="Ex: Rua das Flores, 123 - Apto 42, Bloco B - Bairro Jardim, Santo André/SP"
+                className={inputCls}
+              />
+            </Field>
+
             <Field label="Observações Privadas / Notas Internas" hint="Anotações sobre chaves, horários de visita, comissão, autorização...">
               <textarea
                 value={form.ownerNotes || ''}

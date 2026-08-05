@@ -82,6 +82,7 @@ function rowToProperty(row: DbRow): Property {
     ownerName: row.owner || undefined,
     ownerPhone: diff.ownerPhone || undefined,
     ownerEmail: diff.ownerEmail || undefined,
+    ownerAddress: diff.ownerAddress || undefined,
     ownerNotes: diff.ownerNotes || undefined,
     createdAt: row.created_at || new Date().toISOString(),
     updatedAt: row.updated_at || new Date().toISOString(),
@@ -124,6 +125,7 @@ function propertyToRow(data: Partial<Property> & { code?: string; slug?: string 
   if (data.realtorName !== undefined) diff.realtorName = data.realtorName;
   if (data.ownerPhone !== undefined) diff.ownerPhone = data.ownerPhone;
   if (data.ownerEmail !== undefined) diff.ownerEmail = data.ownerEmail;
+  if (data.ownerAddress !== undefined) diff.ownerAddress = data.ownerAddress;
   if (data.ownerNotes !== undefined) diff.ownerNotes = data.ownerNotes;
 
   if (Object.keys(diff).length > 0) {
@@ -221,6 +223,7 @@ export async function POST(request: Request) {
     diff.realtorName = body.realtorName || null;
     diff.ownerPhone = body.ownerPhone || null;
     diff.ownerEmail = body.ownerEmail || null;
+    diff.ownerAddress = body.ownerAddress || null;
     diff.ownerNotes = body.ownerNotes || null;
     row.differentials = diff;
 
