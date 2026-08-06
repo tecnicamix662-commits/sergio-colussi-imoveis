@@ -161,17 +161,11 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
           <PropertyGallery images={property.images} title={property.title} />
 
           {/* Quick Specifications Bar - Estilo Casari */}
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 p-5 bg-stone-50 rounded-2xl border border-stone-200 text-center shadow-xs">
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 p-5 bg-stone-50 rounded-2xl border border-stone-200 text-center shadow-xs">
             <div className="space-y-1">
               <Maximize2 className="w-5 h-5 text-stone-900 mx-auto" />
               <span className="font-serif text-lg font-bold text-stone-950 block">{property.area} m²</span>
-              <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">Área Principal</span>
-            </div>
-
-            <div className="space-y-1">
-              <Building2 className="w-5 h-5 text-stone-900 mx-auto" />
-              <span className="font-serif text-lg font-bold text-stone-950 block">{property.area} m²</span>
-              <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">Área Lote</span>
+              <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">Área Construída</span>
             </div>
 
             <div className="space-y-1">
