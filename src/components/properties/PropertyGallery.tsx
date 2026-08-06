@@ -34,15 +34,13 @@ export default function PropertyGallery({ images, title }: PropertyGalleryProps)
           alt={`${title} - Foto ${activeIdx + 1}`}
           fill
           priority
+          unoptimized={typeof galleryImages[activeIdx] === 'string' && galleryImages[activeIdx].startsWith('data:')}
           className="object-cover transition-all duration-300 group-hover:scale-105"
         />
 
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-black/20 pointer-events-none" />
 
-        {/* Top Counter Badge */}
-        <div className="absolute top-4 right-4 bg-navy-950/80 backdrop-blur-md text-white text-xs font-mono font-semibold px-3 py-1.5 rounded-lg border border-slate-700/60 shadow-lg">
-          {activeIdx + 1} / {galleryImages.length}
-        </div>
+
 
         {/* Expand Lightbox Button */}
         <button
@@ -92,6 +90,7 @@ export default function PropertyGallery({ images, title }: PropertyGalleryProps)
                 src={img}
                 alt={`${title} miniatura ${idx + 1}`}
                 fill
+                unoptimized={typeof img === 'string' && img.startsWith('data:')}
                 className="object-cover"
               />
             </button>
@@ -126,6 +125,7 @@ export default function PropertyGallery({ images, title }: PropertyGalleryProps)
               src={galleryImages[activeIdx]}
               alt={title}
               fill
+              unoptimized={typeof galleryImages[activeIdx] === 'string' && galleryImages[activeIdx].startsWith('data:')}
               className="object-contain"
             />
 
@@ -157,7 +157,7 @@ export default function PropertyGallery({ images, title }: PropertyGalleryProps)
                   activeIdx === idx ? 'border-gold-500 scale-110' : 'border-slate-800 opacity-50'
                 }`}
               >
-                <Image src={img} alt="thumb" fill className="object-cover" />
+                <Image src={img} alt="thumb" fill unoptimized={typeof img === 'string' && img.startsWith('data:')} className="object-cover" />
               </button>
             ))}
           </div>

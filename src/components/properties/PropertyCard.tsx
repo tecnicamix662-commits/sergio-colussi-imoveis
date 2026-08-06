@@ -63,6 +63,7 @@ export default function PropertyCard({ property, priorityImage = false }: Proper
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             priority={priorityImage}
+            unoptimized={typeof currentImage === 'string' && currentImage.startsWith('data:')}
             className="object-cover group-hover/image:scale-105 transition-transform duration-500"
           />
 
@@ -91,10 +92,7 @@ export default function PropertyCard({ property, priorityImage = false }: Proper
               <ChevronRight className="w-5 h-5 text-white" />
             </button>
 
-            {/* Photo Counter Badge */}
-            <div className="absolute top-3 right-28 z-10 bg-black/80 text-white text-[10px] font-bold font-mono px-2 py-0.5 rounded-md border border-stone-700 backdrop-blur-sm">
-              {currentImgIndex + 1}/{images.length}
-            </div>
+
           </>
         )}
 
