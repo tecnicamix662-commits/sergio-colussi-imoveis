@@ -49,13 +49,13 @@ export default function HomePage() {
     return () => window.removeEventListener('properties_updated', loadProperties);
   }, []);
 
-  // Cover background photos para o Slide da Capa - Fotos 100% Ensolaradas de Dia Claro com Piscina
+  // Cover background photos para o Slide da Capa - Apenas Mansões Ensolaradas de Dia Claro com Piscina
   const coverPhotos = [
+    'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1920&q=85',
     'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=85',
-    'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1920&q=85',
-    'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1920&q=85',
     'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=85',
-    'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1920&q=85',
+    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=85',
+    'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1920&q=85',
   ];
 
   // Auto-play interval for background photos (4.5 seconds)
@@ -99,7 +99,7 @@ export default function HomePage() {
     <div className="space-y-20 pb-20 bg-white">
       {/* HERO SECTION WITH AUTOMATIC BACKGROUND PHOTO CAROUSEL */}
       <section className="relative min-h-[88vh] flex items-center justify-center pt-24 pb-16 overflow-hidden bg-black">
-        {/* Background Image Carousel (FOTOS RADIANTES DE DIA CLARO) */}
+        {/* Background Image Carousel (FOTOS 100% ENSOLARADAS COM PISCINA) */}
         {coverPhotos.map((imgUrl, index) => (
           <div
             key={index}
@@ -112,9 +112,9 @@ export default function HomePage() {
               alt="Imóveis de Alto Padrão Sérgio Colussi"
               fill
               priority={index === 0}
-              className="object-cover object-center brightness-100 contrast-[1.02]"
+              className="object-cover object-center brightness-100 contrast-[1.03]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/25" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/15 to-black/20" />
           </div>
         ))}
 
