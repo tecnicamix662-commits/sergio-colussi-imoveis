@@ -49,13 +49,13 @@ export default function HomePage() {
     return () => window.removeEventListener('properties_updated', loadProperties);
   }, []);
 
-  // Cover background photos para o Slide da Capa (Home Hero Carousel)
+  // Cover background photos para o Slide da Capa - Imóveis de Alto Padrão Modernos com Piscina de Dia
   const coverPhotos = [
-    'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1920&q=85',
-    'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1920&q=85',
+    'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=85',
+    'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=85',
+    'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1920&q=85',
+    'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1920&q=85',
     'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=85',
-    'https://images.unsplash.com/photo-1567496898669-ee935f5f647a?auto=format&fit=crop&w=1920&q=85',
-    'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1920&q=85',
   ];
 
   // Auto-play interval for background photos (4.5 seconds)
@@ -99,7 +99,7 @@ export default function HomePage() {
     <div className="space-y-20 pb-20 bg-white">
       {/* HERO SECTION WITH AUTOMATIC BACKGROUND PHOTO CAROUSEL */}
       <section className="relative min-h-[88vh] flex items-center justify-center pt-24 pb-16 overflow-hidden bg-black">
-        {/* Background Image Carousel (FOTOS VIVAS E COLORIDAS) */}
+        {/* Background Image Carousel (FOTOS MODERNAS COM PISCINA DE DIA) */}
         {coverPhotos.map((imgUrl, index) => (
           <div
             key={index}
@@ -109,12 +109,12 @@ export default function HomePage() {
           >
             <Image
               src={imgUrl}
-              alt="Imóveis Sérgio Colussi"
+              alt="Imóveis de Alto Padrão Sérgio Colussi"
               fill
               priority={index === 0}
-              className="object-cover object-center brightness-[0.72] contrast-[1.05]"
+              className="object-cover object-center brightness-[0.95] contrast-[1.02]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/40" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/30" />
           </div>
         ))}
 
