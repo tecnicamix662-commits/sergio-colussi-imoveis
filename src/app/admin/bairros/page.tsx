@@ -68,8 +68,8 @@ export default function AdminBairrosPage() {
         <label className="text-xs font-extrabold uppercase tracking-wider text-stone-600 block">
           1. Selecione a Cidade para Visualizar e Gerenciar os Bairros:
         </label>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          {['Santo André', 'São Bernardo do Campo', 'Mauá', 'São Caetano do Sul'].map((city) => (
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+          {['Santo André', 'São Bernardo do Campo', 'Mauá', 'São Caetano do Sul', 'São Vicente'].map((city) => (
             <button
               key={city}
               type="button"

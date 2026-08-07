@@ -519,6 +519,7 @@ function formatToBRL(value: string | number): { display: string; numeric: number
                   <option value="São Bernardo do Campo">São Bernardo do Campo</option>
                   <option value="Mauá">Mauá</option>
                   <option value="São Caetano do Sul">São Caetano do Sul</option>
+                  <option value="São Vicente">São Vicente (Litoral)</option>
                 </select>
               </Field>
               <Field label="Bairro" required hint="Selecione ou digite um bairro">

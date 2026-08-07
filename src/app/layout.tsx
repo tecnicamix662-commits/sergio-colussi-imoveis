@@ -87,7 +87,7 @@ export default function RootLayout({
       latitude: -23.6558,
       longitude: -46.5367,
     },
-    areaServed: ['Santo André', 'Mauá', 'São Bernardo do Campo', 'São Caetano do Sul', 'ABC Paulista'],
+    areaServed: ['Santo André', 'Mauá', 'São Bernardo do Campo', 'São Caetano do Sul', 'São Vicente', 'ABC Paulista', 'Litoral Paulista'],
   };
 
   return (
