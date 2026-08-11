@@ -106,7 +106,7 @@ export default function AnunciarPage() {
 
             <div className="space-y-4 text-xs font-medium">
               <div className="flex items-start gap-3 p-3.5 rounded-xl bg-white border border-stone-200">
-                <CheckCircle2 className="w-5 h-5 text-stone-900 shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-5 h-5 text-emerald-600 fill-emerald-100/60 shrink-0 mt-0.5" />
                 <div>
                   <h4 className="font-bold text-stone-950 text-sm">Produção Fotográfica Profissional</h4>
                   <p className="text-stone-700 text-[11px] leading-snug">Seu imóvel será fotografado com ângulos e iluminação que valorizam cada ambiente.</p>
@@ -114,7 +114,7 @@ export default function AnunciarPage() {
               </div>
 
               <div className="flex items-start gap-3 p-3.5 rounded-xl bg-white border border-stone-200">
-                <CheckCircle2 className="w-5 h-5 text-stone-900 shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-5 h-5 text-emerald-600 fill-emerald-100/60 shrink-0 mt-0.5" />
                 <div>
                   <h4 className="font-bold text-stone-950 text-sm">Compradores Pré-Qualificados</h4>
                   <p className="text-stone-700 text-[11px] leading-snug">Trabalhamos com carteira de clientes interessados em imóveis no ABC Paulista.</p>
@@ -122,7 +122,7 @@ export default function AnunciarPage() {
               </div>
 
               <div className="flex items-start gap-3 p-3.5 rounded-xl bg-white border border-stone-200">
-                <CheckCircle2 className="w-5 h-5 text-stone-900 shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-5 h-5 text-emerald-600 fill-emerald-100/60 shrink-0 mt-0.5" />
                 <div>
                   <h4 className="font-bold text-stone-950 text-sm">Segurança Jurídica &amp; Atendimento Direto</h4>
                   <p className="text-stone-700 text-[11px] leading-snug">Acompanhamento completo de Sérgio Colussi em todas as fases da negociação.</p>

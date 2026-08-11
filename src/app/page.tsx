@@ -366,7 +366,7 @@ export default function HomePage() {
                 { title: 'Conhecimento da Região', desc: 'Forte atuação em Santo André e todos os municípios do ABC Paulista.' },
               ].map((item) => (
                 <div key={item.title} className="flex items-start gap-3 p-3.5 rounded-xl bg-white border border-stone-200 shadow-sm">
-                  <CheckCircle2 className="w-5 h-5 text-stone-900 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600 fill-emerald-100/60 shrink-0 mt-0.5" />
                   <div>
                     <h4 className="font-bold text-stone-950 mb-0.5 text-xs">{item.title}</h4>
                     <p className="text-stone-700 text-[11px] font-medium leading-snug">{item.desc}</p>

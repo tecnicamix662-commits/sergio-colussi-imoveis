@@ -206,8 +206,8 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                 {property.features.map((feat, idx) => (
-                  <div key={idx} className="flex items-center gap-2.5 p-3 rounded-xl bg-stone-50 border border-stone-200 text-stone-900 font-semibold">
-                    <CheckCircle2 className="w-4 h-4 text-stone-900 shrink-0" />
+                  <div key={idx} className="flex items-center gap-2.5 p-3 rounded-xl bg-stone-50 border border-stone-200 text-stone-900 font-semibold hover:border-emerald-300 transition-colors">
+                    <CheckCircle2 className="w-4.5 h-4.5 text-emerald-600 fill-emerald-100/60 shrink-0" />
                     <span>{feat}</span>
                   </div>
                 ))}
