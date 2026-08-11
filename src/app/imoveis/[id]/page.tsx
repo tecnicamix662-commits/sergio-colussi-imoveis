@@ -134,11 +134,6 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
           <span className="bg-stone-100 text-stone-800 text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg border border-stone-300">
             Para {property.purpose}
           </span>
-          {property.featured && (
-            <span className="bg-stone-900 text-white text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg border border-stone-700 flex items-center gap-1">
-              <Sparkles className="w-3.5 h-3.5" /> Destaque Exclusivo
-            </span>
-          )}
         </div>
 
         <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-stone-950 tracking-tight leading-tight">

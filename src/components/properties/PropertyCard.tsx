@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Property } from '@/types/property';
-import { MapPin, Bed, Bath, Car, Maximize2, Star, ArrowUpRight, MessageCircle, ChevronLeft, ChevronRight } from 'lucide-react';
+import { MapPin, Bed, Bath, Car, Maximize2, ArrowUpRight, MessageCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useSettings } from '@/contexts/SettingsContext';
 import { SettingsService } from '@/services/settingsService';
 
@@ -96,25 +96,14 @@ export default function PropertyCard({ property, priorityImage = false }: Proper
           </>
         )}
 
-        {/* Top Badges (DESTAQUE + VENDIDO/ALUGADO + CÓDIGO) */}
-        <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 z-10 pointer-events-none">
-          <div className="flex items-center gap-2 flex-wrap pointer-events-auto">
-            {property.featured && (
-              <span className="bg-black text-white text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md border border-stone-600 flex items-center gap-1.5 shadow-sm">
-                <Star className="w-3.5 h-3.5 text-[#00FF66] fill-[#00FF66] drop-shadow-[0_0_6px_rgba(0,255,102,0.9)]" />
-                <span>Destaque</span>
-              </span>
-            )}
-            {statusBadge && (
-              <span className={`text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md ${statusBadge.cls}`}>
-                {statusBadge.label}
-              </span>
-            )}
+        {/* Top Badges (VENDIDO/ALUGADO) */}
+        {statusBadge && (
+          <div className="absolute top-3 left-3 flex items-center gap-2 z-10 pointer-events-none">
+            <span className={`text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md pointer-events-auto ${statusBadge.cls}`}>
+              {statusBadge.label}
+            </span>
           </div>
-          <span className="bg-black/90 text-white text-[11px] font-mono font-extrabold px-2.5 py-1 rounded-md border border-stone-600 shadow-sm pointer-events-auto">
-            CÓD: {property.code}
-          </span>
-        </div>
+        )}
 
         {/* Price inside image */}
         <div className="absolute bottom-3 left-4 right-4 z-10 space-y-0.5 pointer-events-none">
