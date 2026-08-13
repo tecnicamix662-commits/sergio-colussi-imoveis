@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     siteName: 'Sérgio Colussi Imóveis',
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
+        url: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1200&q=80',
         width: 1200,
         height: 630,
         alt: 'Sérgio Colussi Imóveis',
@@ -73,7 +73,7 @@ export default function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'RealEstateAgent',
     name: 'Sérgio Colussi Imóveis',
-    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1200&q=80',
     telephone: '+55-11-99713-5790',
     email: 'sjcolussi@gmail.com',
     address: {
