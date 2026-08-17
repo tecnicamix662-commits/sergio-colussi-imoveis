@@ -73,16 +73,10 @@ export default function BankCard({ bank }: BankCardProps) {
           href={bank.simulatorUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className={`w-full py-4 px-6 rounded-2xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 transition-all shadow-md group-hover:scale-[1.01] ${
-            isCaixa
-              ? 'bg-white hover:bg-stone-100 text-stone-950 border border-white'
-              : 'bg-stone-950 hover:bg-black text-white border border-stone-900'
-          }`}
+          className="w-full py-4 px-6 rounded-2xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 transition-all shadow-md hover:shadow-lg hover:scale-[1.01] bg-emerald-600 hover:bg-emerald-700 text-white border border-emerald-500"
         >
           <span>{bank.buttonText}</span>
-          <ExternalLink className={`w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${
-            isCaixa ? 'text-stone-900' : 'text-white'
-          }`} />
+          <ExternalLink className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-white" />
         </a>
         <span
           className={`block text-center text-[10px] uppercase tracking-widest font-semibold mt-2.5 ${
