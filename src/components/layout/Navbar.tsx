@@ -25,7 +25,7 @@ function NavbarContent() {
   const navLinks = [
     { name: 'COMPRAR', href: '/imoveis?finalidade=venda', key: 'comprar' },
     { name: 'ALUGAR', href: '/imoveis?finalidade=aluguel', key: 'alugar' },
-    { name: 'SIMULAÇÃO', href: '/simular-financiamento', key: 'simular' },
+    { name: 'SIMULE SEU FINANCIAMENTO', href: '/simular-financiamento', key: 'simular' },
     { name: 'ANUNCIE SEU IMÓVEL', href: '/anunciar', key: 'anunciar' },
   ];
 
@@ -81,7 +81,7 @@ function NavbarContent() {
           </Link>
 
           {/* Desktop Nav — FUNDO BRANCO, TEXTOS PRETOS */}
-          <nav className="hidden md:flex items-center gap-6 lg:gap-10 xl:gap-12">
+          <nav className="hidden md:flex items-center gap-4 lg:gap-7 xl:gap-9">
             {navLinks.map((link) => {
               const active = isLinkActive(link.key);
               return (
