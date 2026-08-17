@@ -129,7 +129,8 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-400 gap-4">
           <p>© {new Date().getFullYear()} {settings.companyName}. Todos os direitos reservados.</p>
-          <div className="flex items-center gap-6 font-medium">
+          <div className="flex items-center gap-6 font-medium flex-wrap">
+            <Link href="/simular-financiamento" className="hover:text-white transition-colors font-semibold text-stone-200">Simule seu Financiamento</Link>
             <Link href="/sobre" className="hover:text-white transition-colors">Termos de Uso</Link>
             <Link href="/sobre" className="hover:text-white transition-colors">Privacidade</Link>
           </div>

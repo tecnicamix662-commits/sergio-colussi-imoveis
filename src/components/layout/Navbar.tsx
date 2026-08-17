@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { Building2, Phone, Menu, X, ChevronRight, Tag, Key, PlusCircle } from 'lucide-react';
+import { Building2, Phone, Menu, X, ChevronRight, Tag, Key, PlusCircle, Calculator } from 'lucide-react';
 import { useSettings } from '@/contexts/SettingsContext';
 import { SettingsService } from '@/services/settingsService';
 
@@ -25,6 +25,7 @@ function NavbarContent() {
   const navLinks = [
     { name: 'COMPRAR', href: '/imoveis?finalidade=venda', key: 'comprar' },
     { name: 'ALUGAR', href: '/imoveis?finalidade=aluguel', key: 'alugar' },
+    { name: 'SIMULAÇÃO', href: '/simular-financiamento', key: 'simular' },
     { name: 'ANUNCIE SEU IMÓVEL', href: '/anunciar', key: 'anunciar' },
   ];
 
@@ -34,6 +35,9 @@ function NavbarContent() {
     }
     if (key === 'alugar') {
       return pathname === '/imoveis' && (searchParams.get('finalidade') === 'aluguel' || searchParams.get('purpose') === 'aluguel');
+    }
+    if (key === 'simular') {
+      return pathname.startsWith('/simular-financiamento');
     }
     if (key === 'anunciar') {
       return pathname.startsWith('/anunciar');
@@ -77,7 +81,7 @@ function NavbarContent() {
           </Link>
 
           {/* Desktop Nav — FUNDO BRANCO, TEXTOS PRETOS */}
-          <nav className="hidden md:flex items-center gap-8 lg:gap-12 xl:gap-16">
+          <nav className="hidden md:flex items-center gap-6 lg:gap-10 xl:gap-12">
             {navLinks.map((link) => {
               const active = isLinkActive(link.key);
               return (
@@ -145,6 +149,7 @@ function NavbarContent() {
                   <div className="flex items-center gap-3">
                     {link.key === 'comprar' && <Tag className="w-4 h-4 text-stone-900" />}
                     {link.key === 'alugar' && <Key className="w-4 h-4 text-stone-900" />}
+                    {link.key === 'simular' && <Calculator className="w-4 h-4 text-stone-900" />}
                     {link.key === 'anunciar' && <PlusCircle className="w-4 h-4 text-stone-900" />}
                     <span>{link.name}</span>
                   </div>
