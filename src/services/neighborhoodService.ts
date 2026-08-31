@@ -151,6 +151,9 @@ export const OFFICIAL_NEIGHBORHOODS_BY_CITY: Record<string, string[]> = {
     'Vila Valença',
     'Voturuá',
   ],
+  'Ribeirão Preto': [
+    'Itacaré',
+  ],
 };
 
 const STORAGE_KEY = 'sergio_colussi_custom_neighborhoods_v1';

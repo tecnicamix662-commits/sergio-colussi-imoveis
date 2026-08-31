@@ -281,8 +281,9 @@ export default function AnunciarPage() {
                       <option value="São Bernardo do Campo">São Bernardo do Campo</option>
                       <option value="São Caetano do Sul">São Caetano do Sul</option>
                       <option value="São Vicente">São Vicente (Litoral)</option>
+                      <option value="Ribeirão Preto">Ribeirão Preto</option>
                       <option value="São Paulo">São Paulo</option>
-                      <option value="Outra">Outra região do ABC / Litoral</option>
+                      <option value="Outra">Outra região do ABC / Litoral / Interior</option>
                     </select>
                   </div>
 

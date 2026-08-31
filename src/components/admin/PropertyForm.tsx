@@ -4,7 +4,7 @@ import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { PropertyService } from '@/services/propertyService';
 import { ImageService } from '@/services/imageService';
-import { NeighborhoodService } from '@/services/neighborhoodService';
+import { NeighborhoodService, OFFICIAL_NEIGHBORHOODS_BY_CITY } from '@/services/neighborhoodService';
 import { Property, PropertyType, PropertyPurpose, PropertyStatus } from '@/types/property';
 import {
   Save, ArrowLeft, PlusCircle, X, Star, Loader2, Grip,
@@ -515,11 +515,11 @@ function formatToBRL(value: string | number): { display: string; numeric: number
                   className={selectCls}
                 >
                   <option value="">Selecione a Cidade...</option>
-                  <option value="Santo André">Santo André</option>
-                  <option value="São Bernardo do Campo">São Bernardo do Campo</option>
-                  <option value="Mauá">Mauá</option>
-                  <option value="São Caetano do Sul">São Caetano do Sul</option>
-                  <option value="São Vicente">São Vicente (Litoral)</option>
+                  {Object.keys(OFFICIAL_NEIGHBORHOODS_BY_CITY).map((c) => (
+                    <option key={c} value={c}>
+                      {c === 'São Vicente' ? 'São Vicente (Litoral)' : c}
+                    </option>
+                  ))}
                 </select>
               </Field>
               <Field label="Bairro" required hint="Selecione ou digite um bairro">

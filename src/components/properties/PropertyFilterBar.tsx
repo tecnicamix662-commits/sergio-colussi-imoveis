@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { PropertyFilterParams, PropertyType } from '@/types/property';
 import { PropertyService } from '@/services/propertyService';
-import { NeighborhoodService } from '@/services/neighborhoodService';
+import { NeighborhoodService, OFFICIAL_NEIGHBORHOODS_BY_CITY } from '@/services/neighborhoodService';
 import { Search, Building2, MapPin, Home, Shield, RotateCcw, SlidersHorizontal, DollarSign, Bed, Car } from 'lucide-react';
 
 interface PropertyFilterBarProps {
@@ -163,11 +163,11 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
             className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3.5 py-3.5 text-stone-900 text-xs font-semibold focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-colors shadow-sm cursor-pointer"
           >
             <option value="todas">Todas as Cidades</option>
-            <option value="Santo André">Santo André</option>
-            <option value="São Bernardo do Campo">São Bernardo do Campo</option>
-            <option value="Mauá">Mauá</option>
-            <option value="São Caetano do Sul">São Caetano do Sul</option>
-            <option value="São Vicente">São Vicente (Litoral)</option>
+            {Object.keys(OFFICIAL_NEIGHBORHOODS_BY_CITY).map((c) => (
+              <option key={c} value={c}>
+                {c === 'São Vicente' ? 'São Vicente (Litoral)' : c}
+              </option>
+            ))}
           </select>
         </div>
 

@@ -61,6 +61,7 @@ export default function Footer() {
                 { label: 'São Bernardo do Campo', bold: false },
                 { label: 'São Caetano do Sul', bold: false },
                 { label: 'São Vicente (Litoral)', bold: false },
+                { label: 'Ribeirão Preto (Interior)', bold: false },
                 { label: 'Grande São Paulo e ABC Paulista', bold: false },
               ].map((r) => (
                 <li key={r.label} className="flex items-center justify-between border-b border-stone-800 pb-2 last:border-0 last:pb-0">
