@@ -36,6 +36,8 @@ export interface Property {
   ownerPhone?: string;
   ownerEmail?: string;
   ownerAddress?: string;
+  apartmentFloor?: string;
+  acceptsExchange?: boolean;
   ownerNotes?: string;
   createdAt: string;
   updatedAt: string;

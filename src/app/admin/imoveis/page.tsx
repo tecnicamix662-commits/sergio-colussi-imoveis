@@ -276,10 +276,18 @@ export default function AdminImoveisPage() {
                         <span>👔 Corretor: <strong>{p.realtorName}</strong></span>
                       </div>
                     )}
-                    {(p.ownerName || p.ownerPhone || p.ownerAddress) && (
-                      <div className="text-[11px] text-stone-900 font-semibold flex items-center gap-1 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-lg flex-wrap">
+                    {(p.ownerName || p.ownerPhone || p.ownerAddress || p.apartmentFloor || p.acceptsExchange !== undefined) && (
+                      <div className="text-[11px] text-stone-900 font-semibold flex items-center gap-1.5 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-lg flex-wrap">
                         <span>👤 Proprietário: <strong>{p.ownerName || 'Não informado'}</strong> {p.ownerPhone ? `(${p.ownerPhone})` : ''}</span>
-                        {p.ownerAddress && <span className="text-stone-700 font-normal border-l border-amber-300 pl-1.5 ml-1">📍 {p.ownerAddress}</span>}
+                        {p.ownerAddress && <span className="text-stone-700 font-normal border-l border-amber-300 pl-1.5">📍 {p.ownerAddress}</span>}
+                        {p.apartmentFloor && <span className="text-amber-950 font-bold border-l border-amber-300 pl-1.5 bg-amber-100/90 px-1.5 py-0.5 rounded">🏢 {p.apartmentFloor}</span>}
+                        {p.acceptsExchange !== undefined && (
+                          <span className={`font-bold border-l border-amber-300 pl-1.5 px-1.5 py-0.5 rounded ${
+                            p.acceptsExchange ? 'bg-emerald-100 text-emerald-900' : 'bg-rose-100 text-rose-900'
+                          }`}>
+                            🔄 Permuta: {p.acceptsExchange ? 'SIM' : 'NÃO'}
+                          </span>
+                        )}
                       </div>
                     )}
                   </div>

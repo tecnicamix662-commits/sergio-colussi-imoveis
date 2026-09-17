@@ -111,6 +111,9 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
       ownerName: '',
       ownerPhone: '',
       ownerEmail: '',
+      ownerAddress: '',
+      apartmentFloor: '',
+      acceptsExchange: undefined,
       ownerNotes: '',
     };
   };
@@ -936,15 +939,91 @@ function formatToBRL(value: string | number): { display: string; numeric: number
               </Field>
             </div>
 
-            <Field label="Endereço Privado do Imóvel / Proprietário (Exclusivo ADM)" hint="Endereço exato do imóvel ou residência do proprietário (não exibido no site público)">
-              <input
-                type="text"
-                value={form.ownerAddress || ''}
-                onChange={(e) => update('ownerAddress', e.target.value)}
-                placeholder="Ex: Rua das Flores, 123 - Apto 42, Bloco B - Bairro Jardim, Santo André/SP"
-                className={inputCls}
-              />
-            </Field>
+            {/* Endereço e Andar do Prédio (lado a lado, alinhado com as 4 colunas acima) */}
+            <div className="grid grid-cols-1 sm:grid-cols-4 gap-5">
+              <div className="sm:col-span-3">
+                <Field label="Endereço Privado do Imóvel / Proprietário (Exclusivo ADM)" hint="Endereço exato do imóvel ou residência do proprietário (não exibido no site público)">
+                  <input
+                    type="text"
+                    value={form.ownerAddress || ''}
+                    onChange={(e) => update('ownerAddress', e.target.value)}
+                    placeholder="Ex: Rua das Flores, 123 - Apto 42, Bloco B - Bairro Jardim, Santo André/SP"
+                    className={inputCls}
+                  />
+                </Field>
+              </div>
+
+              <div className="sm:col-span-1">
+                <Field label="Andar do Prédio" hint="Selecione no menu ou digite">
+                  <input
+                    type="text"
+                    list="floors-list"
+                    value={form.apartmentFloor || ''}
+                    onChange={(e) => update('apartmentFloor', e.target.value)}
+                    placeholder="Ex: 4º Andar, Térreo..."
+                    className={inputCls}
+                  />
+                  <datalist id="floors-list">
+                    <option value="Térreo" />
+                    {Array.from({ length: 45 }, (_, i) => `${i + 1}º Andar`).map((floor) => (
+                      <option key={floor} value={floor} />
+                    ))}
+                    <option value="Cobertura" />
+                    <option value="Subsolo" />
+                  </datalist>
+                </Field>
+              </div>
+            </div>
+
+            {/* Opção Aceita Permuta (Dois quadrados: SIM / NÃO) */}
+            <div className="p-4 rounded-xl border border-stone-200 bg-stone-50/80 space-y-3">
+              <div>
+                <label className="block text-xs font-bold text-stone-900 uppercase tracking-wider flex items-center gap-2">
+                  <span>🔄 Aceita Permuta?</span>
+                </label>
+                <p className="text-[11px] text-stone-500 font-medium mt-0.5">
+                  Marque se o proprietário aceita troca por outro imóvel ou veículo como parte de pagamento.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4 max-w-xs">
+                {/* Quadrado SIM */}
+                <button
+                  type="button"
+                  onClick={() => update('acceptsExchange', true)}
+                  className={`h-16 rounded-xl border-2 font-bold text-sm flex items-center justify-center gap-2.5 transition-all cursor-pointer shadow-sm ${
+                    form.acceptsExchange === true
+                      ? 'bg-emerald-600 text-white border-emerald-600 ring-2 ring-emerald-500/30 scale-[1.02]'
+                      : 'bg-white text-stone-700 border-stone-300 hover:border-emerald-500 hover:bg-emerald-50'
+                  }`}
+                >
+                  <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-colors ${
+                    form.acceptsExchange === true ? 'border-white bg-white/20' : 'border-stone-400 bg-stone-100'
+                  }`}>
+                    {form.acceptsExchange === true && <span className="text-white text-xs font-black">✓</span>}
+                  </div>
+                  <span>SIM</span>
+                </button>
+
+                {/* Quadrado NÃO */}
+                <button
+                  type="button"
+                  onClick={() => update('acceptsExchange', false)}
+                  className={`h-16 rounded-xl border-2 font-bold text-sm flex items-center justify-center gap-2.5 transition-all cursor-pointer shadow-sm ${
+                    form.acceptsExchange === false
+                      ? 'bg-rose-600 text-white border-rose-600 ring-2 ring-rose-500/30 scale-[1.02]'
+                      : 'bg-white text-stone-700 border-stone-300 hover:border-rose-500 hover:bg-rose-50'
+                  }`}
+                >
+                  <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-colors ${
+                    form.acceptsExchange === false ? 'border-white bg-white/20' : 'border-stone-400 bg-stone-100'
+                  }`}>
+                    {form.acceptsExchange === false && <span className="text-white text-xs font-black">✓</span>}
+                  </div>
+                  <span>NÃO</span>
+                </button>
+              </div>
+            </div>
 
             <Field label="Observações Privadas / Notas Internas" hint="Anotações sobre chaves, horários de visita, comissão, autorização...">
               <textarea

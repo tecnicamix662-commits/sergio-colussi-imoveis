@@ -83,6 +83,8 @@ function rowToProperty(row: DbRow): Property {
     ownerPhone: diff.ownerPhone || undefined,
     ownerEmail: diff.ownerEmail || undefined,
     ownerAddress: diff.ownerAddress || undefined,
+    apartmentFloor: diff.apartmentFloor || undefined,
+    acceptsExchange: typeof diff.acceptsExchange === 'boolean' ? diff.acceptsExchange : undefined,
     ownerNotes: diff.ownerNotes || undefined,
     createdAt: row.created_at || new Date().toISOString(),
     updatedAt: row.updated_at || new Date().toISOString(),
@@ -126,6 +128,8 @@ function propertyToRow(data: Partial<Property> & { code?: string; slug?: string 
   if (data.ownerPhone !== undefined) diff.ownerPhone = data.ownerPhone;
   if (data.ownerEmail !== undefined) diff.ownerEmail = data.ownerEmail;
   if (data.ownerAddress !== undefined) diff.ownerAddress = data.ownerAddress;
+  if (data.apartmentFloor !== undefined) diff.apartmentFloor = data.apartmentFloor;
+  if (data.acceptsExchange !== undefined) diff.acceptsExchange = data.acceptsExchange;
   if (data.ownerNotes !== undefined) diff.ownerNotes = data.ownerNotes;
 
   if (Object.keys(diff).length > 0) {
@@ -224,6 +228,8 @@ export async function POST(request: Request) {
     diff.ownerPhone = body.ownerPhone || null;
     diff.ownerEmail = body.ownerEmail || null;
     diff.ownerAddress = body.ownerAddress || null;
+    diff.apartmentFloor = body.apartmentFloor || null;
+    diff.acceptsExchange = typeof body.acceptsExchange === 'boolean' ? body.acceptsExchange : null;
     diff.ownerNotes = body.ownerNotes || null;
     row.differentials = diff;
 
