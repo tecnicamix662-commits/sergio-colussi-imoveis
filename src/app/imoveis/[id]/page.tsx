@@ -143,7 +143,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
         <div className="flex items-center gap-2 text-stone-700 text-sm font-medium">
           <MapPin className="w-4 h-4 text-stone-950 shrink-0" />
           <span>
-            {property.address ? `${property.address}, ` : ''}{property.neighborhood}, {property.city} - SP
+            {property.neighborhood}, {property.city} - SP
           </span>
         </div>
       </div>

@@ -506,7 +506,7 @@ function formatToBRL(value: string | number): { display: string; numeric: number
               </Field>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
               <Field label="Cidade" required>
                 <select
                   value={form.city}
@@ -543,9 +543,6 @@ function formatToBRL(value: string | number): { display: string; numeric: number
               </Field>
               <Field label="Condomínio / Edifício">
                 <input type="text" value={form.condominium || ''} onChange={(e) => update('condominium', e.target.value)} placeholder="Ex: Swiss Park, Edifício Figueiras" className={inputCls} />
-              </Field>
-              <Field label="Endereço / Logradouro">
-                <input type="text" value={form.address || ''} onChange={(e) => update('address', e.target.value)} placeholder="Ex: Rua das Figueiras, 1200" className={inputCls} />
               </Field>
             </div>
 
