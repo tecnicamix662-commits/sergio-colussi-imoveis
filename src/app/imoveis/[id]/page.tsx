@@ -6,6 +6,7 @@ import { PropertyService } from '@/services/propertyService';
 import { Property } from '@/types/property';
 import PropertyGallery from '@/components/properties/PropertyGallery';
 import PropertyCard from '@/components/properties/PropertyCard';
+import PropertyMap from '@/components/properties/PropertyMap';
 import {
   MapPin,
   Bed,
@@ -215,26 +216,8 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
             </div>
           )}
 
-          {/* Approximate Location / Map Mockup */}
-          <div className="bg-white rounded-2xl p-8 border border-stone-200 space-y-4 shadow-sm">
-            <h3 className="font-serif text-2xl font-bold text-stone-950 tracking-tight border-b border-stone-200 pb-3">
-              Localização Aproximada
-            </h3>
-            <p className="text-xs text-stone-600 font-medium">
-              Por questões de privacidade e segurança dos proprietários, o endereço exato é fornecido mediante agendamento de visita.
-            </p>
-            <div className="relative h-64 w-full rounded-xl overflow-hidden bg-stone-100 border border-stone-300 flex items-center justify-center text-center p-6">
-              <div className="space-y-3 relative z-10">
-                <MapPin className="w-10 h-10 text-stone-900 mx-auto animate-bounce" />
-                <h4 className="font-serif font-bold text-stone-950 text-lg">
-                  {property.neighborhood} - {property.city}/SP
-                </h4>
-                <p className="text-xs text-stone-600 max-w-sm mx-auto font-medium">
-                  Excelente infraestrutura de comércio, escolas de alto padrão e rápida acessibilidade.
-                </p>
-              </div>
-            </div>
-          </div>
+          {/* Interactive Map Component */}
+          <PropertyMap property={property} />
         </div>
 
         {/* Right Sticky Column (Pricing & Lead Capture Form - Estilo Casari, Mantendo Cores do Site) */}
