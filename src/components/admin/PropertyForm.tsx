@@ -972,52 +972,31 @@ function formatToBRL(value: string | number): { display: string; numeric: number
               </div>
             </div>
 
-            {/* Opção Aceita Permuta (Dois quadrados: SIM / NÃO) */}
-            <div className="p-4 rounded-xl border border-stone-200 bg-stone-50/80 space-y-3">
-              <div>
-                <label className="block text-xs font-bold text-stone-900 uppercase tracking-wider flex items-center gap-2">
-                  <span>🔄 Aceita Permuta?</span>
-                </label>
-                <p className="text-[11px] text-stone-500 font-medium mt-0.5">
-                  Marque se o proprietário aceita troca por outro imóvel ou veículo como parte de pagamento.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4 max-w-xs">
-                {/* Quadrado SIM */}
+            {/* Opção Aceita Permuta */}
+            <div className="flex items-center gap-3">
+              <span className="text-xs font-bold text-stone-700 uppercase tracking-wide">🔄 Aceita Permuta?</span>
+              <div className="flex gap-1.5">
                 <button
                   type="button"
                   onClick={() => update('acceptsExchange', true)}
-                  className={`h-16 rounded-xl border-2 font-bold text-sm flex items-center justify-center gap-2.5 transition-all cursor-pointer shadow-sm ${
+                  className={`h-6 px-2.5 rounded border font-semibold text-[11px] transition-all cursor-pointer ${
                     form.acceptsExchange === true
-                      ? 'bg-emerald-600 text-white border-emerald-600 ring-2 ring-emerald-500/30 scale-[1.02]'
-                      : 'bg-white text-stone-700 border-stone-300 hover:border-emerald-500 hover:bg-emerald-50'
+                      ? 'bg-emerald-600 text-white border-emerald-600'
+                      : 'bg-white text-stone-600 border-stone-300 hover:border-emerald-400 hover:bg-emerald-50'
                   }`}
                 >
-                  <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-colors ${
-                    form.acceptsExchange === true ? 'border-white bg-white/20' : 'border-stone-400 bg-stone-100'
-                  }`}>
-                    {form.acceptsExchange === true && <span className="text-white text-xs font-black">✓</span>}
-                  </div>
-                  <span>SIM</span>
+                  ✓ SIM
                 </button>
-
-                {/* Quadrado NÃO */}
                 <button
                   type="button"
                   onClick={() => update('acceptsExchange', false)}
-                  className={`h-16 rounded-xl border-2 font-bold text-sm flex items-center justify-center gap-2.5 transition-all cursor-pointer shadow-sm ${
+                  className={`h-6 px-2.5 rounded border font-semibold text-[11px] transition-all cursor-pointer ${
                     form.acceptsExchange === false
-                      ? 'bg-rose-600 text-white border-rose-600 ring-2 ring-rose-500/30 scale-[1.02]'
-                      : 'bg-white text-stone-700 border-stone-300 hover:border-rose-500 hover:bg-rose-50'
+                      ? 'bg-rose-600 text-white border-rose-600'
+                      : 'bg-white text-stone-600 border-stone-300 hover:border-rose-400 hover:bg-rose-50'
                   }`}
                 >
-                  <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-colors ${
-                    form.acceptsExchange === false ? 'border-white bg-white/20' : 'border-stone-400 bg-stone-100'
-                  }`}>
-                    {form.acceptsExchange === false && <span className="text-white text-xs font-black">✓</span>}
-                  </div>
-                  <span>NÃO</span>
+                  ✗ NÃO
                 </button>
               </div>
             </div>
