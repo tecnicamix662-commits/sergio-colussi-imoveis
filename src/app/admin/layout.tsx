@@ -17,6 +17,7 @@ import {
   X,
   MessageSquare,
   MapPin,
+  Users,
 } from 'lucide-react';
 
 interface NavGroup {
@@ -71,6 +72,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       items: [
         { name: 'Configurações do Site', href: '/admin/configuracoes', icon: Settings },
         { name: 'Mensagens / Leads', href: '/admin/mensagens', icon: MessageSquare },
+        { name: 'Compradores', href: '/admin/compradores', icon: Users },
       ],
     },
   ];
