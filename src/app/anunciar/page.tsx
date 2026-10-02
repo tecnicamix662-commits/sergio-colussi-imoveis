@@ -303,7 +303,7 @@ export default function AnunciarPage() {
                   <label className="block text-stone-900 font-bold mb-1.5 text-xs">Valor Pretendido de Venda / Locação (R$)</label>
                   <input
                     type="text"
-                    placeholder="Ex: R$ 650.000 ou A Combinar"
+                    placeholder="Ex: R$ 650.000,00 ou A Combinar"
                     value={estimatedPrice}
                     onChange={(e) => setEstimatedPrice(e.target.value)}
                     className="w-full bg-stone-50 border border-stone-300 rounded-xl px-4 py-3 text-stone-900 font-semibold text-xs placeholder-stone-400 focus:outline-none focus:bg-white focus:border-black shadow-sm transition-all"

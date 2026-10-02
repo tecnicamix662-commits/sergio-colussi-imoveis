@@ -105,7 +105,7 @@ export default function PropertyCard({ property, priorityImage = false }: Proper
           <span className="text-[10px] text-stone-200 uppercase tracking-wider font-semibold block">
             {property.purpose === 'aluguel' ? 'Valor do Aluguel' : 'Valor de Venda'}
           </span>
-          <span className="text-xl sm:text-2xl font-serif font-bold text-white tracking-tight block whitespace-nowrap">
+          <span className="text-xl sm:text-2xl font-sans font-extrabold text-white tracking-tight block whitespace-nowrap">
             {formatCurrency(property.price)}
             {property.purpose === 'aluguel' && <span className="text-sm font-normal text-stone-300">/mês</span>}
           </span>

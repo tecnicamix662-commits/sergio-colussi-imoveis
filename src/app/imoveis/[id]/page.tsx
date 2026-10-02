@@ -231,7 +231,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
             <div className="space-y-2">
               <div className="flex items-baseline justify-between">
                 <span className="text-xs font-extrabold text-stone-600 uppercase tracking-wider">VALOR</span>
-                <span className="font-serif text-2xl sm:text-3xl font-bold text-stone-950 whitespace-nowrap text-right">
+                <span className="font-sans text-2xl sm:text-3xl font-extrabold text-stone-950 whitespace-nowrap text-right tracking-tight">
                   {formatCurrency(property.price)}
                   {property.purpose === 'aluguel' && <span className="text-xs font-normal text-stone-500">/mês</span>}
                 </span>

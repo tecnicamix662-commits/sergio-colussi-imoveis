@@ -265,7 +265,7 @@ export default function CompradoresPage() {
             </label>
             <input
               type="text"
-              placeholder="Ex: ate R$ 500.000"
+              placeholder="Ex: até R$ 500.000,00"
               value={form.orcamento}
               onChange={(e) => setForm((p) => ({ ...p, orcamento: e.target.value }))}
               className="bg-stone-50 border border-stone-300 rounded-xl px-3.5 py-2.5 text-sm text-stone-950 placeholder-stone-400 focus:outline-none focus:border-stone-950 font-medium"

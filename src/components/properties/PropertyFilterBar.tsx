@@ -1,4 +1,5 @@
 'use client';
+import { formatCurrency } from '@/lib/format';
 
 import { useState, useEffect, useMemo } from 'react';
 import { PropertyFilterParams, PropertyType } from '@/types/property';
@@ -256,20 +257,28 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
             <div className="flex items-center gap-2">
               <input
                 type="number"
-                placeholder="Mínimo"
+                placeholder="Mínimo (ex: 500000)"
                 value={minPrice}
                 onChange={(e) => setMinPrice(e.target.value)}
-                className="w-1/2 bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-stone-900 text-xs focus:outline-none focus:border-black"
+                className="w-1/2 bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-stone-900 text-xs focus:outline-none focus:border-black font-semibold"
               />
               <span className="text-stone-400">-</span>
               <input
                 type="number"
-                placeholder="Máximo"
+                placeholder="Máximo (ex: 1500000)"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value)}
-                className="w-1/2 bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-stone-900 text-xs focus:outline-none focus:border-black"
+                className="w-1/2 bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-stone-900 text-xs focus:outline-none focus:border-black font-semibold"
               />
             </div>
+            {(minPrice || maxPrice) && (
+              <div className="text-[11px] text-stone-700 font-bold pt-1.5 flex items-center gap-1">
+                <span>Faixa:</span>
+                <span className="text-stone-950 bg-stone-100 px-2 py-0.5 rounded border border-stone-300 font-mono">
+                  {minPrice ? formatCurrency(minPrice) : 'R$ 0,00'} até {maxPrice ? formatCurrency(maxPrice) : 'Sem limite'}
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Bedrooms & Parking */}
