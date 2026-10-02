@@ -1,4 +1,5 @@
 'use client';
+import { formatCurrency } from '@/lib/format';
 
 import { useState } from 'react';
 import Link from 'next/link';
@@ -35,13 +36,7 @@ export default function PropertyCard({ property, priorityImage = false }: Proper
     setCurrentImgIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
-  const formatCurrency = (val: number) =>
-    new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(val);
+
 
   const whatsappMsg = `Olá ${settings.realtorName}, tenho interesse no imóvel "${property.title}" (Cód: ${property.code}). Gostaria de mais informações e agendar uma visita.`;
   const whatsappUrl = SettingsService.getWhatsAppUrl(settings, whatsappMsg);
@@ -110,7 +105,7 @@ export default function PropertyCard({ property, priorityImage = false }: Proper
           <span className="text-[10px] text-stone-200 uppercase tracking-wider font-semibold block">
             {property.purpose === 'aluguel' ? 'Valor do Aluguel' : 'Valor de Venda'}
           </span>
-          <span className="text-xl sm:text-2xl font-serif font-bold text-white tracking-tight block">
+          <span className="text-xl sm:text-2xl font-serif font-bold text-white tracking-tight block whitespace-nowrap">
             {formatCurrency(property.price)}
             {property.purpose === 'aluguel' && <span className="text-sm font-normal text-stone-300">/mês</span>}
           </span>

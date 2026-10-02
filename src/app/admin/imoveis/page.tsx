@@ -1,4 +1,5 @@
 'use client';
+import { formatCurrency } from '@/lib/format';
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
@@ -33,14 +34,7 @@ const STATUS_LABELS: Record<string, { label: string; color: string }> = {
   inativo:    { label: 'Inativo',    color: 'text-slate-400  bg-slate-800     border-slate-700' },
 };
 
-function formatCurrency(v: number) {
-  return v.toLocaleString('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-}
+
 
 export default function AdminImoveisPage() {
   const [properties, setProperties] = useState<Property[]>([]);
@@ -291,7 +285,7 @@ export default function AdminImoveisPage() {
                       </div>
                     )}
                   </div>
-                  <p className="text-stone-950 font-extrabold text-base mt-1.5">{formatCurrency(p.price)}</p>
+                  <p className="text-stone-950 font-extrabold text-base mt-1.5 whitespace-nowrap">{formatCurrency(p.price)}</p>
                 </div>
 
                 {/* Actions */}

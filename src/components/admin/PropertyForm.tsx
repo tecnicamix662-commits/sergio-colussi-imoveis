@@ -1,4 +1,5 @@
 'use client';
+import { formatToBRL, formatCurrency } from '@/lib/format';
 
 import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
@@ -118,31 +119,7 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
     };
   };
 
-function formatToBRL(value: string | number): { display: string; numeric: number } {
-  if (value === '' || value === null || value === undefined) {
-    return { display: '', numeric: 0 };
-  }
 
-  let numeric = 0;
-  if (typeof value === 'number') {
-    numeric = value;
-  } else {
-    const digits = value.replace(/\D/g, '');
-    if (!digits) return { display: '', numeric: 0 };
-    numeric = parseInt(digits, 10) / 100;
-  }
-
-  if (numeric <= 0) return { display: '', numeric: 0 };
-
-  const display = numeric.toLocaleString('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-
-  return { display, numeric };
-}
 
   const [form, setForm] = useState<PropertyFormData>(buildInitial);
   const [priceInput, setPriceInput] = useState<string>(initialData?.price ? formatToBRL(initialData.price).display : '');

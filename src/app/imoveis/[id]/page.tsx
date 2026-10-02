@@ -1,4 +1,5 @@
 'use client';
+import { formatCurrency } from '@/lib/format';
 
 import { useState, useEffect, use } from 'react';
 import Link from 'next/link';
@@ -77,14 +78,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
     );
   }
 
-  const formatCurrency = (val: number) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(val);
-  };
+
 
   const whatsappMsg = `Olá Sérgio Colussi, tenho interesse no imóvel "${property.title}" (Código: ${property.code}) anunciado por ${formatCurrency(property.price)}. Gostaria de mais detalhes e agendar uma visita.`;
   const whatsappUrl = `https://wa.me/5511997135790?text=${encodeURIComponent(whatsappMsg)}`;
@@ -237,7 +231,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
             <div className="space-y-2">
               <div className="flex items-baseline justify-between">
                 <span className="text-xs font-extrabold text-stone-600 uppercase tracking-wider">VALOR</span>
-                <span className="font-serif text-3xl font-bold text-stone-950">
+                <span className="font-serif text-2xl sm:text-3xl font-bold text-stone-950 whitespace-nowrap text-right">
                   {formatCurrency(property.price)}
                   {property.purpose === 'aluguel' && <span className="text-xs font-normal text-stone-500">/mês</span>}
                 </span>
@@ -246,11 +240,11 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
               <div className="space-y-1 text-xs text-stone-600 pt-2 border-t border-stone-200">
                 <div className="flex justify-between">
                   <span>Condomínio</span>
-                  <span className="font-semibold text-stone-900">{property.condoFee ? formatCurrency(property.condoFee) : 'R$ 0,00'}</span>
+                  <span className="font-semibold text-stone-900 whitespace-nowrap">{formatCurrency(property.condoFee)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>IPTU</span>
-                  <span className="font-semibold text-stone-900">{property.iptuFee ? formatCurrency(property.iptuFee) : 'R$ 0,00'}</span>
+                  <span className="font-semibold text-stone-900 whitespace-nowrap">{formatCurrency(property.iptuFee)}</span>
                 </div>
               </div>
             </div>

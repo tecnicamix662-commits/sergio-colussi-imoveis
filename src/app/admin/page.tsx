@@ -1,4 +1,5 @@
 'use client';
+import { formatCurrency } from '@/lib/format';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -11,14 +12,7 @@ import {
   CheckSquare, Clock, BadgeCheck,
 } from 'lucide-react';
 
-function formatCurrency(v: number) {
-  return v.toLocaleString('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-}
+
 
 function StatCard({ icon: Icon, label, value, sub, href, color }: {
   icon: React.ElementType;
@@ -205,7 +199,7 @@ export default function AdminDashboardPage() {
                 }`}>
                   {p.active ? 'Ativo' : 'Inativo'}
                 </span>
-                <span className="text-stone-950 text-xs font-extrabold">{formatCurrency(p.price)}</span>
+                <span className="text-stone-950 text-xs font-extrabold whitespace-nowrap">{formatCurrency(p.price)}</span>
                 <Link href={`/admin/imoveis/${p.id}/editar`} className="text-stone-700 hover:text-black text-[11px] font-bold transition ml-1">Editar</Link>
               </div>
             </div>

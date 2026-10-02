@@ -1,4 +1,5 @@
 'use client';
+import { formatCurrency } from '@/lib/format';
 
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -94,8 +95,8 @@ function CatalogContent() {
   if (filters.neighborhood) activeFilterTags.push({ key: 'neighborhood', label: `Bairro: ${filters.neighborhood}` });
   if (filters.condominium) activeFilterTags.push({ key: 'condominium', label: `Condomínio: ${filters.condominium}` });
   if (filters.searchQuery) activeFilterTags.push({ key: 'searchQuery', label: `Busca: "${filters.searchQuery}"` });
-  if (filters.minPrice) activeFilterTags.push({ key: 'minPrice', label: `Min: R$ ${filters.minPrice.toLocaleString()}` });
-  if (filters.maxPrice) activeFilterTags.push({ key: 'maxPrice', label: `Max: R$ ${filters.maxPrice.toLocaleString()}` });
+  if (filters.minPrice) activeFilterTags.push({ key: 'minPrice', label: `Mín: ${formatCurrency(filters.minPrice)}` });
+  if (filters.maxPrice) activeFilterTags.push({ key: 'maxPrice', label: `Máx: ${formatCurrency(filters.maxPrice)}` });
   if (filters.bedrooms) activeFilterTags.push({ key: 'bedrooms', label: `${filters.bedrooms}+ Quartos` });
 
   return (
@@ -124,7 +125,7 @@ function CatalogContent() {
           {activeFilterTags.map((tag) => (
             <span
               key={tag.key}
-              className="inline-flex items-center gap-1.5 bg-stone-100 border border-stone-300 text-stone-900 font-semibold text-xs px-3 py-1 rounded-lg"
+              className="inline-flex items-center gap-1.5 bg-stone-100 border border-stone-300 text-stone-900 font-semibold text-xs px-3 py-1 rounded-lg whitespace-nowrap"
             >
               <span>{tag.label}</span>
               <button
