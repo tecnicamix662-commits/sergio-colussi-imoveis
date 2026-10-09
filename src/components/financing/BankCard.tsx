@@ -83,7 +83,7 @@ export default function BankCard({ bank }: BankCardProps) {
             isCaixa ? 'text-stone-400' : 'text-stone-400'
           }`}
         >
-          Abre em nova aba no portal oficial
+          Acesso direto ao portal oficial do banco
         </span>
       </div>
     </div>

@@ -517,7 +517,7 @@ export default function ConfiguracoesPage() {
               value={settings.heroTitle}
               onChange={(v) => update('heroTitle', v)}
               rows={2}
-              placeholder="Ex: Exclusividade e Confiança nos Melhores Endereços de Santo André"
+              placeholder="Ex: Corretor de Imóveis no ABC Paulista"
               hint="Exibido no topo da página inicial como título de impacto"
             />
             <TextAreaField
@@ -525,7 +525,7 @@ export default function ConfiguracoesPage() {
               value={settings.heroSubtitle}
               onChange={(v) => update('heroSubtitle', v)}
               rows={3}
-              placeholder="Ex: Seu canal definitivo para compra, venda e investimento imobiliário de alto padrão..."
+              placeholder="Ex: Atuação com seriedade, transparência e conhecimento do mercado imobiliário no ABC Paulista."
               hint="Texto secundário no banner principal"
             />
             <TextAreaField
@@ -541,7 +541,7 @@ export default function ConfiguracoesPage() {
               value={settings.footerDescription}
               onChange={(v) => update('footerDescription', v)}
               rows={3}
-              placeholder="Ex: Referência na intermediação e captação de imóveis de luxo no ABC Paulista..."
+              placeholder="Ex: Mais de 22 anos de experiência na compra e venda de imóveis no ABC Paulista."
               hint="Texto exibido na coluna de marca do rodapé"
             />
             <div className="pt-2 border-t border-slate-800 space-y-5">
@@ -550,7 +550,7 @@ export default function ConfiguracoesPage() {
                 label="Meta Title (Título SEO)"
                 value={settings.metaTitle}
                 onChange={(v) => update('metaTitle', v)}
-                placeholder="Ex: Sérgio Colussi Imóveis | Imóveis de Alto Padrão no ABC"
+                placeholder="Ex: Sérgio Colussi - Corretor de Imóveis | Santo André e ABC Paulista"
                 hint="Título exibido nas pesquisas do Google. Máx. 60 caracteres recomendados."
               />
               <TextAreaField

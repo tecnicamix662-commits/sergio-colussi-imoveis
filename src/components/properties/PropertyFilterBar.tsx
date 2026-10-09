@@ -117,10 +117,10 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
       {!compact && (
         <div className="border-b border-stone-200 pb-3.5">
           <h2 className="text-base sm:text-lg font-serif font-bold text-stone-950 tracking-wide">
-            Encontre o imóvel ideal para a sua família
+            Buscar Imóveis no ABC Paulista
           </h2>
           <p className="text-xs text-stone-600 mt-0.5">
-            Selecione os filtros abaixo para encontrar as melhores opções no ABC Paulista
+            Selecione as opções abaixo para encontrar imóveis em Santo André, São Bernardo do Campo e região
           </p>
         </div>
       )}
@@ -233,7 +233,7 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
           className="text-xs text-stone-700 hover:text-black font-semibold flex items-center gap-1.5 transition-colors self-start sm:self-center cursor-pointer"
         >
           <SlidersHorizontal className="w-3.5 h-3.5 text-stone-900" />
-          <span>{showAdvanced ? 'Ocultar Filtros Adicionais' : 'Mais Filtros (Preço, Quartos, Vagas, Código)'}</span>
+          <span>{showAdvanced ? 'Ocultar filtros adicionais' : 'Mais filtros (preço, dormitórios, vagas, código)'}</span>
         </button>
 
         <button
@@ -242,7 +242,7 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
           className="text-xs text-stone-500 hover:text-rose-600 flex items-center gap-1.5 transition-colors self-end sm:self-center cursor-pointer font-medium"
         >
           <RotateCcw className="w-3.5 h-3.5" />
-          <span>Limpar Filtros</span>
+          <span>Limpar filtros</span>
         </button>
       </div>
 
@@ -285,14 +285,14 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
           <div className="grid grid-cols-2 gap-2">
             <div className="space-y-1">
               <label className="text-[11px] font-bold uppercase tracking-wider text-stone-700 flex items-center gap-1">
-                <Bed className="w-3.5 h-3.5 text-stone-900" /> Quartos
+                <Bed className="w-3.5 h-3.5 text-stone-900" /> Dormitórios
               </label>
               <select
                 value={bedrooms}
                 onChange={(e) => setBedrooms(e.target.value)}
                 className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-stone-900 text-xs focus:outline-none focus:border-black"
               >
-                <option value="todos">Qualquer</option>
+                <option value="todos">Todos</option>
                 <option value="1">1+</option>
                 <option value="2">2+</option>
                 <option value="3">3+</option>
@@ -309,7 +309,7 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
                 onChange={(e) => setParking(e.target.value)}
                 className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-stone-900 text-xs focus:outline-none focus:border-black"
               >
-                <option value="todos">Qualquer</option>
+                <option value="todos">Todas</option>
                 <option value="1">1+</option>
                 <option value="2">2+</option>
                 <option value="3">3+</option>
@@ -321,11 +321,11 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
           {/* Search Query */}
           <div className="space-y-1">
             <label className="text-[11px] font-bold uppercase tracking-wider text-stone-700 flex items-center gap-1">
-              <Search className="w-3.5 h-3.5 text-stone-900" /> Palavra-Chave / Código
+              <Search className="w-3.5 h-3.5 text-stone-900" /> Código ou Palavra-Chave
             </label>
             <input
               type="text"
-              placeholder="Ex: SC-101, Piscina..."
+              placeholder="Ex: SC-101, Bairro Jardim..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleApply()}

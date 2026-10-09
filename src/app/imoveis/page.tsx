@@ -105,13 +105,13 @@ function CatalogContent() {
       <div className="space-y-2 text-center sm:text-left">
         <div className="inline-flex items-center gap-2 text-stone-900 text-xs font-bold uppercase tracking-widest">
           <Building2 className="w-4 h-4 text-stone-900" />
-          <span>Sérgio Colussi Imóveis no ABC Paulista</span>
+          <span>Sérgio Colussi • Imóveis no ABC Paulista</span>
         </div>
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-stone-950 tracking-tight">
-          Catálogo Completo de Imóveis
+          Imóveis à Venda e para Locação
         </h1>
         <p className="text-stone-700 text-base max-w-2xl font-medium">
-          Filtre e descubra as melhores opções de imóveis em Santo André, Mauá e em toda a região do ABC Paulista.
+          Confira as opções de apartamentos, casas e imóveis comerciais disponíveis em Santo André, São Bernardo do Campo e região.
         </p>
       </div>
 
@@ -121,7 +121,7 @@ function CatalogContent() {
       {/* Active Filter Tags */}
       {activeFilterTags.length > 0 && (
         <div className="flex flex-wrap items-center gap-2 pt-2">
-          <span className="text-xs text-stone-600 font-bold mr-1">Filtros Ativos:</span>
+          <span className="text-xs text-stone-600 font-bold mr-1">Filtros ativos:</span>
           {activeFilterTags.map((tag) => (
             <span
               key={tag.key}
@@ -151,7 +151,7 @@ function CatalogContent() {
       {/* Controls Bar (Results count, Sort, View mode) */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-stone-200">
         <div className="text-xs text-stone-700 font-medium">
-          Exibindo <span className="font-bold text-stone-950">{filteredProperties.length}</span> imóvei(s) encontrado(s)
+          Exibindo <span className="font-bold text-stone-950">{filteredProperties.length}</span> {filteredProperties.length === 1 ? 'imóvel encontrado' : 'imóveis encontrados'}
         </div>
 
         <div className="flex items-center justify-between sm:justify-end gap-4">
@@ -163,10 +163,10 @@ function CatalogContent() {
               onChange={(e) => handleSortChange(e.target.value)}
               className="bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-stone-900 text-xs focus:outline-none focus:border-black font-semibold"
             >
-              <option value="recentes">Mais Recentes</option>
-              <option value="preco-asc">Menor Preço</option>
-              <option value="preco-desc">Maior Preço</option>
-              <option value="area-desc">Maior Área (m²)</option>
+              <option value="recentes">Mais recentes</option>
+              <option value="preco-asc">Menor preço</option>
+              <option value="preco-desc">Maior preço</option>
+              <option value="area-desc">Maior área (m²)</option>
             </select>
           </div>
 
@@ -211,16 +211,16 @@ function CatalogContent() {
         <div className="bg-stone-50 p-16 rounded-3xl text-center space-y-4 max-w-2xl mx-auto border border-stone-200">
           <Building2 className="w-12 h-12 text-stone-400 mx-auto" />
           <h3 className="font-serif text-xl font-bold text-stone-950">
-            Nenhum imóvel atende aos critérios selecionados
+            Nenhum imóvel encontrado com os critérios selecionados
           </h3>
           <p className="text-stone-600 text-xs leading-relaxed font-medium">
-            Tente remover alguns filtros de busca ou entre em contato direto com Sérgio Colussi para verificar captações em andamento ainda não publicadas.
+            Tente ajustar ou remover filtros da busca, ou entre em contato direto com Sérgio Colussi para consultar opções em captação.
           </p>
           <button
             onClick={() => handleFilterChange({})}
             className="px-6 py-3 rounded-xl bg-black text-white font-bold text-xs uppercase tracking-wider hover:bg-stone-800 transition-all shadow-md"
           >
-            Resetar Filtros de Busca
+            Limpar filtros de busca
           </button>
         </div>
       )}

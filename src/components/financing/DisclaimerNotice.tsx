@@ -13,7 +13,7 @@ export default function DisclaimerNotice() {
           Aviso de Segurança e Condições Bancárias
         </h4>
         <p className="text-stone-700 leading-relaxed font-medium">
-          “Os resultados apresentados pelos bancos são simulações e podem sofrer alterações. A aprovação do financiamento depende da análise de crédito, documentação, avaliação do imóvel e demais critérios da instituição financeira.”
+          Os resultados apresentados pelos bancos são simulações estimadas e podem sofrer alterações conforme taxas e políticas de crédito vigentes. A concessão do financiamento depende de análise de crédito, documentação e avaliação do imóvel pela instituição financeira escolhida.
         </p>
       </div>
     </div>

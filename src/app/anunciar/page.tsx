@@ -74,7 +74,7 @@ export default function AnunciarPage() {
   };
 
   const buildWhatsAppSellerUrl = () => {
-    const text = `Olá Sérgio Colussi, sou o proprietário ${name}. Quero anunciar meu imóvel (${propertyType} para ${purpose}) no bairro ${neighborhood}, em ${city}. Gostaria de agendar uma avaliação.`;
+    const text = `Olá Sérgio Colussi, sou o proprietário ${name}. Quero anunciar meu imóvel (${propertyType} para ${purpose}) no bairro ${neighborhood}, em ${city}. Gostaria de combinar uma avaliação.`;
     return `https://wa.me/5511997135790?text=${encodeURIComponent(text)}`;
   };
 
@@ -84,15 +84,15 @@ export default function AnunciarPage() {
       <div className="text-center max-w-3xl mx-auto space-y-4">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-stone-100 text-stone-950 text-xs font-bold uppercase tracking-widest border border-stone-300 shadow-sm">
           <Sparkles className="w-4 h-4 text-stone-900" />
-          <span>Captação e Venda com Segurança</span>
+          <span>Avaliação e Divulgação</span>
         </div>
 
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-stone-950 tracking-tight">
-          Anuncie Seu Imóvel com Sérgio Colussi
+          Anuncie seu Imóvel com Sérgio Colussi
         </h1>
 
         <p className="text-stone-700 text-sm sm:text-base font-medium leading-relaxed">
-          Cadastre seu imóvel para receber atendimento personalizado, avaliação de mercado precisa e total segurança contratual em Santo André e no ABC.
+          Cadastre os dados do seu imóvel para avaliação de mercado e divulgação em Santo André, São Bernardo do Campo e região do ABC.
         </p>
       </div>
 
@@ -101,37 +101,37 @@ export default function AnunciarPage() {
         <div className="lg:col-span-5 space-y-8">
           <div className="bg-stone-50 rounded-3xl p-8 border border-stone-200 shadow-sm space-y-6">
             <h3 className="font-serif text-2xl font-bold text-stone-950 tracking-tight border-b border-stone-200 pb-3">
-              Por Que Vender / Alugar Conosco?
+              Vantagens de Anunciar
             </h3>
 
             <div className="space-y-4 text-xs font-medium">
               <div className="flex items-start gap-3 p-3.5 rounded-xl bg-white border border-stone-200">
                 <CheckCircle2 className="w-5 h-5 text-emerald-600 fill-emerald-100/60 shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="font-bold text-stone-950 text-sm">Produção Fotográfica Profissional</h4>
-                  <p className="text-stone-700 text-[11px] leading-snug">Seu imóvel será fotografado com ângulos e iluminação que valorizam cada ambiente.</p>
+                  <h4 className="font-bold text-stone-950 text-sm">Fotos Claras e Bem Posicionadas</h4>
+                  <p className="text-stone-700 text-[11px] leading-snug">Registros nítidos dos ambientes para apresentar o imóvel com fidelidade aos compradores.</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3 p-3.5 rounded-xl bg-white border border-stone-200">
                 <CheckCircle2 className="w-5 h-5 text-emerald-600 fill-emerald-100/60 shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="font-bold text-stone-950 text-sm">Compradores Pré-Qualificados</h4>
-                  <p className="text-stone-700 text-[11px] leading-snug">Trabalhamos com carteira de clientes interessados em imóveis no ABC Paulista.</p>
+                  <h4 className="font-bold text-stone-950 text-sm">Interessados Selecionados</h4>
+                  <p className="text-stone-700 text-[11px] leading-snug">Divulgação direcionada para pessoas que realmente buscam imóveis no perfil do seu no ABC.</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3 p-3.5 rounded-xl bg-white border border-stone-200">
                 <CheckCircle2 className="w-5 h-5 text-emerald-600 fill-emerald-100/60 shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="font-bold text-stone-950 text-sm">Segurança Jurídica &amp; Atendimento Direto</h4>
-                  <p className="text-stone-700 text-[11px] leading-snug">Acompanhamento completo de Sérgio Colussi em todas as fases da negociação.</p>
+                  <h4 className="font-bold text-stone-950 text-sm">Atendimento Direto e Suporte Documental</h4>
+                  <p className="text-stone-700 text-[11px] leading-snug">Acompanhamento pessoal de Sérgio Colussi em todas as fases da negociação e do contrato.</p>
                 </div>
               </div>
             </div>
 
             <div className="pt-2 border-t border-stone-200 text-center space-y-3">
-              <span className="text-xs text-stone-700 font-bold block">Prefere atendimento imediato?</span>
+              <span className="text-xs text-stone-700 font-bold block">Prefere atendimento direto?</span>
               <a
                 href="https://wa.me/5511997135790?text=Ol%C3%A1%20S%C3%A9rgio%2C%20sou%20propriet%C3%A1rio%20e%20gostaria%20de%20anunciar%20meu%20im%C3%B3vel."
                 target="_blank"
@@ -139,7 +139,7 @@ export default function AnunciarPage() {
                 className="w-full py-3.5 rounded-xl bg-stone-900 hover:bg-black text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-md border border-stone-800"
               >
                 <Phone className="w-4 h-4 text-emerald-400" />
-                <span>Enviar Dados Direto no WhatsApp</span>
+                <span>Falar Direto no WhatsApp</span>
               </a>
             </div>
           </div>
@@ -150,7 +150,7 @@ export default function AnunciarPage() {
           <div className="bg-white rounded-3xl p-8 sm:p-10 border border-stone-200 shadow-sm space-y-6">
             <h3 className="font-serif text-2xl font-bold text-stone-950 tracking-tight border-b border-stone-200 pb-3 flex items-center gap-2">
               <FileText className="w-6 h-6 text-stone-900" />
-              <span>Formulário de Cadastro de Imóvel</span>
+              <span>Dados do Imóvel</span>
             </h3>
 
             {isSubmitted ? (
@@ -160,7 +160,7 @@ export default function AnunciarPage() {
                   Cadastro Recebido com Sucesso!
                 </h4>
                 <p className="text-stone-700 text-sm font-medium max-w-md mx-auto leading-relaxed">
-                  Obrigado, <strong>{name}</strong>. Sérgio Colussi analisará as informações e entrará em contato em breve para conversar sobre o seu imóvel.
+                  Obrigado, <strong>{name}</strong>. Sérgio Colussi analisará as informações enviadas e entrará em contato para agendar uma conversa sobre o imóvel.
                 </p>
                 <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
                   <a
@@ -170,7 +170,7 @@ export default function AnunciarPage() {
                     className="w-full sm:w-auto px-6 py-3 rounded-xl bg-stone-900 hover:bg-black text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-md"
                   >
                     <Phone className="w-4 h-4 text-emerald-400" />
-                    <span>Acelerar pelo WhatsApp</span>
+                    <span>Falar no WhatsApp</span>
                   </a>
                   <button
                     onClick={() => {
@@ -194,7 +194,7 @@ export default function AnunciarPage() {
                 {/* Personal Info */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-stone-900 font-bold mb-1.5 text-xs">Seu Nome Completo *</label>
+                    <label className="block text-stone-900 font-bold mb-1.5 text-xs">Nome Completo *</label>
                     <div className="relative">
                       <User className="w-4 h-4 text-stone-900 absolute left-3 top-3.5" />
                       <input
@@ -209,7 +209,7 @@ export default function AnunciarPage() {
                   </div>
 
                   <div>
-                    <label className="block text-stone-900 font-bold mb-1.5 text-xs">Telefone / WhatsApp *</label>
+                    <label className="block text-stone-900 font-bold mb-1.5 text-xs">Telefone com WhatsApp *</label>
                     <div className="relative">
                       <Phone className="w-4 h-4 text-stone-900 absolute left-3 top-3.5" />
                       <input
@@ -300,10 +300,10 @@ export default function AnunciarPage() {
                 </div>
 
                 <div>
-                  <label className="block text-stone-900 font-bold mb-1.5 text-xs">Valor Pretendido de Venda / Locação (R$)</label>
+                  <label className="block text-stone-900 font-bold mb-1.5 text-xs">Valor Pretendido de Venda ou Locação (R$)</label>
                   <input
                     type="text"
-                    placeholder="Ex: R$ 650.000,00 ou A Combinar"
+                    placeholder="Ex: R$ 650.000,00 ou A combinar"
                     value={estimatedPrice}
                     onChange={(e) => setEstimatedPrice(e.target.value)}
                     className="w-full bg-stone-50 border border-stone-300 rounded-xl px-4 py-3 text-stone-900 font-semibold text-xs placeholder-stone-400 focus:outline-none focus:bg-white focus:border-black shadow-sm transition-all"
@@ -311,10 +311,10 @@ export default function AnunciarPage() {
                 </div>
 
                 <div>
-                  <label className="block text-stone-900 font-bold mb-1.5 text-xs">Observações ou Detalhes do Imóvel</label>
+                  <label className="block text-stone-900 font-bold mb-1.5 text-xs">Características e Detalhes do Imóvel</label>
                   <textarea
                     rows={3}
-                    placeholder="Conte mais sobre vagas de garagem, reformas recentes, andar, vista, etc..."
+                    placeholder="Informe metragem aproximada, dormitórios, vagas de garagem, andar, valor de condomínio ou reformas..."
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     className="w-full bg-stone-50 border border-stone-300 rounded-xl px-4 py-3 text-stone-900 font-semibold text-xs placeholder-stone-400 focus:outline-none focus:bg-white focus:border-black shadow-sm transition-all"
@@ -333,8 +333,8 @@ export default function AnunciarPage() {
                       className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
                     />
                     <UploadCloud className="w-8 h-8 text-stone-900 mx-auto mb-2" />
-                    <span className="text-stone-900 font-bold text-xs block">Clique ou arraste fotos aqui</span>
-                    <span className="text-[11px] text-stone-600 block font-medium">PNG, JPG ou WEBP (Max 10MB por foto)</span>
+                    <span className="text-stone-900 font-bold text-xs block">Clique ou arraste as fotos aqui</span>
+                    <span className="text-[11px] text-stone-600 block font-medium">Formatos PNG, JPG ou WEBP (até 10MB por foto)</span>
                   </div>
 
                   {/* Uploaded Previews */}
@@ -362,7 +362,7 @@ export default function AnunciarPage() {
                   className="w-full py-4 rounded-xl bg-black hover:bg-stone-800 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 border border-black"
                 >
                   <Send className="w-4 h-4 text-white" />
-                  <span>{isSubmitting ? 'Enviando Cadastro...' : 'Enviar Imóvel para Avaliação'}</span>
+                  <span>{isSubmitting ? 'Enviando...' : 'Enviar Imóvel para Avaliação'}</span>
                 </button>
               </form>
             )}

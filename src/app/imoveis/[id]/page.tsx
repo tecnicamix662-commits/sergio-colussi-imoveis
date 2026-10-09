@@ -69,10 +69,10 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
     return (
       <div className="min-h-screen pt-32 pb-20 max-w-4xl mx-auto px-4 text-center space-y-6 bg-white">
         <Building2 className="w-16 h-16 text-stone-400 mx-auto animate-bounce" />
-        <h2 className="font-serif text-3xl font-bold text-stone-950">Carregando Detalhes do Imóvel...</h2>
-        <p className="text-stone-600 text-sm font-medium">Aguarde um momento enquanto buscamos as fotos e informações.</p>
+        <h2 className="font-serif text-3xl font-bold text-stone-950">Carregando informações do imóvel...</h2>
+        <p className="text-stone-600 text-sm font-medium">Aguarde um momento enquanto carregamos os dados do anúncio.</p>
         <Link href="/imoveis" className="inline-flex items-center gap-2 text-stone-900 font-bold text-xs uppercase tracking-wider hover:underline">
-          <ArrowLeft className="w-4 h-4" /> Voltar ao Catálogo de Imóveis
+          <ArrowLeft className="w-4 h-4" /> Voltar para a lista de imóveis
         </Link>
       </div>
     );
@@ -116,7 +116,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
           className="inline-flex items-center gap-1.5 text-stone-600 hover:text-black font-bold transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span>Voltar para Todos os Imóveis</span>
+          <span>Voltar para a lista de imóveis</span>
         </Link>
       </div>
 
@@ -147,27 +147,27 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
         {/* Left Column (Photos, Features, Description, Map) */}
         <div className="lg:col-span-8 space-y-10">
-          {/* Gallery Component (FOTOS 100% COLORIDAS E VIVAS) */}
+          {/* Gallery Component */}
           <PropertyGallery images={property.images} title={property.title} />
 
-          {/* Quick Specifications Bar - Estilo Casari */}
+          {/* Quick Specifications Bar */}
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 p-5 bg-stone-50 rounded-2xl border border-stone-200 text-center shadow-xs">
             <div className="space-y-1">
               <Maximize2 className="w-5 h-5 text-stone-900 mx-auto" />
               <span className="font-serif text-lg font-bold text-stone-950 block">{property.area} m²</span>
-              <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">Área Construída</span>
+              <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">Área útil</span>
             </div>
 
             <div className="space-y-1">
               <Bed className="w-5 h-5 text-stone-900 mx-auto" />
               <span className="font-serif text-lg font-bold text-stone-950 block">{property.bedrooms}</span>
-              <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">Quartos</span>
+              <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">Dormitórios</span>
             </div>
 
             <div className="space-y-1">
               <Bath className="w-5 h-5 text-stone-900 mx-auto" />
               <span className="font-serif text-lg font-bold text-stone-950 block">{property.bathrooms}</span>
-              <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">Banheiro</span>
+              <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">Banheiros</span>
             </div>
 
             <div className="space-y-1">
@@ -179,14 +179,14 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
             <div className="space-y-1">
               <Sparkles className="w-5 h-5 text-stone-900 mx-auto" />
               <span className="font-serif text-lg font-bold text-stone-950 block">{property.suites || 0}</span>
-              <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">Suíte</span>
+              <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">Suítes</span>
             </div>
           </div>
 
           {/* Description Section */}
           <div className="bg-white rounded-2xl p-8 border border-stone-200 space-y-4 shadow-sm">
             <h3 className="font-serif text-2xl font-bold text-stone-950 tracking-tight border-b border-stone-200 pb-3">
-              Descrição do Imóvel
+              Detalhes do Imóvel
             </h3>
             <p className="text-stone-800 text-sm leading-relaxed whitespace-pre-line font-medium">
               {property.description}
@@ -197,7 +197,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
           {property.features && property.features.length > 0 && (
             <div className="bg-white rounded-2xl p-8 border border-stone-200 space-y-4 shadow-sm">
               <h3 className="font-serif text-2xl font-bold text-stone-950 tracking-tight border-b border-stone-200 pb-3">
-                Características & Diferenciais
+                Características do Imóvel
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                 {property.features.map((feat, idx) => (
@@ -214,23 +214,25 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
           <PropertyMap property={property} />
         </div>
 
-        {/* Right Sticky Column (Pricing & Lead Capture Form - Estilo Casari, Mantendo Cores do Site) */}
+        {/* Right Sticky Column (Pricing & Lead Capture Form) */}
         <div className="lg:col-span-4 lg:sticky lg:top-28 space-y-6">
           <div className="bg-stone-50/90 rounded-2xl p-6 border border-stone-300 space-y-5 shadow-xl">
-            {/* Header: IMÓVEL + Cód. imóvel */}
+            {/* Header: REFERÊNCIA + Cód. imóvel */}
             <div className="flex items-center justify-between border-b border-stone-200 pb-3">
               <span className="text-[11px] font-extrabold text-stone-500 uppercase tracking-widest">
-                IMÓVEL
+                REFERÊNCIA
               </span>
               <span className="text-xs font-mono font-extrabold text-stone-950 bg-white px-2.5 py-1 rounded-lg border border-stone-300 shadow-xs">
-                Cód. imóvel: {property.code}
+                Cód. {property.code}
               </span>
             </div>
 
-            {/* Price Block: VALOR, Condomínio, IPTU */}
+            {/* Price Block: VALOR DO IMÓVEL, Condomínio, IPTU */}
             <div className="space-y-2">
               <div className="flex items-baseline justify-between">
-                <span className="text-xs font-extrabold text-stone-600 uppercase tracking-wider">VALOR</span>
+                <span className="text-xs font-extrabold text-stone-600 uppercase tracking-wider">
+                  {property.purpose === 'aluguel' ? 'VALOR DO ALUGUEL' : 'VALOR DO IMÓVEL'}
+                </span>
                 <span className="font-sans text-2xl sm:text-3xl font-extrabold text-stone-950 whitespace-nowrap text-right tracking-tight">
                   {formatCurrency(property.price)}
                   {property.purpose === 'aluguel' && <span className="text-xs font-normal text-stone-500">/mês</span>}
@@ -253,8 +255,8 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
             {submittedSuccess ? (
               <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs space-y-2 text-center font-medium">
                 <CheckCircle2 className="w-8 h-8 text-emerald-600 mx-auto" />
-                <h4 className="font-bold text-stone-950 text-sm">Mensagem Enviada!</h4>
-                <p>Obrigado pelo contato. O corretor Sérgio Colussi retornará em instantes.</p>
+                <h4 className="font-bold text-stone-950 text-sm">Mensagem enviada com sucesso!</h4>
+                <p>Obrigado pelo contato. O corretor Sérgio Colussi retornará em breve.</p>
                 <button
                   onClick={() => setSubmittedSuccess(false)}
                   className="text-stone-950 underline font-bold pt-1 block mx-auto cursor-pointer"
@@ -294,12 +296,12 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
 
                 <div>
                   <label className="block text-[11px] font-bold text-stone-800 uppercase tracking-wider mb-1">
-                    CELULAR <span className="text-red-500">*</span>
+                    TELEFONE COM WHATSAPP <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="tel"
                     required
-                    placeholder="EX: (XX) X XXXX-XXXX"
+                    placeholder="EX: (11) 99999-9999"
                     value={leadPhone}
                     onChange={(e) => setLeadPhone(e.target.value)}
                     className="w-full bg-white border border-stone-300 rounded-xl px-3.5 py-2.5 text-stone-950 text-xs placeholder-stone-400 focus:outline-none focus:border-black font-semibold shadow-xs"
@@ -308,11 +310,11 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
 
                 <div>
                   <label className="block text-[11px] font-bold text-stone-800 uppercase tracking-wider mb-1">
-                    MENSAGEM (NÃO OBRIGATÓRIO)
+                    MENSAGEM (OPCIONAL)
                   </label>
                   <textarea
                     rows={3}
-                    placeholder={`Olá, gostaria de mais informações sobre o imóvel: ${property.code}.`}
+                    placeholder={`Olá, gostaria de mais informações sobre o imóvel código ${property.code}.`}
                     value={leadMessage}
                     onChange={(e) => setLeadMessage(e.target.value)}
                     className="w-full bg-white border border-stone-300 rounded-xl px-3.5 py-2.5 text-stone-950 text-xs placeholder-stone-400 focus:outline-none focus:border-black font-semibold shadow-xs"
@@ -320,22 +322,22 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
                 </div>
 
                 <p className="text-[10px] text-stone-500 leading-tight">
-                  Ao informar meus dados, eu concordo com a <span className="underline cursor-pointer font-semibold">Política de Privacidade</span>.
+                  Ao enviar seus dados, você autoriza o corretor a entrar em contato sobre este imóvel.
                 </p>
 
                 {/* Stacked Action Buttons */}
                 <div className="space-y-2 pt-1">
-                  {/* Botão 1: TENHO INTERESSE (Principal escuro elegante do site) */}
+                  {/* Botão 1: SOLICITAR INFORMAÇÕES */}
                   <button
                     type="submit"
                     disabled={isSubmitting}
                     className="w-full py-3.5 rounded-xl bg-stone-950 hover:bg-black text-white font-extrabold text-xs uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2 border border-stone-950 cursor-pointer disabled:opacity-50"
                   >
                     <Send className="w-4 h-4 text-white" />
-                    <span>{isSubmitting ? 'ENVIANDO...' : 'TENHO INTERESSE'}</span>
+                    <span>{isSubmitting ? 'ENVIANDO...' : 'SOLICITAR INFORMAÇÕES'}</span>
                   </button>
 
-                  {/* Botão 2: AGENDAR UMA VISITA (Botão secundário limpo) */}
+                  {/* Botão 2: AGENDAR UMA VISITA */}
                   <button
                     type="submit"
                     disabled={isSubmitting}
@@ -345,7 +347,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
                     <span>AGENDAR UMA VISITA</span>
                   </button>
 
-                  {/* Botão 3: CHAMAR NO WHATSAPP (Verde oficial WhatsApp) */}
+                  {/* Botão 3: FALAR NO WHATSAPP */}
                   <a
                     href={whatsappUrl}
                     target="_blank"
@@ -353,7 +355,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
                     className="w-full py-3.5 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-extrabold text-xs uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2"
                   >
                     <MessageCircle className="w-4 h-4 text-white fill-white" />
-                    <span>CHAMAR NO WHATSAPP</span>
+                    <span>FALAR NO WHATSAPP</span>
                   </a>
                 </div>
               </form>
@@ -361,7 +363,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
 
             {/* Social Share Row */}
             <div className="pt-4 border-t border-stone-200 text-center space-y-2">
-              <span className="text-[11px] font-bold text-stone-600 block">Compartilhar nas redes sociais</span>
+              <span className="text-[11px] font-bold text-stone-600 block">Compartilhar este imóvel:</span>
               <div className="flex items-center justify-center gap-3">
                 <a
                   href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`Confira este imóvel: ${property.title} (Cód: ${property.code})`)}`}
@@ -401,10 +403,10 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
         <div className="pt-12 border-t border-stone-200 space-y-6">
           <div className="flex items-center justify-between">
             <h3 className="font-serif text-2xl font-bold text-stone-950">
-              Imóveis Semelhantes em {property.city}
+              Outros Imóveis em {property.city}
             </h3>
             <Link href="/imoveis" className="text-xs text-stone-900 hover:underline font-bold">
-              Ver mais imóveis
+              Ver mais opções
             </Link>
           </div>
 

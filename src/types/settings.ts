@@ -66,16 +66,16 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   heroBannerUrl: '/images/hero-banner-dia-1.png',
   realtorPhotoUrl: '/images/sergio-colussi.jpg',
 
-  aboutText: 'Com 22 anos de experiência no mercado imobiliário, Sérgio Colussi atua em Santo André, Mauá e região do ABC Paulista, oferecendo um atendimento transparente, seguro e personalizado para compra, venda e avaliação de imóveis.\n\nCom conhecimento profundo da região e compromisso com cada cliente, seu objetivo é tornar o processo imobiliário mais simples, seguro e tranquilo, ajudando pessoas a encontrarem as melhores oportunidades.',
-  heroTitle: 'Experiência e Confiança nos Melhores Endereços de Santo André, Mauá e Região',
-  heroSubtitle: 'Com 22 anos de experiência no mercado imobiliário do ABC Paulista, oferecemos atendimento transparente, seguro e personalizado para compra, venda e avaliação de imóveis em Santo André, Mauá e região.',
-  footerDescription: 'Tradição e transparência na compra, venda e avaliação de imóveis em Santo André, Mauá e região do ABC Paulista. Atendimento seguro e personalizado para realizar bons negócios.',
+  aboutText: 'Corretor de imóveis com 22 anos de experiência no ABC Paulista, atuando principalmente em Santo André, São Bernardo do Campo e região. Atendimento direto e transparente para quem busca comprar, vender ou avaliar imóveis, com acompanhamento completo em todas as etapas da documentação e da negociação.',
+  heroTitle: 'Imóveis à Venda em Santo André, São Bernardo do Campo e ABC Paulista',
+  heroSubtitle: 'Corretor de imóveis com 22 anos de atuação na região. Atendimento direto, avaliação de mercado precisa e assessoria completa para compra e venda.',
+  footerDescription: 'Sérgio Colussi, corretor de imóveis há 22 anos no ABC Paulista. Atendimento direto na compra, venda e avaliação de imóveis em Santo André, São Bernardo do Campo e região.',
 
   instagram: 'https://www.instagram.com/sjcolussi/',
   facebook: 'https://facebook.com',
   linkedin: 'https://linkedin.com',
   youtube: '',
 
-  metaTitle: 'Sérgio Colussi Imóveis | Compra, Venda e Avaliação em Santo André, Mauá e ABC Paulista',
-  metaDescription: 'Com 22 anos de experiência, Sérgio Colussi atua em Santo André, Mauá e região do ABC Paulista oferecendo atendimento transparente e seguro para compra, venda e avaliação de imóveis.',
+  metaTitle: 'Sérgio Colussi | Corretor de Imóveis no ABC Paulista - CRECI 92.920-F',
+  metaDescription: 'Corretor de imóveis com 22 anos de experiência no ABC Paulista. Atendimento direto e seguro para compra, venda e avaliação de imóveis em Santo André e região.',
 };

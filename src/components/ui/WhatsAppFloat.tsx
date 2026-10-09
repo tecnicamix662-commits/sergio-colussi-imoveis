@@ -52,9 +52,9 @@ export default function WhatsAppFloat({
                 <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 border-2 border-emerald-700 rounded-full"></span>
               </div>
               <div>
-                <h4 className="font-semibold text-sm">Sérgio Colussi Imóveis</h4>
+                <h4 className="font-semibold text-sm">Sérgio Colussi</h4>
                 <p className="text-[11px] text-emerald-100 flex items-center gap-1">
-                  <ShieldCheck className="w-3 h-3" /> Atendimento Exclusivo Online
+                  <ShieldCheck className="w-3 h-3" /> Corretor de Imóveis • CRECI 92.920-F
                 </p>
               </div>
             </div>
@@ -70,12 +70,12 @@ export default function WhatsAppFloat({
           {/* Card Body */}
           <div className="p-4 space-y-3 bg-navy-950/90 text-xs">
             <div className="bg-slate-800/90 p-3 rounded-xl border border-slate-700/60 text-slate-200 leading-relaxed">
-              👋 Olá! Sou o <strong>Sérgio Colussi</strong>. Como posso ajudar com o seu imóvel em Santo André e região?
+              Olá! Sou Sérgio Colussi, corretor de imóveis no ABC Paulista. Como posso ajudar com a busca ou anúncio do seu imóvel?
             </div>
 
             {propertyTitle && (
               <div className="bg-gold-500/10 border border-gold-500/30 p-2.5 rounded-lg text-gold-300 font-medium">
-                📍 Interesse no Imóvel: {propertyTitle} (Cód: {propertyCode})
+                Imóvel selecionado: {propertyTitle} (Cód: {propertyCode})
               </div>
             )}
 
@@ -97,49 +97,49 @@ export default function WhatsAppFloat({
                 }}
                 className="w-full text-left p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 flex items-center justify-between hover:text-gold-400 transition-colors text-xs font-semibold"
               >
-                <span>📅 Agendar uma Visita Presencial</span>
+                <span>Agendar uma visita</span>
                 <ChevronRight className="w-3.5 h-3.5 text-slate-500" />
               </button>
 
               <button
                 onClick={() => {
                   window.open(
-                    buildWhatsAppUrl('Olá Sérgio Colussi, estou procurando um imóvel para COMPRAR em Santo André e região. Pode me enviar opções disponíveis?'),
+                    buildWhatsAppUrl('Olá Sérgio, estou procurando um imóvel para compra no ABC Paulista. Pode me enviar opções disponíveis?'),
                     '_blank'
                   );
                   setIsOpen(false);
                 }}
                 className="w-full text-left p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 flex items-center justify-between hover:text-gold-400 transition-colors text-xs font-semibold"
               >
-                <span>🔑 Comprar um Imóvel</span>
+                <span>Comprar um imóvel</span>
                 <ChevronRight className="w-3.5 h-3.5 text-slate-500" />
               </button>
 
               <button
                 onClick={() => {
                   window.open(
-                    buildWhatsAppUrl('Olá Sérgio Colussi, estou procurando um imóvel para ALUGAR em Santo André e região. Pode me enviar as opções?'),
+                    buildWhatsAppUrl('Olá Sérgio, estou procurando um imóvel para locação no ABC Paulista. Pode me enviar opções disponíveis?'),
                     '_blank'
                   );
                   setIsOpen(false);
                 }}
                 className="w-full text-left p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 flex items-center justify-between hover:text-gold-400 transition-colors text-xs font-semibold"
               >
-                <span>🔑 Alugar um Imóvel</span>
+                <span>Alugar um imóvel</span>
                 <ChevronRight className="w-3.5 h-3.5 text-slate-500" />
               </button>
 
               <button
                 onClick={() => {
                   window.open(
-                    buildWhatsAppUrl('Olá Sérgio Colussi, quero anunciar/vender meu imóvel com você.'),
+                    buildWhatsAppUrl('Olá Sérgio, quero anunciar meu imóvel no ABC Paulista.'),
                     '_blank'
                   );
                   setIsOpen(false);
                 }}
                 className="w-full text-left p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 flex items-center justify-between hover:text-gold-400 transition-colors text-xs font-semibold"
               >
-                <span>🏡 Vender / Avaliar meu Imóvel</span>
+                <span>Anunciar ou avaliar meu imóvel</span>
                 <ChevronRight className="w-3.5 h-3.5 text-slate-500" />
               </button>
             </div>

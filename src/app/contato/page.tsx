@@ -48,15 +48,15 @@ export default function ContatoPage() {
       <div className="text-center max-w-3xl mx-auto space-y-4">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-stone-100 text-stone-950 text-xs font-bold uppercase tracking-widest border border-stone-300 shadow-sm">
           <Sparkles className="w-4 h-4 text-stone-900" />
-          <span>Atendimento Personalizado</span>
+          <span>Atendimento Direto</span>
         </div>
 
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-stone-950 tracking-tight">
-          Fale Conosco
+          Entre em Contato
         </h1>
 
         <p className="text-stone-700 text-sm sm:text-base font-medium leading-relaxed">
-          Entre em contato para um atendimento rápido, seguro e personalizado em Santo André e região do ABC.
+          Tire dúvidas sobre imóveis, solicite mais informações ou agende uma visita diretamente com Sérgio Colussi.
         </p>
       </div>
 
@@ -65,7 +65,7 @@ export default function ContatoPage() {
         <div className="lg:col-span-5 space-y-6">
           <div className="bg-stone-50 rounded-3xl p-8 border border-stone-200 shadow-sm space-y-6">
             <h3 className="font-serif text-2xl font-bold text-stone-950 tracking-tight border-b border-stone-200 pb-3">
-              Informações de Contato
+              Canais de Contato
             </h3>
 
             <div className="space-y-5 text-xs text-stone-800 font-medium">
@@ -74,8 +74,8 @@ export default function ContatoPage() {
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-stone-950 text-sm mb-0.5">Região de Atendimento</h4>
-                  <p>{settings.address || 'Atendimento em Santo André e região do ABC Paulista'}</p>
+                  <h4 className="font-bold text-stone-950 text-sm mb-0.5">Região de Atuação</h4>
+                  <p>{settings.address || 'Atendimento em Santo André, São Bernardo do Campo e região do ABC'}</p>
                   <p className="text-stone-600">{settings.city} - {settings.state}</p>
                 </div>
               </div>
@@ -85,7 +85,7 @@ export default function ContatoPage() {
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-stone-950 text-sm mb-0.5">Telefones &amp; WhatsApp</h4>
+                  <h4 className="font-bold text-stone-950 text-sm mb-0.5">Telefone e WhatsApp</h4>
                   {settings.whatsapp && <p className="font-bold text-stone-950">WhatsApp: {settings.whatsapp}</p>}
                   {settings.phone && <p className="text-stone-600">Fixo: {settings.phone}</p>}
                 </div>
@@ -96,7 +96,7 @@ export default function ContatoPage() {
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-stone-950 text-sm mb-0.5">E-mail Profissional</h4>
+                  <h4 className="font-bold text-stone-950 text-sm mb-0.5">E-mail</h4>
                   <p className="font-bold text-stone-950">{settings.email}</p>
                 </div>
               </div>
@@ -149,7 +149,7 @@ export default function ContatoPage() {
                 className="w-full py-3.5 rounded-xl bg-stone-900 hover:bg-black text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-md border border-stone-800"
               >
                 <Phone className="w-4 h-4 text-emerald-400" />
-                <span>Conversar Agora no WhatsApp</span>
+                <span>Falar no WhatsApp</span>
               </a>
             </div>
           </div>
@@ -159,15 +159,15 @@ export default function ContatoPage() {
         <div className="lg:col-span-7">
           <div className="bg-white rounded-3xl p-8 sm:p-10 border border-stone-200 shadow-sm space-y-6">
             <h3 className="font-serif text-2xl font-bold text-stone-950 tracking-tight border-b border-stone-200 pb-3">
-              Envie uma Mensagem Direta
+              Envie sua Mensagem
             </h3>
 
             {isSubmitted ? (
               <div className="p-8 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-3 font-medium">
                 <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto" />
-                <h4 className="font-serif font-bold text-stone-950 text-xl">Mensagem Recebida!</h4>
+                <h4 className="font-serif font-bold text-stone-950 text-xl">Mensagem Enviada com Sucesso!</h4>
                 <p className="text-stone-700 text-xs font-medium leading-relaxed">
-                  Obrigado pelo contato. Sérgio Colussi responderá seu e-mail ou WhatsApp o mais breve possível.
+                  Obrigado pelo contato. Sérgio Colussi responderá sua mensagem por e-mail ou WhatsApp o mais breve possível.
                 </p>
                 <button
                   onClick={() => setIsSubmitted(false)}
@@ -179,7 +179,7 @@ export default function ContatoPage() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4 text-xs">
                 <div>
-                  <label className="block text-stone-900 font-bold mb-1.5 text-xs">Seu Nome Completo *</label>
+                  <label className="block text-stone-900 font-bold mb-1.5 text-xs">Nome Completo *</label>
                   <input
                     type="text"
                     required
@@ -192,7 +192,7 @@ export default function ContatoPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-stone-900 font-bold mb-1.5 text-xs">Telefone / WhatsApp *</label>
+                    <label className="block text-stone-900 font-bold mb-1.5 text-xs">Telefone com WhatsApp *</label>
                     <input
                       type="tel"
                       required
@@ -204,7 +204,7 @@ export default function ContatoPage() {
                   </div>
 
                   <div>
-                    <label className="block text-stone-900 font-bold mb-1.5 text-xs">Seu E-mail</label>
+                    <label className="block text-stone-900 font-bold mb-1.5 text-xs">E-mail</label>
                     <input
                       type="email"
                       placeholder="seuemail@exemplo.com"
@@ -216,11 +216,11 @@ export default function ContatoPage() {
                 </div>
 
                 <div>
-                  <label className="block text-stone-900 font-bold mb-1.5 text-xs">Como podemos te ajudar? *</label>
+                  <label className="block text-stone-900 font-bold mb-1.5 text-xs">Como posso ajudar? *</label>
                   <textarea
                     rows={4}
                     required
-                    placeholder="Descreva o tipo de imóvel que procura ou o imóvel que deseja negociar..."
+                    placeholder="Descreva o tipo de imóvel que procura ou o imóvel que deseja negociar ou avaliar..."
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     className="w-full bg-stone-50 border border-stone-300 rounded-xl px-4 py-3 text-stone-900 font-semibold text-xs placeholder-stone-400 focus:outline-none focus:bg-white focus:border-black shadow-sm transition-all"

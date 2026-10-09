@@ -97,7 +97,7 @@ export default function AdminDashboardPage() {
         <StatCard icon={Star} label="Em Destaque" value={featuredCount} sub="na página inicial" href="/admin/imoveis" color="bg-amber-50 text-amber-900" />
         <StatCard icon={Tag} label="Vendidos" value={soldCount} sub="marcados como vendido" href="/admin/imoveis" color="bg-red-50 text-red-800" />
         <StatCard icon={Users} label="Mensagens" value={leads.length} sub="contatos recebidos" href="/admin/mensagens" color="bg-blue-50 text-blue-900" />
-        <StatCard icon={TrendingUp} label="Portfólio Ativo" value={formatCurrency(totalValue)} sub="valor total dos imóveis" color="bg-purple-50 text-purple-900" />
+        <StatCard icon={TrendingUp} label="Valor em Carteira" value={formatCurrency(totalValue)} sub="valor total dos imóveis" color="bg-purple-50 text-purple-900" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

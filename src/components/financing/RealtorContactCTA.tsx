@@ -23,7 +23,7 @@ export default function RealtorContactCTA() {
         <div className="lg:col-span-7 space-y-6">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold uppercase tracking-widest border border-emerald-500/30">
             <MessageCircle className="w-4 h-4 text-emerald-400" />
-            <span>Atendimento Especializado</span>
+            <span>Atendimento Direto</span>
           </div>
 
           <h2 className="font-serif text-2xl sm:text-4xl font-bold text-white tracking-tight leading-snug">
@@ -31,7 +31,7 @@ export default function RealtorContactCTA() {
           </h2>
 
           <p className="text-stone-300 text-sm sm:text-base leading-relaxed font-medium">
-            “Já fez sua simulação? Fale comigo e me diga quanto pretende investir. Vou te ajudar a encontrar o imóvel ideal.”
+            Depois de realizar sua simulação no banco, entre em contato e informe a faixa de investimento pretendida. Com base nisso, apresento as melhores opções disponíveis em Santo André, São Bernardo e região.
           </p>
 
           <div className="pt-2">
@@ -42,7 +42,7 @@ export default function RealtorContactCTA() {
               className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-[#25D366] hover:bg-[#20bd5a] text-stone-950 font-extrabold text-sm uppercase tracking-wider transition-all shadow-lg hover:shadow-emerald-900/30 hover:scale-[1.02] border border-emerald-400"
             >
               <Phone className="w-5 h-5 text-stone-950 fill-stone-950" />
-              <span>FALAR COM SÉRGIO</span>
+              <span>Falar com o Sérgio no WhatsApp</span>
             </a>
           </div>
         </div>
@@ -72,7 +72,7 @@ export default function RealtorContactCTA() {
             <div className="flex items-center justify-between">
               <span className="text-stone-400">Atendimento:</span>
               <span className="text-emerald-400 font-semibold flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5" /> Direto e Personalizado
+                <CheckCircle2 className="w-3.5 h-3.5" /> Direto com o corretor
               </span>
             </div>
           </div>

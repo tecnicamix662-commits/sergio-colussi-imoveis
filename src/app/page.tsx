@@ -78,22 +78,22 @@ export default function HomePage() {
     {
       id: 1,
       name: 'Dr. Roberto Mendonça',
-      role: 'Comprador de Cobertura no Bairro Jardim',
-      text: 'O Sérgio Colussi é a definição de profissionalismo. Conseguiu encontrar exatamente o apartamento que eu e minha família procurávamos em Santo André, conduzindo toda a negociação com transparência e rapidez exemplar.',
+      role: 'Comprador em Santo André',
+      text: 'O Sérgio conduziu a compra do nosso imóvel com muita clareza do começo ao fim. Orientou toda a parte burocrática da documentação e nos deu total segurança na negociação.',
       rating: 5,
     },
     {
       id: 2,
       name: 'Juliana & Marcelo Ribeiro',
-      role: 'Proprietários no Swiss Park',
-      text: 'Entregamos a venda da nossa mansão em São Bernardo de forma exclusiva para o Sérgio Colussi. Em menos de 45 dias o imóvel foi negociado pelo valor de avaliação justo, sem incômodos. Recomendamos de olhos fechados!',
+      role: 'Proprietários em São Bernardo do Campo',
+      text: 'Colocamos nosso imóvel à venda com o Sérgio. Ele fez uma avaliação realista do preço, filtramos os interessados e a venda foi concluída sem dores de cabeça. Recomendo o trabalho.',
       rating: 5,
     },
     {
       id: 3,
       name: 'Fernando Guimarães',
-      role: 'Investidor Imobiliário',
-      text: 'Compro imóveis com a assessoria do Sérgio há mais de 8 anos. Conhecimento profundo da região do ABC, análise precisa de mercado e segurança jurídica impecável.',
+      role: 'Investidor no ABC Paulista',
+      text: 'Compro imóveis com a assessoria do Sérgio há anos. Ele conhece a região a fundo, tem visão clara de mercado e faz uma checagem rigorosa de toda a documentação.',
       rating: 5,
     },
   ];
@@ -102,7 +102,7 @@ export default function HomePage() {
     <div className="space-y-20 pb-20 bg-white">
       {/* HERO SECTION WITH AUTOMATIC BACKGROUND PHOTO CAROUSEL */}
       <section className="relative min-h-[88vh] flex items-center justify-center pt-24 pb-16 overflow-hidden bg-black">
-        {/* Background Image Carousel (FOTOS 100% ENSOLARADAS COM PISCINA) */}
+        {/* Background Image Carousel */}
         {coverPhotos.map((imgUrl, index) => (
           <div
             key={index}
@@ -112,7 +112,7 @@ export default function HomePage() {
           >
             <Image
               src={imgUrl}
-              alt="Imóveis de Alto Padrão Sérgio Colussi"
+              alt="Imóveis no ABC Paulista - Sérgio Colussi"
               fill
               priority={index === 0}
               className="object-cover object-center brightness-100 contrast-[1.03]"
@@ -149,14 +149,14 @@ export default function HomePage() {
               settings.heroTitle
             ) : (
               <>
-                Exclusividade e Confiança nos{' '}
-                <span className="text-white underline decoration-stone-500 underline-offset-8">Melhores Endereços</span> de Santo André e Região
+                Imóveis à Venda em{' '}
+                <span className="text-white underline decoration-stone-500 underline-offset-8">Santo André, São Bernardo</span> e ABC Paulista
               </>
             )}
           </h1>
 
           <p className="text-stone-200 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed drop-shadow-md font-medium">
-            {settings.heroSubtitle || 'Com 22 anos de experiência no mercado imobiliário do ABC Paulista. Atendimento transparente, seguro e personalizado para compra, venda e avaliação de imóveis.'}
+            {settings.heroSubtitle || 'Corretor de imóveis com 22 anos de atuação na região. Atendimento direto, avaliação de mercado precisa e assessoria completa para compra e venda.'}
           </p>
 
           {/* Action Buttons */}
@@ -166,7 +166,7 @@ export default function HomePage() {
               className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white hover:bg-stone-100 text-stone-950 font-extrabold text-sm uppercase tracking-wider transition-all shadow-xl flex items-center justify-center gap-2 border border-white"
             >
               <Building2 className="w-5 h-5 text-stone-950" />
-              <span>Ver Catálogo Completo</span>
+              <span>Ver Imóveis Disponíveis</span>
             </Link>
 
             <Link
@@ -178,7 +178,7 @@ export default function HomePage() {
             </Link>
 
             <a
-              href="https://wa.me/5511997135790?text=Ol%C3%A1%20S%C3%A9rgio%2C%20gostaria%20de%20atendimento%20para%20im%C3%B3veis."
+              href="https://wa.me/5511997135790?text=Ol%C3%A1%20S%C3%A9rgio%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20im%C3%B3veis%20na%20regi%C3%A3o."
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto px-8 py-4 rounded-xl bg-stone-900 hover:bg-black text-white font-bold text-sm uppercase tracking-wider transition-all shadow-lg flex items-center justify-center gap-2 border border-stone-700"
@@ -231,7 +231,7 @@ export default function HomePage() {
               <Award className="w-6 h-6" />
             </div>
             <span className="font-serif text-3xl font-bold text-stone-950">22 Anos</span>
-            <span className="text-xs text-stone-600 uppercase tracking-wider font-semibold">De Experiência no ABC</span>
+            <span className="text-xs text-stone-600 uppercase tracking-wider font-semibold">De Atuação no ABC</span>
           </div>
 
           <div className="flex flex-col items-center text-center space-y-2">
@@ -239,23 +239,23 @@ export default function HomePage() {
               <Building2 className="w-6 h-6" />
             </div>
             <span className="font-serif text-3xl font-bold text-stone-950">Centenas</span>
-            <span className="text-xs text-stone-600 uppercase tracking-wider font-semibold">De Imóveis Negociados</span>
+            <span className="text-xs text-stone-600 uppercase tracking-wider font-semibold">De Negócios Realizados</span>
           </div>
 
           <div className="flex flex-col items-center text-center space-y-2">
             <div className="w-12 h-12 rounded-2xl bg-white border border-stone-200 flex items-center justify-center text-stone-900 mb-1 shadow-sm">
               <Users className="w-6 h-6" />
             </div>
-            <span className="font-serif text-3xl font-bold text-stone-950">100%</span>
-            <span className="text-xs text-stone-600 uppercase tracking-wider font-semibold">Foco no Cliente</span>
+            <span className="font-serif text-3xl font-bold text-stone-950">Atendimento</span>
+            <span className="text-xs text-stone-600 uppercase tracking-wider font-semibold">Direto com o Corretor</span>
           </div>
 
           <div className="flex flex-col items-center text-center space-y-2">
             <div className="w-12 h-12 rounded-2xl bg-white border border-stone-200 flex items-center justify-center text-stone-900 mb-1 shadow-sm">
               <ShieldCheck className="w-6 h-6" />
             </div>
-            <span className="font-serif text-3xl font-bold text-stone-950">100%</span>
-            <span className="text-xs text-stone-600 uppercase tracking-wider font-semibold">Segurança Jurídica</span>
+            <span className="font-serif text-3xl font-bold text-stone-950">Assessoria</span>
+            <span className="text-xs text-stone-600 uppercase tracking-wider font-semibold">Segurança Documental</span>
           </div>
         </div>
       </section>
@@ -265,10 +265,10 @@ export default function HomePage() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-stone-200 pb-6">
           <div className="space-y-2">
             <span className="text-stone-900 text-xs font-bold uppercase tracking-widest">
-              Imóveis Selecionados
+              Imóveis no ABC Paulista
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-950 tracking-tight">
-              Portfólio em Destaque
+              Imóveis em Destaque
             </h2>
           </div>
 
@@ -306,7 +306,7 @@ export default function HomePage() {
             <Building2 className="w-10 h-10 text-stone-400 mx-auto" />
             <p className="text-stone-600 text-sm font-medium">Nenhum imóvel em destaque encontrado nesta categoria.</p>
             <Link href="/imoveis" className="text-xs text-stone-900 hover:underline font-bold">
-              Ver todo o catálogo -&gt;
+              Ver todos os imóveis -&gt;
             </Link>
           </div>
         )}
@@ -316,7 +316,7 @@ export default function HomePage() {
             href="/imoveis"
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-black text-white font-bold text-xs uppercase tracking-wider hover:bg-stone-800 border border-black transition-all shadow-md group"
           >
-            <span>Explorar Todos os Imóveis</span>
+            <span>Ver Todos os Imóveis</span>
             <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
@@ -325,7 +325,7 @@ export default function HomePage() {
       {/* REALTOR PRESENTATION / SOBRE PREVIEW */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-stone-50 rounded-3xl p-8 sm:p-12 border border-stone-200 shadow-sm relative overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Photo — BRILHANTE, NÍTIDA E GARANTIDA */}
+          {/* Photo */}
           <div className="lg:col-span-5 relative">
             <div className="relative h-[420px] sm:h-[480px] w-full rounded-2xl overflow-hidden border-2 border-stone-300 shadow-xl bg-stone-200">
               <img
@@ -350,23 +350,23 @@ export default function HomePage() {
           <div className="lg:col-span-7 space-y-6">
             <div className="space-y-2">
               <span className="text-stone-900 text-xs font-bold uppercase tracking-widest">
-                Transparência & Experiência no ABC Paulista
+                Atuação no ABC Paulista
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-950 tracking-tight">
-                Atendimento Transparente, Seguro e Personalizado
+                Atendimento Direto com Quem Conhece a Região
               </h2>
             </div>
 
             <p className="text-stone-800 text-base leading-relaxed font-medium">
-              Com 22 anos de experiência no mercado imobiliário, Sérgio Colussi atua em Santo André e região do ABC Paulista, oferecendo um atendimento transparente, seguro e personalizado para compra, venda e avaliação de imóveis.
+              Com 22 anos de experiência no mercado imobiliário do ABC Paulista, atuo principalmente em Santo André, São Bernardo do Campo e cidades vizinhas. Presto atendimento direto e transparente para compra, venda e avaliação de imóveis, cuidando de cada detalhe da negociação com responsabilidade e clareza.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
               {[
-                { title: 'Compra e Venda de Imóveis', desc: 'Acompanhamento completo e seguro em todas as fases da negociação.' },
-                { title: 'Avaliação de Imóveis', desc: 'Avaliações precisas baseadas no conhecimento real do mercado local.' },
-                { title: 'Segurança Jurídica', desc: 'Análise minuciosa da documentação para a garantia de bons negócios.' },
-                { title: 'Conhecimento da Região', desc: 'Forte atuação em Santo André e todos os municípios do ABC Paulista.' },
+                { title: 'Compra e Venda de Imóveis', desc: 'Acompanhamento completo em todas as etapas da negociação.' },
+                { title: 'Avaliação Imobiliária', desc: 'Avaliações precisas com base nos valores praticados no mercado local.' },
+                { title: 'Segurança Documental', desc: 'Análise cuidadosa da documentação para garantir negociações seguras.' },
+                { title: 'Conhecimento da Região', desc: 'Mais de duas décadas de experiência em Santo André, São Bernardo e cidades vizinhas.' },
               ].map((item) => (
                 <div key={item.title} className="flex items-start gap-3 p-3.5 rounded-xl bg-white border border-stone-200 shadow-sm">
                   <CheckCircle2 className="w-5 h-5 text-emerald-600 fill-emerald-100/60 shrink-0 mt-0.5" />
@@ -383,13 +383,13 @@ export default function HomePage() {
                 href="/sobre"
                 className="px-6 py-3 rounded-xl bg-black text-white font-bold text-xs uppercase tracking-wider hover:bg-stone-800 transition-all shadow-sm"
               >
-                Conhecer Minha História
+                Saiba Mais Sobre Sérgio Colussi
               </Link>
               <Link
                 href="/contato"
                 className="px-6 py-3 rounded-xl bg-white text-stone-900 border border-stone-300 hover:bg-stone-100 text-xs font-bold transition-all"
               >
-                Falar Conosco
+                Entre em Contato
               </Link>
             </div>
           </div>
@@ -400,13 +400,13 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         <div className="text-center max-w-2xl mx-auto space-y-2">
           <span className="text-stone-900 text-xs font-bold uppercase tracking-widest">
-            Reconhecimento & Confiança
+            Depoimentos
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-950 tracking-tight">
-            O Que Dizem Nossos Clientes
+            O Que Dizem os Clientes
           </h2>
           <p className="text-stone-600 text-sm font-medium">
-            Depoimentos reais de clientes que realizaram excelentes negócios com nossa assessoria.
+            Depoimentos de quem comprou ou vendeu imóveis com Sérgio Colussi.
           </p>
         </div>
 
@@ -439,13 +439,13 @@ export default function HomePage() {
         <div className="relative rounded-3xl overflow-hidden bg-stone-950 p-10 sm:p-16 border border-stone-800 shadow-2xl text-center space-y-8">
           <div className="max-w-3xl mx-auto space-y-4">
             <span className="inline-block px-4 py-1.5 rounded-full bg-stone-800 border border-stone-700 text-white text-xs font-bold uppercase tracking-widest">
-              Anuncie com Quem Entende do Seu Imóvel
+              Quer Vender seu Imóvel?
             </span>
             <h2 className="font-serif text-3xl sm:text-5xl font-bold text-white tracking-tight leading-tight">
               Deseja Vender ou Alugar Seu Imóvel?
             </h2>
             <p className="text-stone-300 text-sm sm:text-base leading-relaxed font-medium">
-              Disponibilize seu imóvel em nossa plataforma exclusiva com cobertura fotográfica profissional, avaliação precisa e atendimento direto de Sérgio Colussi.
+              Anuncie seu imóvel com avaliação realista, divulgação adequada e atendimento direto de Sérgio Colussi em todas as etapas da negociação.
             </p>
           </div>
 
@@ -455,7 +455,7 @@ export default function HomePage() {
               className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white text-stone-950 font-extrabold text-sm uppercase tracking-wider hover:bg-stone-100 transition-all shadow-md flex items-center justify-center gap-2"
             >
               <TrendingUp className="w-5 h-5 text-stone-950" />
-              <span>Cadastrar Imóvel Agora</span>
+              <span>Cadastrar Imóvel</span>
             </Link>
 
             <a
@@ -465,7 +465,7 @@ export default function HomePage() {
               className="w-full sm:w-auto px-8 py-4 rounded-xl bg-stone-900 border border-stone-700 hover:bg-stone-800 text-white font-bold text-sm uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2"
             >
               <Phone className="w-5 h-5 text-emerald-400" />
-              <span>Avaliação Rápida via WhatsApp</span>
+              <span>Avaliação via WhatsApp</span>
             </a>
           </div>
         </div>

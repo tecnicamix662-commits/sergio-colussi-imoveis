@@ -8,10 +8,10 @@ export async function POST(request: Request) {
     const targetEmail = 'sjcolussi@gmail.com';
 
     const subject = propertyTitle
-      ? `🏡 Novo Interesse no Imóvel: ${propertyTitle} (Cód: ${propertyCode || 'S/N'})`
+      ? `Novo Interesse no Imóvel: ${propertyTitle} (Cód: ${propertyCode || 'S/N'})`
       : type === 'seller'
-      ? `🔑 Nova Solicitação de Anúncio de Imóvel - ${name || 'Proprietário'}`
-      : `📩 Nova Mensagem de Contato do Site - ${name || 'Cliente'}`;
+      ? `Nova Solicitação de Anúncio de Imóvel - ${name || 'Proprietário'}`
+      : `Nova Mensagem de Contato do Site - ${name || 'Cliente'}`;
 
     // Dispara envio de e-mail assíncrono via FormSubmit para sjcolussi@gmail.com
     const formSubmitRes = await fetch(`https://formsubmit.co/ajax/${targetEmail}`, {

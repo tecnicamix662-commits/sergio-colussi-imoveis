@@ -68,10 +68,10 @@ export default function CartaoDigitalPage() {
         <div className="bg-stone-900 border border-stone-800 rounded-2xl p-4 space-y-2 text-center shadow-inner">
           <div className="flex items-center justify-center gap-2 text-white text-xs font-bold uppercase tracking-wider">
             <Award className="w-4 h-4 text-white shrink-0" />
-            <span>22 Anos de Experiência</span>
+            <span>22 Anos de Atuação no ABC</span>
           </div>
           <p className="text-stone-300 text-xs leading-relaxed font-medium">
-            Atendimento transparente, seguro e personalizado para compra, venda e avaliação de imóveis em Santo André e região do ABC Paulista.
+            Atendimento direto para compra, venda e avaliação de imóveis em Santo André, São Bernardo do Campo e região.
           </p>
         </div>
 
@@ -87,7 +87,7 @@ export default function CartaoDigitalPage() {
               <Phone className="w-4 h-4 text-emerald-400" />
             </div>
             <div className="flex-1 min-w-0">
-              <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider block">WhatsApp / Telefone</span>
+              <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider block">WhatsApp e Telefone</span>
               <span className="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">
                 {settings.phone || '(11) 99713-5790'}
               </span>
@@ -101,7 +101,7 @@ export default function CartaoDigitalPage() {
             </div>
             <div>
               <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider block">Região de Atuação</span>
-              <span className="text-xs font-semibold text-stone-200">Santo André e Região do ABC Paulista</span>
+              <span className="text-xs font-semibold text-stone-200">Santo André, São Bernardo do Campo e ABC Paulista</span>
             </div>
           </div>
 
@@ -152,7 +152,7 @@ export default function CartaoDigitalPage() {
             className="w-full py-3.5 rounded-xl bg-white text-stone-950 font-extrabold text-xs uppercase tracking-wider hover:bg-stone-100 transition-all flex items-center justify-center gap-2"
           >
             <Download className="w-4 h-4 text-stone-950" />
-            <span>Baixar Imagem do Cartão (Para Enviar no Zap)</span>
+            <span>Baixar Imagem do Cartão</span>
           </a>
 
           <a
@@ -162,14 +162,14 @@ export default function CartaoDigitalPage() {
             className="w-full py-3 rounded-xl bg-stone-900 hover:bg-black text-white font-bold text-xs uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2 border border-stone-700"
           >
             <Phone className="w-4 h-4 text-emerald-400" />
-            <span>Enviar Mensagem no WhatsApp</span>
+            <span>Falar no WhatsApp</span>
           </a>
         </div>
       </div>
 
       {/* Footer hint */}
       <p className="text-[11px] text-stone-600 font-medium mt-4 text-center">
-        © {new Date().getFullYear()} {settings.companyName} • Cartão de Visita Digital
+        © {new Date().getFullYear()} Sérgio Colussi - Corretor de Imóveis • Cartão de Visita Digital
       </p>
     </div>
   );

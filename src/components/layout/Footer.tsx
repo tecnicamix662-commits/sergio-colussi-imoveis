@@ -57,12 +57,12 @@ export default function Footer() {
             <h3 className="font-serif text-white font-bold text-base uppercase tracking-wider">Regiões Atendidas</h3>
             <ul className="space-y-2.5 text-xs">
               {[
-                { label: 'Santo André e Mauá (Foco Principal)', bold: true },
-                { label: 'São Bernardo do Campo', bold: false },
+                { label: 'Santo André', bold: true },
+                { label: 'São Bernardo do Campo', bold: true },
                 { label: 'São Caetano do Sul', bold: false },
+                { label: 'Mauá e Grande ABC', bold: false },
                 { label: 'São Vicente (Litoral)', bold: false },
                 { label: 'Ribeirão Preto (Interior)', bold: false },
-                { label: 'Grande São Paulo e ABC Paulista', bold: false },
               ].map((r) => (
                 <li key={r.label} className="flex items-center justify-between border-b border-stone-800 pb-2 last:border-0 last:pb-0">
                   <span className={r.bold ? 'font-bold text-white' : 'text-stone-400'}>{r.label}</span>

@@ -31,7 +31,7 @@ export default function HowItWorks() {
     {
       number: '05',
       title: 'Fale com o Sérgio',
-      description: 'Envie o resultado ou o valor pretendido para encontrar os melhores imóveis dentro do seu orçamento.',
+      description: 'Envie o resultado ou o valor pretendido para receber opções de imóveis compatíveis no ABC Paulista.',
       icon: MessageSquare,
     },
   ];
@@ -40,13 +40,13 @@ export default function HowItWorks() {
     <section className="bg-stone-50 rounded-3xl p-8 sm:p-12 border border-stone-200 shadow-sm space-y-8">
       <div className="text-center max-w-2xl mx-auto space-y-3">
         <span className="text-[11px] font-bold uppercase tracking-widest text-stone-500 bg-white px-3.5 py-1 rounded-full border border-stone-200 shadow-xs inline-block">
-          Passo a Passo Simples
+          Etapas da Simulação
         </span>
         <h2 className="font-serif text-2xl sm:text-4xl font-bold text-stone-950 tracking-tight">
-          COMO FUNCIONA?
+          Como Funciona a Simulação
         </h2>
         <p className="text-stone-600 text-xs sm:text-sm font-medium">
-          Entenda como realizar sua simulação oficial e encontrar seu novo imóvel sem complicações.
+          Confira o passo a passo para simular as condições de financiamento antes de visitar o imóvel.
         </p>
       </div>
 

@@ -49,18 +49,18 @@ export default function AdminLoginPage() {
             </div>
           </Link>
           <h1 className="font-serif text-3xl font-bold text-stone-950 tracking-tight">
-            Sérgio Colussi Imóveis
+            Sérgio Colussi - Corretor de Imóveis
           </h1>
           <p className="text-xs text-stone-600 font-bold uppercase tracking-widest">
-            Painel de Gestão Administrativa
+            Painel Administrativo
           </p>
         </div>
 
         {/* Login Box */}
         <div className="bg-white p-8 rounded-3xl border-2 border-stone-200 space-y-6 shadow-2xl text-stone-900">
           <div className="space-y-1 text-center">
-            <h2 className="font-serif text-2xl font-bold text-stone-900">Acessar Área Restrita</h2>
-            <p className="text-xs text-stone-500 font-medium">Entre com suas credenciais de administrador</p>
+            <h2 className="font-serif text-2xl font-bold text-stone-900">Acesso ao Painel</h2>
+            <p className="text-xs text-stone-500 font-medium">Digite seu e-mail e senha de acesso</p>
           </div>
 
           {error && (
@@ -135,7 +135,7 @@ export default function AdminLoginPage() {
 
         <div className="text-center">
           <Link href="/" className="text-xs text-stone-600 hover:text-stone-950 font-bold transition-colors">
-            ← Voltar para o site público
+            ← Voltar ao site
           </Link>
         </div>
       </div>

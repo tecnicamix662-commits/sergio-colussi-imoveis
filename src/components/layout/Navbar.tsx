@@ -24,8 +24,8 @@ function NavbarContent() {
 
   const navLinks = [
     { name: 'COMPRAR', href: '/imoveis?finalidade=venda', key: 'comprar' },
-    { name: 'SIMULE SEU FINANCIAMENTO', href: '/simular-financiamento', key: 'simular' },
-    { name: 'ANUNCIE SEU IMÓVEL', href: '/anunciar', key: 'anunciar' },
+    { name: 'SIMULAR FINANCIAMENTO', href: '/simular-financiamento', key: 'simular' },
+    { name: 'ANUNCIAR IMÓVEL', href: '/anunciar', key: 'anunciar' },
   ];
 
   const isLinkActive = (key: string) => {

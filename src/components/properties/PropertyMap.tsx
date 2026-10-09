@@ -56,12 +56,12 @@ export default function PropertyMap({ property }: PropertyMapProps) {
         {/* Badge de Privacidade */}
         <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900 text-[11px] font-bold shrink-0">
           <ShieldCheck className="w-4 h-4 text-emerald-600" />
-          <span>Endereço Exato Protegido</span>
+          <span>Localização Aproximada</span>
         </div>
       </div>
 
       <p className="text-xs text-stone-600 font-medium leading-relaxed">
-        Por questões de privacidade e segurança dos proprietários, exibimos a localização aproximada da região do imóvel. O endereço completo e agendamento de visita são fornecidos diretamente pelo corretor.
+        Por questões de privacidade e segurança dos proprietários, exibimos a localização aproximada da região do imóvel. O endereço completo e o agendamento de visitas são informados diretamente pelo corretor.
       </p>
 
       {/* Controles do Mapa: Ruas / Satélite / Google Maps Extenso */}
@@ -77,7 +77,7 @@ export default function PropertyMap({ property }: PropertyMapProps) {
             }`}
           >
             <Layers className="w-3.5 h-3.5" />
-            <span>Modo Ruas / Mapa</span>
+            <span>Mapa</span>
           </button>
 
           <button
@@ -90,7 +90,7 @@ export default function PropertyMap({ property }: PropertyMapProps) {
             }`}
           >
             <Navigation className="w-3.5 h-3.5" />
-            <span>Modo Satélite</span>
+            <span>Satélite</span>
           </button>
         </div>
 
@@ -100,7 +100,7 @@ export default function PropertyMap({ property }: PropertyMapProps) {
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1.5 text-xs font-bold text-stone-900 hover:text-black hover:underline px-3 py-1.5 rounded-xl bg-stone-50 border border-stone-300 hover:border-stone-400 transition"
         >
-          <span>Abrir no App Google Maps</span>
+          <span>Abrir no Google Maps</span>
           <ExternalLink className="w-3.5 h-3.5 text-stone-600" />
         </a>
       </div>
