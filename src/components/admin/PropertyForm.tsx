@@ -529,7 +529,7 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
                 onChange={(e) => update('description', e.target.value)}
                 rows={6}
                 required
-                placeholder="Descreva todos os diferenciais do imóvel de forma atraente e completa..."
+                placeholder="Descreva as principais características do imóvel, acabamentos, localização e detalhes do condomínio..."
                 className={`${inputCls} resize-none`}
               />
             </Field>
@@ -559,7 +559,7 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
 
             {/* Features */}
             <div className="space-y-3">
-              <label className="block text-xs font-bold text-stone-900 uppercase tracking-wider">Características e Diferenciais</label>
+              <label className="block text-xs font-bold text-stone-900 uppercase tracking-wider">Características do Imóvel</label>
               
               <div className="flex gap-2">
                 <input

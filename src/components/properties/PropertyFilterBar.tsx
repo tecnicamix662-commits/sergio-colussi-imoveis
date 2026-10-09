@@ -112,7 +112,7 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
   };
 
   return (
-    <div className="w-full bg-white p-5 sm:p-7 rounded-2xl border border-stone-200 shadow-xl space-y-5">
+    <div className={`w-full bg-white rounded-2xl border border-stone-200 shadow-xl ${compact ? 'p-4 sm:p-5 space-y-3.5' : 'p-5 sm:p-7 space-y-5'}`}>
       {/* Title */}
       {!compact && (
         <div className="border-b border-stone-200 pb-3.5">

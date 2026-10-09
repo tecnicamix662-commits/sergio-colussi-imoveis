@@ -47,28 +47,28 @@ function NavbarContent() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/95 backdrop-blur-md py-3.5 border-b border-stone-200 shadow-sm'
-          : 'bg-white/90 backdrop-blur-sm py-4 border-b border-stone-100 shadow-sm'
+          ? 'bg-white/95 backdrop-blur-md py-2 border-b border-stone-200 shadow-sm'
+          : 'bg-white/90 backdrop-blur-sm py-2.5 sm:py-3 border-b border-stone-100 shadow-sm'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group shrink-0">
+          <Link href="/" className="flex items-center gap-2.5 group shrink-0">
             {settings.logoUrl ? (
-              <img src={settings.logoUrl} alt={settings.companyName} className="h-10 sm:h-11 w-auto object-contain" />
+              <img src={settings.logoUrl} alt={settings.companyName} className="h-8 sm:h-9 w-auto object-contain" />
             ) : (
               <>
-                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-stone-900 p-[1px] shadow-sm shrink-0">
-                  <div className="w-full h-full rounded-[11px] bg-white flex items-center justify-center border border-stone-200">
-                    <Building2 className="w-5 h-5 sm:w-6 sm:h-6 text-stone-900" />
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-stone-900 p-[1px] shadow-sm shrink-0">
+                  <div className="w-full h-full rounded-[7px] bg-white flex items-center justify-center border border-stone-200">
+                    <Building2 className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-stone-900" />
                   </div>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-serif text-lg sm:text-2xl font-bold tracking-wide uppercase text-stone-950 group-hover:text-stone-700 transition-colors">
+                  <span className="font-serif text-base sm:text-lg font-bold tracking-wide uppercase text-stone-950 group-hover:text-stone-700 transition-colors leading-tight">
                     {settings.realtorName || 'Sérgio Colussi'}
                   </span>
-                  <span className="text-[9px] sm:text-[10px] tracking-[0.2em] text-stone-600 uppercase font-bold">
+                  <span className="text-[8px] sm:text-[9px] tracking-[0.18em] text-stone-600 uppercase font-bold leading-tight">
                     Corretor de Imóveis • CRECI {settings.creci || '92.920-F'}
                   </span>
                 </div>
@@ -77,20 +77,20 @@ function NavbarContent() {
           </Link>
 
           {/* Desktop Nav — FUNDO BRANCO, TEXTOS PRETOS */}
-          <nav className="hidden md:flex items-center gap-4 lg:gap-7 xl:gap-9">
+          <nav className="hidden md:flex items-center gap-4 lg:gap-6 xl:gap-8">
             {navLinks.map((link) => {
               const active = isLinkActive(link.key);
               return (
                 <Link
                   key={link.key}
                   href={link.href}
-                  className={`text-xs lg:text-sm font-bold tracking-wider uppercase transition-all relative py-1.5 whitespace-nowrap group ${
-                    active ? 'text-stone-950' : 'text-stone-800 hover:text-black'
+                  className={`text-xs font-bold tracking-wider uppercase transition-all relative py-1 whitespace-nowrap group ${
+                    active ? 'text-stone-950' : 'text-stone-700 hover:text-black'
                   }`}
                 >
                   <span className="relative z-10">{link.name}</span>
                   {active ? (
-                    <span className="absolute bottom-0 left-0 w-full h-[2.5px] rounded-full bg-black shadow-sm" />
+                    <span className="absolute bottom-0 left-0 w-full h-[2px] rounded-full bg-black shadow-sm" />
                   ) : (
                     <span className="absolute bottom-0 left-0 w-0 h-[2px] rounded-full bg-stone-400 transition-all duration-300 group-hover:w-full" />
                   )}
@@ -100,12 +100,12 @@ function NavbarContent() {
           </nav>
 
           {/* Contact Action */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-3">
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-2.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-950 font-bold text-xs uppercase tracking-wider transition-all border border-stone-300 shadow-sm flex items-center gap-2"
+              className="px-3.5 py-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-950 font-bold text-xs uppercase tracking-wider transition-all border border-stone-300 shadow-sm flex items-center gap-1.5"
             >
               <Phone className="w-3.5 h-3.5 text-stone-900" />
               <span>Atendimento</span>
@@ -116,10 +116,10 @@ function NavbarContent() {
           <div className="flex md:hidden">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2.5 rounded-xl bg-stone-100 text-stone-900 border border-stone-300 focus:outline-none transition-colors"
+              className="p-2 rounded-lg bg-stone-100 text-stone-900 border border-stone-300 focus:outline-none transition-colors"
               aria-label="Abrir menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6 text-stone-900" /> : <Menu className="w-6 h-6 text-stone-900" />}
+              {mobileMenuOpen ? <X className="w-5 h-5 text-stone-900" /> : <Menu className="w-5 h-5 text-stone-900" />}
             </button>
           </div>
         </div>

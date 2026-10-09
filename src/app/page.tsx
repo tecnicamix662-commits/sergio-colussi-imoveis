@@ -99,9 +99,9 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="space-y-20 pb-20 bg-white">
+    <div className="space-y-12 sm:space-y-16 pb-16 bg-white">
       {/* HERO SECTION WITH AUTOMATIC BACKGROUND PHOTO CAROUSEL */}
-      <section className="relative min-h-[88vh] flex items-center justify-center pt-24 pb-16 overflow-hidden bg-black">
+      <section className="relative flex items-center justify-center pt-20 sm:pt-24 pb-10 sm:pb-12 overflow-hidden bg-black">
         {/* Background Image Carousel */}
         {coverPhotos.map((imgUrl, index) => (
           <div
@@ -117,7 +117,7 @@ export default function HomePage() {
               priority={index === 0}
               className="object-cover object-center brightness-100 contrast-[1.03]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/15 to-black/20" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-black/30" />
           </div>
         ))}
 
@@ -126,89 +126,45 @@ export default function HomePage() {
           <>
             <button
               onClick={() => setCurrentSlide((prev) => (prev - 1 + coverPhotos.length) % coverPhotos.length)}
-              className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/60 hover:bg-black border border-white/30 text-white flex items-center justify-center backdrop-blur transition-all shadow-lg hover:scale-110"
+              className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/60 hover:bg-black border border-white/30 text-white flex items-center justify-center backdrop-blur transition-all shadow-md hover:scale-105 cursor-pointer"
               aria-label="Foto Anterior"
             >
-              <ChevronLeft className="w-6 h-6" />
+              <ChevronLeft className="w-5 h-5" />
             </button>
 
             <button
               onClick={() => setCurrentSlide((prev) => (prev + 1) % coverPhotos.length)}
-              className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/60 hover:bg-black border border-white/30 text-white flex items-center justify-center backdrop-blur transition-all shadow-lg hover:scale-110"
+              className="absolute right-2.5 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/60 hover:bg-black border border-white/30 text-white flex items-center justify-center backdrop-blur transition-all shadow-md hover:scale-105 cursor-pointer"
               aria-label="Próxima Foto"
             >
-              <ChevronRight className="w-6 h-6" />
+              <ChevronRight className="w-5 h-5" />
             </button>
           </>
         )}
 
         {/* Hero Fixed Content Overlay */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
-          <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white max-w-4xl mx-auto leading-tight drop-shadow-lg">
-            {settings.heroTitle ? (
-              settings.heroTitle
-            ) : (
-              <>
-                Imóveis à Venda em{' '}
-                <span className="text-white underline decoration-stone-500 underline-offset-8">Santo André, São Bernardo</span> e ABC Paulista
-              </>
-            )}
-          </h1>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 sm:space-y-5">
+          <div className="space-y-2">
+            <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white max-w-3xl mx-auto leading-snug drop-shadow-md">
+              {settings.heroTitle ? (
+                settings.heroTitle
+              ) : (
+                <>
+                  Imóveis à Venda em{' '}
+                  <span className="text-white underline decoration-stone-400 underline-offset-4">Santo André, São Bernardo</span> e ABC Paulista
+                </>
+              )}
+            </h1>
 
-          <p className="text-stone-200 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed drop-shadow-md font-medium">
-            {settings.heroSubtitle || 'Corretor de imóveis com 22 anos de atuação na região. Atendimento direto, avaliação de mercado precisa e assessoria completa para compra e venda.'}
-          </p>
-
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-            <Link
-              href="/imoveis"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white hover:bg-stone-100 text-stone-950 font-extrabold text-sm uppercase tracking-wider transition-all shadow-xl flex items-center justify-center gap-2 border border-white"
-            >
-              <Building2 className="w-5 h-5 text-stone-950" />
-              <span>Ver Imóveis Disponíveis</span>
-            </Link>
-
-            <Link
-              href="/anunciar"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-black/80 hover:bg-black text-white font-bold text-sm uppercase tracking-wider border border-stone-600 transition-all flex items-center justify-center gap-2"
-            >
-              <TrendingUp className="w-5 h-5 text-white" />
-              <span>Anunciar meu Imóvel</span>
-            </Link>
-
-            <a
-              href="https://wa.me/5511997135790?text=Ol%C3%A1%20S%C3%A9rgio%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20im%C3%B3veis%20na%20regi%C3%A3o."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-stone-900 hover:bg-black text-white font-bold text-sm uppercase tracking-wider transition-all shadow-lg flex items-center justify-center gap-2 border border-stone-700"
-            >
-              <Phone className="w-5 h-5 text-emerald-400" />
-              <span>Falar no WhatsApp</span>
-            </a>
+            <p className="text-stone-200 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed drop-shadow-sm font-medium">
+              {settings.heroSubtitle || 'Corretor de imóveis com 22 anos de atuação na região. Atendimento direto e assessoria completa para compra e venda.'}
+            </p>
           </div>
 
-          {/* Slide Indicator Dots */}
-          {coverPhotos.length > 1 && (
-            <div className="flex items-center justify-center gap-2 pt-2">
-              {coverPhotos.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrentSlide(i)}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${
-                    i === currentSlide
-                      ? 'w-8 bg-white shadow-md'
-                      : 'w-2.5 bg-white/40 hover:bg-white/70'
-                  }`}
-                  aria-label={`Ir para a foto ${i + 1}`}
-                />
-              ))}
-            </div>
-          )}
-
           {/* Search / Filter Bar Section */}
-          <div className="pt-4 max-w-5xl mx-auto text-left">
+          <div className="pt-1 max-w-5xl mx-auto text-left">
             <PropertyFilterBar
+              compact={true}
               onFilterChange={(filters) => {
                 const params = new URLSearchParams();
                 if (filters.type) params.set('tipo', filters.type);
@@ -220,6 +176,24 @@ export default function HomePage() {
               }}
             />
           </div>
+
+          {/* Slide Indicator Dots */}
+          {coverPhotos.length > 1 && (
+            <div className="flex items-center justify-center gap-1.5 pt-1">
+              {coverPhotos.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentSlide(i)}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    i === currentSlide
+                      ? 'w-6 bg-white shadow-sm'
+                      : 'w-2 bg-white/40 hover:bg-white/70'
+                  }`}
+                  aria-label={`Ir para a foto ${i + 1}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
