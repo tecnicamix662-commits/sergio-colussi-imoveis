@@ -101,7 +101,7 @@ export default function HomePage() {
   return (
     <div className="space-y-12 sm:space-y-16 pb-16 bg-white">
       {/* HERO SECTION WITH AUTOMATIC BACKGROUND PHOTO CAROUSEL */}
-      <section className="relative flex items-center justify-center pt-20 sm:pt-24 pb-10 sm:pb-12 overflow-hidden bg-black">
+      <section className="relative flex items-center justify-center min-h-[480px] sm:min-h-[560px] lg:min-h-[640px] pt-20 sm:pt-24 pb-10 sm:pb-12 overflow-hidden bg-black w-full">
         {/* Background Image Carousel */}
         {coverPhotos.map((imgUrl, index) => (
           <div
