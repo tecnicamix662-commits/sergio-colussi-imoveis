@@ -19,15 +19,12 @@ import {
   Quote,
   TrendingUp,
   MapPin,
-  ChevronLeft,
-  ChevronRight,
 } from 'lucide-react';
 
 export default function HomePage() {
   const { settings } = useSettings();
   const [featuredProperties, setFeaturedProperties] = useState<Property[]>([]);
   const [activeTab, setActiveTab] = useState<'todos' | 'apartamento' | 'casa' | 'cobertura'>('todos');
-  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     const loadProperties = () => {
@@ -61,14 +58,8 @@ export default function HomePage() {
     ? [settings.heroBannerUrl, ...defaultCoverPhotos]
     : defaultCoverPhotos;
 
-  // Auto-play interval for background photos (4.5 seconds)
-  useEffect(() => {
-    if (coverPhotos.length <= 1) return;
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % coverPhotos.length);
-    }, 4500);
-    return () => clearInterval(interval);
-  }, [coverPhotos.length]);
+  // Foto hero estática — usa a primeira imagem configurada
+  const heroPhoto = coverPhotos[0];
 
   const filteredFeatured = activeTab === 'todos'
     ? featuredProperties
@@ -100,49 +91,21 @@ export default function HomePage() {
 
   return (
     <div className="space-y-12 sm:space-y-16 pb-16 bg-white">
-      {/* HERO SECTION WITH AUTOMATIC BACKGROUND PHOTO CAROUSEL */}
+      {/* HERO SECTION — FOTO ESTÁTICA */}
       <section className="relative flex items-center justify-center min-h-[480px] sm:min-h-[560px] lg:min-h-[640px] pt-20 sm:pt-24 pb-10 sm:pb-12 overflow-hidden bg-black w-full">
-        {/* Background Image Carousel */}
-        {coverPhotos.map((imgUrl, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 z-0 transition-opacity duration-1000 ease-in-out ${
-              index === currentSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-105 pointer-events-none'
-            }`}
-          >
-            <Image
-              src={imgUrl}
-              alt="Imóveis no ABC Paulista - Sérgio Colussi"
-              fill
-              priority={index === 0}
-              className="object-cover object-center brightness-100 contrast-[1.03]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-black/30" />
-          </div>
-        ))}
+        {/* Foto de fundo estática */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={heroPhoto}
+            alt="Imóveis no ABC Paulista - Sérgio Colussi"
+            fill
+            priority
+            className="object-cover object-center brightness-100 contrast-[1.03]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-black/30" />
+        </div>
 
-        {/* Carousel Navigation Arrows */}
-        {coverPhotos.length > 1 && (
-          <>
-            <button
-              onClick={() => setCurrentSlide((prev) => (prev - 1 + coverPhotos.length) % coverPhotos.length)}
-              className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/60 hover:bg-black border border-white/30 text-white flex items-center justify-center backdrop-blur transition-all shadow-md hover:scale-105 cursor-pointer"
-              aria-label="Foto Anterior"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-
-            <button
-              onClick={() => setCurrentSlide((prev) => (prev + 1) % coverPhotos.length)}
-              className="absolute right-2.5 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/60 hover:bg-black border border-white/30 text-white flex items-center justify-center backdrop-blur transition-all shadow-md hover:scale-105 cursor-pointer"
-              aria-label="Próxima Foto"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </>
-        )}
-
-        {/* Hero Fixed Content Overlay */}
+        {/* Conteúdo sobreposto */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 sm:space-y-5">
           <div className="space-y-2">
             <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white max-w-3xl mx-auto leading-snug drop-shadow-md">
@@ -161,7 +124,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Search / Filter Bar Section */}
+          {/* Barra de Filtros */}
           <div className="pt-1 max-w-5xl mx-auto text-left">
             <PropertyFilterBar
               compact={true}
@@ -176,24 +139,6 @@ export default function HomePage() {
               }}
             />
           </div>
-
-          {/* Slide Indicator Dots */}
-          {coverPhotos.length > 1 && (
-            <div className="flex items-center justify-center gap-1.5 pt-1">
-              {coverPhotos.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrentSlide(i)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    i === currentSlide
-                      ? 'w-6 bg-white shadow-sm'
-                      : 'w-2 bg-white/40 hover:bg-white/70'
-                  }`}
-                  aria-label={`Ir para a foto ${i + 1}`}
-                />
-              ))}
-            </div>
-          )}
         </div>
       </section>
 
