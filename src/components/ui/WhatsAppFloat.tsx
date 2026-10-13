@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
@@ -31,15 +31,15 @@ export default function WhatsAppFloat({
     return null;
   }
 
-  const defaultPhone = '5511997135790'; // SÃ©rgio Colussi WhatsApp Number
+  const defaultPhone = '5511997135790';
 
   const buildWhatsAppUrl = (msg?: string) => {
     let finalMsg = msg || userMsg;
     if (!finalMsg) {
       if (propertyTitle && propertyCode) {
-        finalMsg = `OlÃ¡ SÃ©rgio, tenho interesse no imÃ³vel "${propertyTitle}" (CÃ³d: ${propertyCode}). Gostaria de mais detalhes e agendar uma visita.`;
+        finalMsg = `Ol\u00e1 S\u00e9rgio, tenho interesse no im\u00f3vel "${propertyTitle}" (C\u00f3d: ${propertyCode}). Gostaria de mais detalhes e agendar uma visita.`;
       } else {
-        finalMsg = `OlÃ¡ SÃ©rgio Colussi, gostaria de informaÃ§Ãµes sobre imÃ³veis em Santo AndrÃ© e regiÃ£o.`;
+        finalMsg = `Ol\u00e1 S\u00e9rgio Colussi, gostaria de informa\u00e7\u00f5es sobre im\u00f3veis em Santo Andr\u00e9 e regi\u00e3o.`;
       }
     }
     return `https://wa.me/${defaultPhone}?text=${encodeURIComponent(finalMsg)}`;
@@ -47,10 +47,10 @@ export default function WhatsAppFloat({
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-      {/* Expanded Quick Chat Card */}
+      {/* Card expandido */}
       {isOpen && (
         <div className="mb-4 w-80 sm:w-96 glass-card rounded-2xl border border-emerald-500/30 shadow-2xl overflow-hidden animate-in slide-in-from-bottom-5 duration-200">
-          {/* Card Header */}
+          {/* Cabe\u00e7alho */}
           <div className="bg-gradient-to-r from-emerald-700 via-emerald-600 to-teal-700 p-4 text-white flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="relative">
@@ -60,44 +60,45 @@ export default function WhatsAppFloat({
                 <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 border-2 border-emerald-700 rounded-full"></span>
               </div>
               <div>
-                <h4 className="font-semibold text-sm">SÃ©rgio Colussi</h4>
+                <h4 className="font-semibold text-sm">S\u00e9rgio Colussi</h4>
                 <p className="text-[11px] text-emerald-100 flex items-center gap-1">
-                  <ShieldCheck className="w-3 h-3" /> Corretor de ImÃ³veis â€¢ CRECI 92.920-F
+                  <ShieldCheck className="w-3 h-3" /> Corretor de Im\u00f3veis \u2022 CRECI 92.920-F
                 </p>
               </div>
             </div>
             <button
               onClick={() => setIsOpen(false)}
               className="text-emerald-100 hover:text-white p-1 rounded-lg hover:bg-white/10"
-              aria-label="Fechar chat"
+              aria-label="Fechar"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
-          {/* Card Body */}
+          {/* Corpo */}
           <div className="p-4 space-y-3 bg-navy-950/90 text-xs">
             <div className="bg-slate-800/90 p-3 rounded-xl border border-slate-700/60 text-slate-200 leading-relaxed">
-              OlÃ¡! Sou SÃ©rgio Colussi, corretor de imÃ³veis no ABC Paulista. Como posso ajudar com a busca ou anÃºncio do seu imÃ³vel?
+              Ol\u00e1! Sou S\u00e9rgio Colussi, corretor de im\u00f3veis no ABC Paulista. Como posso ajudar na compra ou venda do seu im\u00f3vel?
             </div>
 
             {propertyTitle && (
               <div className="bg-gold-500/10 border border-gold-500/30 p-2.5 rounded-lg text-gold-300 font-medium">
-                ImÃ³vel selecionado: {propertyTitle} (CÃ³d: {propertyCode})
+                Im\u00f3vel selecionado: {propertyTitle} (C\u00f3d: {propertyCode})
               </div>
             )}
 
             <div className="space-y-2 pt-1">
               <p className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">
-                Mensagens rÃ¡pidas:
+                Mensagens r\u00e1pidas:
               </p>
+
               <button
                 onClick={() => {
                   window.open(
                     buildWhatsAppUrl(
                       propertyTitle
-                        ? `OlÃ¡ SÃ©rgio, gostaria de agendar uma visita para o imÃ³vel ${propertyTitle} (CÃ³d: ${propertyCode}).`
-                        : 'OlÃ¡ SÃ©rgio Colussi, gostaria de agendar uma visita a um imÃ³vel.'
+                        ? `Ol\u00e1 S\u00e9rgio, gostaria de agendar uma visita ao im\u00f3vel ${propertyTitle} (C\u00f3d: ${propertyCode}).`
+                        : 'Ol\u00e1 S\u00e9rgio Colussi, gostaria de agendar uma visita a um im\u00f3vel.'
                     ),
                     '_blank'
                   );
@@ -112,47 +113,33 @@ export default function WhatsAppFloat({
               <button
                 onClick={() => {
                   window.open(
-                    buildWhatsAppUrl('OlÃ¡ SÃ©rgio, estou procurando um imÃ³vel para compra no ABC Paulista. Pode me enviar opÃ§Ãµes disponÃ­veis?'),
+                    buildWhatsAppUrl('Ol\u00e1 S\u00e9rgio, estou procurando um im\u00f3vel para compra no ABC Paulista. Pode me enviar op\u00e7\u00f5es dispon\u00edveis?'),
                     '_blank'
                   );
                   setIsOpen(false);
                 }}
                 className="w-full text-left p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 flex items-center justify-between hover:text-gold-400 transition-colors text-xs font-semibold"
               >
-                <span>Comprar um imÃ³vel</span>
+                <span>Comprar um im\u00f3vel</span>
                 <ChevronRight className="w-3.5 h-3.5 text-slate-500" />
               </button>
 
               <button
                 onClick={() => {
                   window.open(
-                    buildWhatsAppUrl('OlÃ¡ SÃ©rgio, estou procurando um imÃ³vel para locaÃ§Ã£o no ABC Paulista. Pode me enviar opÃ§Ãµes disponÃ­veis?'),
+                    buildWhatsAppUrl('Ol\u00e1 S\u00e9rgio, quero anunciar meu im\u00f3vel no ABC Paulista.'),
                     '_blank'
                   );
                   setIsOpen(false);
                 }}
                 className="w-full text-left p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 flex items-center justify-between hover:text-gold-400 transition-colors text-xs font-semibold"
               >
-                <span>Alugar um imÃ³vel</span>
-                <ChevronRight className="w-3.5 h-3.5 text-slate-500" />
-              </button>
-
-              <button
-                onClick={() => {
-                  window.open(
-                    buildWhatsAppUrl('OlÃ¡ SÃ©rgio, quero anunciar meu imÃ³vel no ABC Paulista.'),
-                    '_blank'
-                  );
-                  setIsOpen(false);
-                }}
-                className="w-full text-left p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 flex items-center justify-between hover:text-gold-400 transition-colors text-xs font-semibold"
-              >
-                <span>Anunciar ou avaliar meu imÃ³vel</span>
+                <span>Anunciar ou avaliar meu im\u00f3vel</span>
                 <ChevronRight className="w-3.5 h-3.5 text-slate-500" />
               </button>
             </div>
 
-            {/* Custom Input */}
+            {/* Mensagem personalizada */}
             <div className="pt-2 flex items-center gap-2">
               <input
                 type="text"
@@ -173,7 +160,7 @@ export default function WhatsAppFloat({
                 rel="noopener noreferrer"
                 onClick={() => setIsOpen(false)}
                 className="bg-emerald-600 hover:bg-emerald-500 text-white p-2 rounded-lg transition-colors flex items-center justify-center"
-                aria-label="Enviar WhatsApp"
+                aria-label="Enviar mensagem"
               >
                 <Send className="w-4 h-4" />
               </a>
@@ -182,7 +169,7 @@ export default function WhatsAppFloat({
         </div>
       )}
 
-      {/* Main Floating Trigger Button */}
+      {/* Bot\u00e3o flutuante */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="relative group flex items-center gap-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-medium px-4 py-3.5 rounded-full shadow-2xl border border-emerald-400/40 transition-all duration-300 hover:scale-105"
@@ -194,10 +181,9 @@ export default function WhatsAppFloat({
         </span>
         <WhatsAppIcon className="w-6 h-6" />
         <span className="hidden sm:inline-block font-bold text-xs uppercase tracking-wider">
-          WhatsApp SÃ©rgio Colussi
+          WhatsApp S\u00e9rgio Colussi
         </span>
       </button>
     </div>
   );
 }
-
