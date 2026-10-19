@@ -108,7 +108,7 @@ function CatalogContent() {
           <span>Sérgio Colussi • Imóveis no ABC Paulista</span>
         </div>
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-stone-950 tracking-tight">
-          Imóveis à Venda e para Locação
+          Imóveis à Venda
         </h1>
         <p className="text-stone-700 text-base max-w-2xl font-medium">
           Confira as opções de apartamentos, casas e imóveis comerciais disponíveis em Santo André, São Bernardo do Campo e região.

@@ -263,7 +263,6 @@ export default function AnunciarPage() {
                       className="w-full bg-stone-50 border border-stone-300 rounded-xl px-4 py-3 text-stone-900 font-semibold text-xs focus:outline-none focus:bg-white focus:border-black shadow-sm transition-all"
                     >
                       <option value="venda">Venda</option>
-                      <option value="aluguel">Locação</option>
                     </select>
                   </div>
                 </div>
@@ -300,7 +299,7 @@ export default function AnunciarPage() {
                 </div>
 
                 <div>
-                  <label className="block text-stone-900 font-bold mb-1.5 text-xs">Valor Pretendido de Venda ou Locação (R$)</label>
+                  <label className="block text-stone-900 font-bold mb-1.5 text-xs">Valor Pretendido de Venda (R$)</label>
                   <input
                     type="text"
                     placeholder="Ex: R$ 650.000,00 ou A combinar"

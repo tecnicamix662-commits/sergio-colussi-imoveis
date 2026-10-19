@@ -361,7 +361,7 @@ export default function HomePage() {
               Quer Vender seu Imóvel?
             </span>
             <h2 className="font-serif text-3xl sm:text-5xl font-bold text-white tracking-tight leading-tight">
-              Deseja Vender ou Alugar Seu Imóvel?
+              Deseja Vender Seu Imóvel?
             </h2>
             <p className="text-stone-300 text-sm sm:text-base leading-relaxed font-medium">
               Anuncie seu imóvel com avaliação realista, divulgação adequada e atendimento direto de Sérgio Colussi em todas as etapas da negociação.
