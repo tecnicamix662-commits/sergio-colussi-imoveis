@@ -19,12 +19,14 @@ import {
   Quote,
   TrendingUp,
   MapPin,
+  Search,
 } from 'lucide-react';
 
 export default function HomePage() {
   const { settings } = useSettings();
   const [featuredProperties, setFeaturedProperties] = useState<Property[]>([]);
   const [activeTab, setActiveTab] = useState<'todos' | 'apartamento' | 'casa' | 'cobertura'>('todos');
+  const [codeQuery, setCodeQuery] = useState('');
 
   useEffect(() => {
     const loadProperties = () => {
@@ -134,6 +136,34 @@ export default function HomePage() {
                 window.location.href = `/imoveis?${params.toString()}`;
               }}
             />
+
+            {/* Menu Buscar por Código (Campo Branco e Botão Preto) */}
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                const code = codeQuery.trim();
+                if (!code) return;
+                window.location.href = `/imoveis?q=${encodeURIComponent(code)}`;
+              }}
+              className="mt-4 flex justify-center"
+            >
+              <div className="flex items-center bg-white rounded-2xl shadow-2xl border border-stone-200 p-1 w-full max-w-md">
+                <input
+                  type="text"
+                  value={codeQuery}
+                  onChange={(e) => setCodeQuery(e.target.value)}
+                  placeholder="Digite o Código"
+                  className="w-full bg-white text-stone-950 font-semibold text-xs sm:text-sm px-4 py-2.5 sm:py-3 focus:outline-none placeholder-stone-400 rounded-xl"
+                />
+                <button
+                  type="submit"
+                  className="bg-black hover:bg-stone-900 text-white font-extrabold text-xs uppercase tracking-wider px-5 py-2.5 sm:py-3 rounded-xl transition-all shadow-md flex items-center gap-2 shrink-0 cursor-pointer active:scale-95"
+                >
+                  <Search className="w-3.5 h-3.5 text-white stroke-[2.5]" />
+                  <span>BUSCAR POR CÓDIGO</span>
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </section>
