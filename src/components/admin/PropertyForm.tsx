@@ -492,170 +492,112 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
               </Field>
             </div>
 
-            {/* Box Especial: Selos na Foto (Permuta & Preço Reduzido) */}
-            <div className="p-5 rounded-2xl bg-stone-50 border-2 border-stone-200 space-y-4 shadow-xs">
-              <div className="flex items-center justify-between flex-wrap gap-2">
+            {/* Box Compacto: Selos na Foto (Permuta & Preço Reduzido) */}
+            <div className="p-3 rounded-xl bg-stone-50 border border-stone-200">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                {/* Permuta */}
                 <div className="flex items-center gap-2">
-                  <span className="text-xl">🏷️</span>
-                  <div>
-                    <h4 className="text-xs font-black text-stone-900 uppercase tracking-wider">
-                      Selos Promocionais na Foto do Imóvel
-                    </h4>
-                    <p className="text-[11px] text-stone-500 font-medium">
-                      Ative para exibir os selos destacados no topo da foto do anúncio.
-                    </p>
+                  <span className="text-xs font-bold text-stone-800 uppercase tracking-wide flex items-center gap-1">
+                    <span>🔄</span> Aceita Permuta?
+                  </span>
+                  <div className="flex bg-stone-200/80 p-0.5 rounded-lg">
+                    <button
+                      type="button"
+                      onClick={() => update('acceptsExchange', true)}
+                      className={`px-2.5 py-1 rounded-md text-xs font-black transition-all cursor-pointer ${
+                        form.acceptsExchange === true
+                          ? 'bg-emerald-600 text-white shadow-xs'
+                          : 'text-stone-600 hover:text-stone-950'
+                      }`}
+                    >
+                      ✓ SIM
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => update('acceptsExchange', false)}
+                      className={`px-2.5 py-1 rounded-md text-xs font-bold transition-all cursor-pointer ${
+                        form.acceptsExchange === false || form.acceptsExchange === undefined
+                          ? 'bg-white text-stone-800 shadow-xs'
+                          : 'text-stone-600 hover:text-stone-950'
+                      }`}
+                    >
+                      NÃO
+                    </button>
                   </div>
                 </div>
 
-                {/* Prévia ao vivo do selo */}
+                {/* Preço Reduzido */}
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-bold text-stone-800 uppercase tracking-wide flex items-center gap-1">
+                    <span>🏷️</span> Preço Reduzido?
+                  </span>
+                  <div className="flex bg-stone-200/80 p-0.5 rounded-lg">
+                    <button
+                      type="button"
+                      onClick={() => update('isReducedPrice', true)}
+                      className={`px-2.5 py-1 rounded-md text-xs font-black transition-all cursor-pointer ${
+                        form.isReducedPrice === true || (form.originalPrice && form.originalPrice > form.price)
+                          ? 'bg-amber-600 text-white shadow-xs'
+                          : 'text-stone-600 hover:text-stone-950'
+                      }`}
+                    >
+                      ✓ SIM
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        update('isReducedPrice', false);
+                        update('originalPrice', undefined);
+                        setOriginalPriceInput('');
+                      }}
+                      className={`px-2.5 py-1 rounded-md text-xs font-bold transition-all cursor-pointer ${
+                        !form.isReducedPrice && (!form.originalPrice || form.originalPrice <= form.price)
+                          ? 'bg-white text-stone-800 shadow-xs'
+                          : 'text-stone-600 hover:text-stone-950'
+                      }`}
+                    >
+                      NÃO
+                    </button>
+                  </div>
+                </div>
+
+                {/* Preço Anterior */}
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-bold text-stone-700 whitespace-nowrap">
+                    Preço Anterior:
+                  </span>
+                  <div className="relative w-36">
+                    <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-stone-900 font-bold text-xs pointer-events-none select-none">
+                      R$
+                    </span>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      value={originalPriceInput.replace(/^R\$\s?/, '')}
+                      onChange={(e) => {
+                        const { display, numeric } = formatToBRL(e.target.value);
+                        setOriginalPriceInput(display);
+                        update('originalPrice', numeric > 0 ? numeric : undefined);
+                        if (numeric > (form.price || 0)) {
+                          update('isReducedPrice', true);
+                        }
+                      }}
+                      placeholder="0,00"
+                      className="w-full bg-white border border-stone-300 rounded-lg pl-8 pr-2 py-1 text-xs text-stone-950 font-bold placeholder-stone-400 focus:outline-none focus:border-black shadow-xs"
+                    />
+                  </div>
+                </div>
+
+                {/* Prévia ao vivo compacta */}
                 {(form.acceptsExchange || form.isReducedPrice || (form.originalPrice && form.originalPrice > form.price)) && (
-                  <div className="flex items-center gap-1.5 bg-black/95 px-3 py-1.5 rounded-lg shadow-sm border border-stone-800">
-                    <span className="text-[10px] text-stone-400 font-bold uppercase tracking-widest mr-1">Prévia:</span>
-                    {form.acceptsExchange && (
-                      <span className="bg-white/10 text-white text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded border border-white/20">
-                        ACEITA PERMUTA
-                      </span>
+                  <div className="flex items-center gap-1.5 bg-black text-white px-2.5 py-1 rounded-md text-[10px] font-black tracking-wider shadow-xs">
+                    {form.acceptsExchange && <span>ACEITA PERMUTA</span>}
+                    {form.acceptsExchange && (form.isReducedPrice || (form.originalPrice && form.originalPrice > form.price)) && (
+                      <span className="text-stone-500">•</span>
                     )}
-                    {(form.isReducedPrice || (form.originalPrice && form.originalPrice > form.price)) && (
-                      <span className="bg-white/10 text-white text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded border border-white/20">
-                        PREÇO REDUZIDO
-                      </span>
-                    )}
+                    {(form.isReducedPrice || (form.originalPrice && form.originalPrice > form.price)) && <span>PREÇO REDUZIDO</span>}
                   </div>
                 )}
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
-                {/* Opção 1: Aceita Permuta */}
-                <div className={`p-4 rounded-xl border-2 transition-all ${
-                  form.acceptsExchange
-                    ? 'bg-emerald-50/80 border-emerald-500 shadow-sm'
-                    : 'bg-white border-stone-200 hover:border-stone-300'
-                }`}>
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="space-y-0.5">
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-sm">🔄</span>
-                        <span className="text-xs font-black text-stone-950 uppercase tracking-wide">
-                          Aceita Permuta
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-stone-500 leading-snug">
-                        Exibe o selo <strong className="text-stone-900">"ACEITA PERMUTA"</strong> na foto.
-                      </p>
-                    </div>
-
-                    <div className="flex items-center gap-1 bg-stone-100 p-1 rounded-xl border border-stone-200 shrink-0">
-                      <button
-                        type="button"
-                        onClick={() => update('acceptsExchange', true)}
-                        className={`px-3 py-1.5 rounded-lg font-black text-xs transition-all cursor-pointer ${
-                          form.acceptsExchange === true
-                            ? 'bg-emerald-600 text-white shadow-sm'
-                            : 'text-stone-600 hover:text-stone-950'
-                        }`}
-                      >
-                        ✓ SIM
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => update('acceptsExchange', false)}
-                        className={`px-3 py-1.5 rounded-lg font-bold text-xs transition-all cursor-pointer ${
-                          form.acceptsExchange === false || form.acceptsExchange === undefined
-                            ? 'bg-stone-300 text-stone-800'
-                            : 'text-stone-600 hover:text-stone-950'
-                        }`}
-                      >
-                        NÃO
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Opção 2: Preço Reduzido */}
-                <div className={`p-4 rounded-xl border-2 transition-all ${
-                  form.isReducedPrice || (form.originalPrice && form.originalPrice > form.price)
-                    ? 'bg-amber-50/80 border-amber-500 shadow-sm'
-                    : 'bg-white border-stone-200 hover:border-stone-300'
-                }`}>
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="space-y-0.5">
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-sm">🏷️</span>
-                        <span className="text-xs font-black text-stone-950 uppercase tracking-wide">
-                          Preço Reduzido
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-stone-500 leading-snug">
-                        Exibe o selo <strong className="text-stone-900">"PREÇO REDUZIDO"</strong> na foto.
-                      </p>
-                    </div>
-
-                    <div className="flex items-center gap-1 bg-stone-100 p-1 rounded-xl border border-stone-200 shrink-0">
-                      <button
-                        type="button"
-                        onClick={() => update('isReducedPrice', true)}
-                        className={`px-3 py-1.5 rounded-lg font-black text-xs transition-all cursor-pointer ${
-                          form.isReducedPrice === true || (form.originalPrice && form.originalPrice > form.price)
-                            ? 'bg-amber-600 text-white shadow-sm'
-                            : 'text-stone-600 hover:text-stone-950'
-                        }`}
-                      >
-                        ✓ SIM
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          update('isReducedPrice', false);
-                          update('originalPrice', undefined);
-                          setOriginalPriceInput('');
-                        }}
-                        className={`px-3 py-1.5 rounded-lg font-bold text-xs transition-all cursor-pointer ${
-                          !form.isReducedPrice && (!form.originalPrice || form.originalPrice <= form.price)
-                            ? 'bg-stone-300 text-stone-800'
-                            : 'text-stone-600 hover:text-stone-950'
-                        }`}
-                      >
-                        NÃO
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Preço Original / Anterior (Opcional) */}
-                  <div className="mt-3 pt-3 border-t border-stone-200/80">
-                    <label className="block text-[11px] font-extrabold text-stone-700 uppercase tracking-wider mb-1">
-                      Preço Anterior (Opcional para mostrar riscado)
-                    </label>
-                    <div className="relative flex items-center">
-                      <span className="absolute left-3 text-stone-900 font-black text-xs pointer-events-none select-none z-10">
-                        R$
-                      </span>
-                      <input
-                        type="text"
-                        inputMode="numeric"
-                        value={originalPriceInput.replace(/^R\$\s?/, '')}
-                        onChange={(e) => {
-                          const { display, numeric } = formatToBRL(e.target.value);
-                          setOriginalPriceInput(display);
-                          update('originalPrice', numeric > 0 ? numeric : undefined);
-                          if (numeric > (form.price || 0)) {
-                            update('isReducedPrice', true);
-                          }
-                        }}
-                        placeholder="Ex: 950.000,00"
-                        className="w-full bg-white border border-stone-300 rounded-lg pl-9 pr-3 py-2 text-xs text-stone-950 font-bold placeholder-stone-400 focus:outline-none focus:border-black"
-                      />
-                    </div>
-                    {form.originalPrice && form.originalPrice > form.price && form.price > 0 && (
-                      <p className="text-[11px] text-amber-900 font-bold mt-1.5 flex items-center gap-1.5">
-                        <span>✨ No site exibirá:</span>
-                        <span className="line-through text-stone-500 font-semibold">{formatCurrency(form.originalPrice)}</span>
-                        <span>➔</span>
-                        <span className="text-stone-950 font-black">{formatCurrency(form.price)}</span>
-                      </p>
-                    )}
-                  </div>
-                </div>
               </div>
             </div>
 
