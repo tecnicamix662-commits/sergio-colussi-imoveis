@@ -99,20 +99,35 @@ export default function PropertyCard({ property, priorityImage = false }: Proper
           </>
         )}
 
-        {/* Top Badges (VENDIDO/ALUGADO) */}
-        {statusBadge && (
-          <div className="absolute top-3 left-3 flex items-center gap-2 z-10 pointer-events-none">
-            <span className={`text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md pointer-events-auto ${statusBadge.cls}`}>
+        {/* Top Badges (VENDIDO/ALUGADO, ACEITA PERMUTA, PREÇO REDUZIDO) */}
+        <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-20 pointer-events-none items-start">
+          {statusBadge && (
+            <span className={`text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md shadow-md pointer-events-auto ${statusBadge.cls}`}>
               {statusBadge.label}
             </span>
-          </div>
-        )}
+          )}
+          {property.acceptsExchange && (
+            <span className="bg-black/85 backdrop-blur-xs text-white text-[11px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md shadow-lg border border-white/10 w-fit pointer-events-auto">
+              ACEITA PERMUTA
+            </span>
+          )}
+          {(property.isReducedPrice || (property.originalPrice && property.originalPrice > property.price)) && (
+            <span className="bg-black/85 backdrop-blur-xs text-white text-[11px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md shadow-lg border border-white/10 w-fit pointer-events-auto">
+              PREÇO REDUZIDO
+            </span>
+          )}
+        </div>
 
         {/* Price inside image */}
         <div className="absolute bottom-3 left-4 right-4 z-10 space-y-0.5 pointer-events-none">
           <span className="text-[10px] text-stone-200 uppercase tracking-wider font-semibold block">
             {property.purpose === 'aluguel' ? 'Valor do Aluguel' : 'Valor de Venda'}
           </span>
+          {property.originalPrice && property.originalPrice > property.price && (
+            <span className="text-xs sm:text-sm font-bold text-amber-300 line-through block leading-tight opacity-95 drop-shadow-sm">
+              De {formatCurrency(property.originalPrice)}
+            </span>
+          )}
           <span className="text-xl sm:text-2xl font-sans font-extrabold text-white tracking-tight block whitespace-nowrap">
             {formatCurrency(property.price)}
             {property.purpose === 'aluguel' && <span className="text-sm font-normal text-stone-300">/mês</span>}

@@ -129,6 +129,16 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
           <span className="bg-stone-100 text-stone-800 text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg border border-stone-300">
             Para {property.purpose}
           </span>
+          {property.acceptsExchange && (
+            <span className="bg-black text-white text-xs font-black uppercase tracking-wider px-3 py-1.5 rounded-lg shadow-sm border border-stone-800">
+              ACEITA PERMUTA
+            </span>
+          )}
+          {(property.isReducedPrice || (property.originalPrice && property.originalPrice > property.price)) && (
+            <span className="bg-black text-white text-xs font-black uppercase tracking-wider px-3 py-1.5 rounded-lg shadow-sm border border-stone-800">
+              PREÇO REDUZIDO
+            </span>
+          )}
         </div>
 
         <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-stone-950 tracking-tight leading-tight">
@@ -233,10 +243,17 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
                 <span className="text-xs font-extrabold text-stone-600 uppercase tracking-wider">
                   {property.purpose === 'aluguel' ? 'VALOR DO ALUGUEL' : 'VALOR DO IMÓVEL'}
                 </span>
-                <span className="font-sans text-2xl sm:text-3xl font-extrabold text-stone-950 whitespace-nowrap text-right tracking-tight">
-                  {formatCurrency(property.price)}
-                  {property.purpose === 'aluguel' && <span className="text-xs font-normal text-stone-500">/mês</span>}
-                </span>
+                <div className="text-right">
+                  {property.originalPrice && property.originalPrice > property.price && (
+                    <span className="text-sm font-semibold text-stone-400 line-through block leading-tight">
+                      De {formatCurrency(property.originalPrice)}
+                    </span>
+                  )}
+                  <span className="font-sans text-2xl sm:text-3xl font-extrabold text-stone-950 whitespace-nowrap tracking-tight block">
+                    {formatCurrency(property.price)}
+                    {property.purpose === 'aluguel' && <span className="text-xs font-normal text-stone-500">/mês</span>}
+                  </span>
+                </div>
               </div>
 
               <div className="space-y-1 text-xs text-stone-600 pt-2 border-t border-stone-200">

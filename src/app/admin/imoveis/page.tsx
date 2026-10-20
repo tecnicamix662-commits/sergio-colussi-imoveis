@@ -261,6 +261,16 @@ export default function AdminImoveisPage() {
                         <Star className="w-2.5 h-2.5 fill-amber-700" /> Destaque
                       </span>
                     )}
+                    {p.acceptsExchange && (
+                      <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-black text-white shadow-xs">
+                        Aceita Permuta
+                      </span>
+                    )}
+                    {(p.isReducedPrice || (p.originalPrice && p.originalPrice > p.price)) && (
+                      <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-black text-white shadow-xs">
+                        Preço Reduzido
+                      </span>
+                    )}
                   </div>
                   <h3 className="text-stone-950 font-bold text-sm leading-snug truncate">{p.title}</h3>
                   <p className="text-stone-600 text-xs font-medium mt-0.5">{p.neighborhood}, {p.city} · {p.area}m² · {p.bedrooms} dorm · {p.parking} vaga{p.parking !== 1 ? 's' : ''}</p>
@@ -285,7 +295,14 @@ export default function AdminImoveisPage() {
                       </div>
                     )}
                   </div>
-                  <p className="text-stone-950 font-extrabold text-base mt-1.5 whitespace-nowrap">{formatCurrency(p.price)}</p>
+                  <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                    {p.originalPrice && p.originalPrice > p.price && (
+                      <span className="text-stone-400 line-through text-xs font-semibold">
+                        De {formatCurrency(p.originalPrice)}
+                      </span>
+                    )}
+                    <p className="text-stone-950 font-extrabold text-base whitespace-nowrap">{formatCurrency(p.price)}</p>
+                  </div>
                 </div>
 
                 {/* Actions */}

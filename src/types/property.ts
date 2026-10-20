@@ -31,13 +31,17 @@ export interface Property {
   // Corretor Responsável pelo Imóvel
   realtorName?: string;
 
+  // Selos Promocionais e Destaques Visuais
+  acceptsExchange?: boolean; // Permuta
+  isReducedPrice?: boolean; // Preço Reduzido
+  originalPrice?: number; // Preço original anterior para exibir riscado
+
   // Dados Privados do Proprietário (Visível Apenas no Painel Admin)
   ownerName?: string;
   ownerPhone?: string;
   ownerEmail?: string;
   ownerAddress?: string;
   apartmentFloor?: string;
-  acceptsExchange?: boolean;
   ownerNotes?: string;
   createdAt: string;
   updatedAt: string;

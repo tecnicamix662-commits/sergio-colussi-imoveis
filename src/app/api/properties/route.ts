@@ -85,6 +85,8 @@ function rowToProperty(row: DbRow): Property {
     ownerAddress: diff.ownerAddress || undefined,
     apartmentFloor: diff.apartmentFloor || undefined,
     acceptsExchange: typeof diff.acceptsExchange === 'boolean' ? diff.acceptsExchange : undefined,
+    isReducedPrice: typeof diff.isReducedPrice === 'boolean' ? diff.isReducedPrice : undefined,
+    originalPrice: typeof diff.originalPrice === 'number' ? diff.originalPrice : (diff.originalPrice ? Number(diff.originalPrice) : undefined),
     ownerNotes: diff.ownerNotes || undefined,
     createdAt: row.created_at || new Date().toISOString(),
     updatedAt: row.updated_at || new Date().toISOString(),
@@ -130,6 +132,8 @@ function propertyToRow(data: Partial<Property> & { code?: string; slug?: string 
   if (data.ownerAddress !== undefined) diff.ownerAddress = data.ownerAddress;
   if (data.apartmentFloor !== undefined) diff.apartmentFloor = data.apartmentFloor;
   if (data.acceptsExchange !== undefined) diff.acceptsExchange = data.acceptsExchange;
+  if (data.isReducedPrice !== undefined) diff.isReducedPrice = data.isReducedPrice;
+  if (data.originalPrice !== undefined) diff.originalPrice = data.originalPrice || null;
   if (data.ownerNotes !== undefined) diff.ownerNotes = data.ownerNotes;
 
   if (Object.keys(diff).length > 0) {
@@ -230,6 +234,8 @@ export async function POST(request: Request) {
     diff.ownerAddress = body.ownerAddress || null;
     diff.apartmentFloor = body.apartmentFloor || null;
     diff.acceptsExchange = typeof body.acceptsExchange === 'boolean' ? body.acceptsExchange : null;
+    diff.isReducedPrice = typeof body.isReducedPrice === 'boolean' ? body.isReducedPrice : null;
+    diff.originalPrice = typeof body.originalPrice === 'number' ? body.originalPrice : (body.originalPrice ? Number(body.originalPrice) : null);
     diff.ownerNotes = body.ownerNotes || null;
     row.differentials = diff;
 
