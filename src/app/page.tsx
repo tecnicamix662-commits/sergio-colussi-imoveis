@@ -118,10 +118,6 @@ export default function HomePage() {
                 </>
               )}
             </h1>
-
-            <p className="text-stone-200 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed drop-shadow-sm font-medium">
-              {settings.heroSubtitle || 'Corretor de imóveis com 22 anos de atuação na região. Atendimento direto e assessoria completa para compra e venda.'}
-            </p>
           </div>
 
           {/* Barra de Filtros */}
