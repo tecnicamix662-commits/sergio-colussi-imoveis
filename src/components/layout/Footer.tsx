@@ -27,11 +27,33 @@ export default function Footer() {
                 <img src={settings.logoUrl} alt={settings.companyName} className="h-10 w-auto object-contain" />
               ) : (
                 <>
-                  <div className="w-10 h-10 rounded-lg bg-white p-[1px] shadow-sm">
-                    <div className="w-full h-full bg-stone-950 rounded-[7px] flex items-center justify-center border border-stone-800">
-                      <Building2 className="w-5 h-5 text-white" />
-                    </div>
-                  </div>
+                  {/* Logo SVG — Skyline Refinado (fundo escuro) */}
+                  <svg
+                    width="40" height="40"
+                    viewBox="0 0 44 44"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="shrink-0"
+                    aria-hidden="true"
+                  >
+                    {/* Linha de base */}
+                    <line x1="2" y1="38" x2="42" y2="38" stroke="#FFFFFF" strokeWidth="1.6" strokeLinecap="round"/>
+                    {/* Torre esquerda — baixa */}
+                    <rect x="3" y="24" width="9" height="14" rx="0.5" stroke="#FFFFFF" strokeWidth="1.5" fill="none"/>
+                    <line x1="3" y1="29" x2="12" y2="29" stroke="#FFFFFF" strokeWidth="0.9"/>
+                    <line x1="3" y1="34" x2="12" y2="34" stroke="#FFFFFF" strokeWidth="0.9"/>
+                    {/* Torre central — esbélta e imponente */}
+                    <rect x="16" y="4" width="12" height="34" rx="0.5" stroke="#FFFFFF" strokeWidth="1.8" fill="none"/>
+                    <line x1="16" y1="11" x2="28" y2="11" stroke="#FFFFFF" strokeWidth="0.9"/>
+                    <line x1="16" y1="19" x2="28" y2="19" stroke="#FFFFFF" strokeWidth="0.9"/>
+                    <line x1="16" y1="27" x2="28" y2="27" stroke="#FFFFFF" strokeWidth="0.9"/>
+                    <line x1="16" y1="33" x2="28" y2="33" stroke="#FFFFFF" strokeWidth="0.9"/>
+                    {/* Torre direita — média */}
+                    <rect x="32" y="16" width="9" height="22" rx="0.5" stroke="#FFFFFF" strokeWidth="1.5" fill="none"/>
+                    <line x1="32" y1="22" x2="41" y2="22" stroke="#FFFFFF" strokeWidth="0.9"/>
+                    <line x1="32" y1="28" x2="41" y2="28" stroke="#FFFFFF" strokeWidth="0.9"/>
+                    <line x1="32" y1="33" x2="41" y2="33" stroke="#FFFFFF" strokeWidth="0.9"/>
+                  </svg>
                   <div className="flex flex-col">
                     <span className="font-serif text-lg font-bold text-white tracking-wide uppercase">
                       {settings.realtorName || settings.companyName}

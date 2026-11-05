@@ -120,17 +120,17 @@ export default function PropertyCard({ property, priorityImage = false }: Proper
 
         {/* Price inside image */}
         <div className="absolute bottom-3 left-4 right-4 z-10 space-y-0.5 pointer-events-none">
-          <span className="text-[10px] text-stone-200 uppercase tracking-wider font-semibold block">
+          <span className="text-[10px] text-stone-200 uppercase tracking-wider font-medium block">
             {property.purpose === 'aluguel' ? 'Valor do Aluguel' : 'Valor de Venda'}
           </span>
           {property.originalPrice && property.originalPrice > property.price && (
-            <span className="text-xs sm:text-sm font-bold text-amber-300 line-through block leading-tight opacity-95 drop-shadow-sm">
+            <span className="text-xs font-semibold text-amber-300 line-through block leading-tight opacity-90 drop-shadow-sm">
               De {formatCurrency(property.originalPrice)}
             </span>
           )}
-          <span className="text-xl sm:text-2xl font-sans font-extrabold text-white tracking-tight block whitespace-nowrap">
+          <span className="text-base sm:text-lg font-sans font-semibold text-white tracking-normal block whitespace-nowrap drop-shadow-sm">
             {formatCurrency(property.price)}
-            {property.purpose === 'aluguel' && <span className="text-sm font-normal text-stone-300">/mês</span>}
+            {property.purpose === 'aluguel' && <span className="text-xs font-normal text-stone-300">/mês</span>}
           </span>
         </div>
       </div>

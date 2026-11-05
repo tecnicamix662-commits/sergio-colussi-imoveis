@@ -249,7 +249,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
                       De {formatCurrency(property.originalPrice)}
                     </span>
                   )}
-                  <span className="font-sans text-2xl sm:text-3xl font-extrabold text-stone-950 whitespace-nowrap tracking-tight block">
+                  <span className="font-sans text-xl sm:text-2xl font-bold text-stone-900 whitespace-nowrap tracking-tight block">
                     {formatCurrency(property.price)}
                     {property.purpose === 'aluguel' && <span className="text-xs font-normal text-stone-500">/mês</span>}
                   </span>
