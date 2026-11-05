@@ -20,6 +20,8 @@ import {
   TrendingUp,
   MapPin,
   Search,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 
 export default function HomePage() {
@@ -27,6 +29,7 @@ export default function HomePage() {
   const [featuredProperties, setFeaturedProperties] = useState<Property[]>([]);
   const [activeTab, setActiveTab] = useState<'todos' | 'apartamento' | 'casa' | 'cobertura'>('todos');
   const [codeQuery, setCodeQuery] = useState('');
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     const loadProperties = () => {
@@ -48,20 +51,23 @@ export default function HomePage() {
     return () => window.removeEventListener('properties_updated', loadProperties);
   }, []);
 
-  const defaultCoverPhotos = [
-    '/images/hero-banner-dia-1.png',
-    '/images/hero-banner-dia-2.png',
-    'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1920&q=85',
-    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=85',
-    'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=85',
+  // Fotos nítidas e profissionais de alto padrão (São Paulo aérea / Edifícios modernos / Fachadas / Living)
+  const coverPhotos = [
+    'https://images.unsplash.com/photo-1541971875076-8f970d573be6?auto=format&fit=crop&w=1920&q=85', // Vista aérea panorâmica de prédios em São Paulo / Região metropolitana
+    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=85', // Mansão / Casa moderna de altíssimo padrão
+    'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1920&q=85', // Edifício residencial moderno de alto padrão
+    'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1920&q=85', // Living / Área gourmet sofisticada
+    'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=85', // Fachada moderna contemporânea
   ];
 
-  const coverPhotos = (settings.heroBannerUrl && !settings.heroBannerUrl.includes('photo-1600596542815') && !settings.heroBannerUrl.includes('photo-1600585154526'))
-    ? [settings.heroBannerUrl, ...defaultCoverPhotos]
-    : defaultCoverPhotos;
-
-  // Foto hero estática — usa a primeira imagem configurada
-  const heroPhoto = coverPhotos[0];
+  // Auto-play suave a cada 5 segundos
+  useEffect(() => {
+    if (coverPhotos.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % coverPhotos.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [coverPhotos.length]);
 
   const filteredFeatured = activeTab === 'todos'
     ? featuredProperties
@@ -93,19 +99,64 @@ export default function HomePage() {
 
   return (
     <div className="space-y-12 sm:space-y-16 pb-16 bg-white">
-      {/* HERO SECTION — FOTO ESTÁTICA */}
+      {/* HERO SECTION — SLIDE DE FOTOS NÍTIDAS E PROFISSIONAIS */}
       <section className="relative flex items-center justify-center min-h-[480px] sm:min-h-[560px] lg:min-h-[640px] pt-20 sm:pt-24 pb-10 sm:pb-12 overflow-hidden bg-black w-full">
-        {/* Foto de fundo estática */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src={heroPhoto}
-            alt="Imóveis no ABC Paulista - Sérgio Colussi"
-            fill
-            priority
-            className="object-cover object-center brightness-100 contrast-[1.03]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-black/30" />
-        </div>
+        {/* Slide de fotos em segundo plano */}
+        {coverPhotos.map((imgUrl, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 z-0 transition-opacity duration-1000 ease-in-out ${
+              index === currentSlide ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}
+          >
+            <Image
+              src={imgUrl}
+              alt="Imóveis no ABC Paulista - Sérgio Colussi"
+              fill
+              priority={index === 0}
+              className="object-cover object-center brightness-100 contrast-[1.03]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/40" />
+          </div>
+        ))}
+
+        {/* Setas de Navegação Manual do Slide */}
+        {coverPhotos.length > 1 && (
+          <>
+            <button
+              onClick={() => setCurrentSlide((prev) => (prev - 1 + coverPhotos.length) % coverPhotos.length)}
+              className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center backdrop-blur-sm transition-all shadow-lg hover:scale-110 cursor-pointer border border-white/20"
+              aria-label="Foto anterior"
+            >
+              <ChevronLeft className="w-5 h-5 text-white" />
+            </button>
+            <button
+              onClick={() => setCurrentSlide((prev) => (prev + 1) % coverPhotos.length)}
+              className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center backdrop-blur-sm transition-all shadow-lg hover:scale-110 cursor-pointer border border-white/20"
+              aria-label="Próxima foto"
+            >
+              <ChevronRight className="w-5 h-5 text-white" />
+            </button>
+          </>
+        )}
+
+        {/* Indicadores (Dots) do Slide */}
+        {coverPhotos.length > 1 && (
+          <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 pointer-events-auto">
+            {coverPhotos.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentSlide(i)}
+                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                  i === currentSlide
+                    ? 'w-7 bg-white shadow-md'
+                    : 'w-2 bg-white/40 hover:bg-white/70'
+                }`}
+                aria-label={`Ir para a foto ${i + 1}`}
+              />
+            ))}
+          </div>
+        )}
 
         {/* Conteúdo sobreposto */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 sm:space-y-5">
