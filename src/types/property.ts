@@ -32,6 +32,7 @@ export interface Property {
   realtorName?: string;
 
   // Selos Promocionais e Destaques Visuais
+  isLaunch?: boolean; // Lançamento (Imóvel Novo na Planta/Construção)
   acceptsExchange?: boolean; // Permuta
   isReducedPrice?: boolean; // Preço Reduzido
   originalPrice?: number; // Preço original anterior para exibir riscado
@@ -60,6 +61,7 @@ export interface PropertyFilterParams {
   minArea?: number;
   searchQuery?: string;
   featuredOnly?: boolean;
+  isLaunchOnly?: boolean;
 }
 
 export interface LeadSubmission {

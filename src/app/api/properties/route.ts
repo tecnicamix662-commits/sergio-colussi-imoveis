@@ -84,6 +84,7 @@ function rowToProperty(row: DbRow): Property {
     ownerEmail: diff.ownerEmail || undefined,
     ownerAddress: diff.ownerAddress || undefined,
     apartmentFloor: diff.apartmentFloor || undefined,
+    isLaunch: typeof diff.isLaunch === 'boolean' ? diff.isLaunch : undefined,
     acceptsExchange: typeof diff.acceptsExchange === 'boolean' ? diff.acceptsExchange : undefined,
     isReducedPrice: typeof diff.isReducedPrice === 'boolean' ? diff.isReducedPrice : undefined,
     originalPrice: typeof diff.originalPrice === 'number' ? diff.originalPrice : (diff.originalPrice ? Number(diff.originalPrice) : undefined),
@@ -131,6 +132,7 @@ function propertyToRow(data: Partial<Property> & { code?: string; slug?: string 
   if (data.ownerEmail !== undefined) diff.ownerEmail = data.ownerEmail;
   if (data.ownerAddress !== undefined) diff.ownerAddress = data.ownerAddress;
   if (data.apartmentFloor !== undefined) diff.apartmentFloor = data.apartmentFloor;
+  if (data.isLaunch !== undefined) diff.isLaunch = data.isLaunch;
   if (data.acceptsExchange !== undefined) diff.acceptsExchange = data.acceptsExchange;
   if (data.isReducedPrice !== undefined) diff.isReducedPrice = data.isReducedPrice;
   if (data.originalPrice !== undefined) diff.originalPrice = data.originalPrice || null;

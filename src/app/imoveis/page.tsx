@@ -25,6 +25,7 @@ function CatalogContent() {
     const initialNeighborhood = searchParams.get('bairro') || undefined;
     const initialCondo = searchParams.get('condominio') || undefined;
     const initialQ = searchParams.get('q') || undefined;
+    const initialIsLaunch = searchParams.get('lancamentos') === 'sim' || searchParams.get('status') === 'lancamento' ? true : undefined;
 
     const initialFilters: PropertyFilterParams = {
       purpose: initialPurpose,
@@ -33,6 +34,7 @@ function CatalogContent() {
       neighborhood: initialNeighborhood,
       condominium: initialCondo,
       searchQuery: initialQ,
+      isLaunchOnly: initialIsLaunch,
     };
 
     setFilters(initialFilters);
@@ -90,6 +92,7 @@ function CatalogContent() {
 
   const activeFilterTags = [];
   if (filters.purpose) activeFilterTags.push({ key: 'purpose', label: `Finalidade: ${filters.purpose === 'venda' ? 'Compra' : 'Aluguel'}` });
+  if (filters.isLaunchOnly) activeFilterTags.push({ key: 'isLaunchOnly', label: 'Empreendimentos / Lançamentos' });
   if (filters.type) activeFilterTags.push({ key: 'type', label: `Tipo: ${filters.type}` });
   if (filters.city) activeFilterTags.push({ key: 'city', label: `Cidade: ${filters.city}` });
   if (filters.neighborhood) activeFilterTags.push({ key: 'neighborhood', label: `Bairro: ${filters.neighborhood}` });
@@ -108,10 +111,12 @@ function CatalogContent() {
           <span>Sérgio Colussi • Imóveis no ABC Paulista</span>
         </div>
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-stone-950 tracking-tight">
-          Imóveis à Venda
+          {filters.isLaunchOnly ? 'Lançamentos e Empreendimentos' : 'Imóveis à Venda'}
         </h1>
         <p className="text-stone-700 text-base max-w-2xl font-medium">
-          Confira as opções de apartamentos, casas e imóveis comerciais disponíveis em Santo André, São Bernardo do Campo e região.
+          {filters.isLaunchOnly
+            ? 'Confira os lançamentos, empreendimentos e imóveis novos na planta ou recém-construídos no ABC Paulista.'
+            : 'Confira as opções de apartamentos, casas e imóveis comerciais disponíveis em Santo André, São Bernardo do Campo e região.'}
         </p>
       </div>
 

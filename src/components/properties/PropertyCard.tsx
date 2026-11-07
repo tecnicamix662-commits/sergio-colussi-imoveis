@@ -99,8 +99,13 @@ export default function PropertyCard({ property, priorityImage = false }: Proper
           </>
         )}
 
-        {/* Top Badges (VENDIDO/ALUGADO, ACEITA PERMUTA, PREÇO REDUZIDO) */}
+        {/* Top Badges (LANÇAMENTO, VENDIDO/ALUGADO, ACEITA PERMUTA, PREÇO REDUZIDO) */}
         <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-20 pointer-events-none items-start">
+          {property.isLaunch && (
+            <span className="bg-blue-600 text-white text-[11px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md shadow-lg border border-white/20 w-fit pointer-events-auto">
+              LANÇAMENTO
+            </span>
+          )}
           {statusBadge && (
             <span className={`text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md shadow-md pointer-events-auto ${statusBadge.cls}`}>
               {statusBadge.label}

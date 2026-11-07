@@ -24,7 +24,7 @@ function NavbarContent() {
 
   const navLinks = [
     { name: 'COMPRAR', href: '/imoveis?finalidade=venda', key: 'comprar' },
-    { name: 'LANÇAMENTOS', href: '/imoveis?status=lancamento', key: 'lancamentos' },
+    { name: 'LANÇAMENTOS', href: '/imoveis?lancamentos=sim', key: 'lancamentos' },
     { name: 'ANUNCIAR MEU IMÓVEL', href: '/anunciar', key: 'anunciar' },
     { name: 'SIMULAR FINANCIAMENTO', href: '/simular-financiamento', key: 'simular' },
   ];
@@ -34,7 +34,7 @@ function NavbarContent() {
       return pathname === '/imoveis' && (searchParams.get('finalidade') === 'venda' || searchParams.get('purpose') === 'venda');
     }
     if (key === 'lancamentos') {
-      return pathname === '/imoveis' && searchParams.get('status') === 'lancamento';
+      return pathname === '/imoveis' && (searchParams.get('lancamentos') === 'sim' || searchParams.get('status') === 'lancamento');
     }
     if (key === 'simular') {
       return pathname.startsWith('/simular-financiamento');

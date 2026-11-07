@@ -114,6 +114,7 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
       ownerEmail: '',
       ownerAddress: '',
       apartmentFloor: '',
+      isLaunch: false,
       acceptsExchange: false,
       isReducedPrice: false,
       originalPrice: undefined,
@@ -492,9 +493,40 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
               </Field>
             </div>
 
-            {/* Box Compacto: Selos na Foto (Permuta & Preço Reduzido) */}
+            {/* Box Compacto: Selos na Foto (Lançamento / Novo, Permuta & Preço Reduzido) */}
             <div className="p-3 rounded-xl bg-stone-50 border border-stone-200">
               <div className="flex flex-wrap items-center justify-between gap-3">
+                {/* Lançamento / Empreendimento Novo */}
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-bold text-stone-800 uppercase tracking-wide flex items-center gap-1">
+                    <span>🚀</span> É Lançamento / Novo?
+                  </span>
+                  <div className="flex bg-stone-200/80 p-0.5 rounded-lg">
+                    <button
+                      type="button"
+                      onClick={() => update('isLaunch', true)}
+                      className={`px-2.5 py-1 rounded-md text-xs font-black transition-all cursor-pointer ${
+                        form.isLaunch === true
+                          ? 'bg-blue-600 text-white shadow-xs'
+                          : 'text-stone-600 hover:text-stone-950'
+                      }`}
+                    >
+                      ✓ SIM
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => update('isLaunch', false)}
+                      className={`px-2.5 py-1 rounded-md text-xs font-bold transition-all cursor-pointer ${
+                        form.isLaunch === false || form.isLaunch === undefined
+                          ? 'bg-white text-stone-800 shadow-xs'
+                          : 'text-stone-600 hover:text-stone-950'
+                      }`}
+                    >
+                      NÃO
+                    </button>
+                  </div>
+                </div>
+
                 {/* Permuta */}
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-bold text-stone-800 uppercase tracking-wide flex items-center gap-1">
@@ -589,8 +621,12 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
                 </div>
 
                 {/* Prévia ao vivo compacta */}
-                {(form.acceptsExchange || form.isReducedPrice || (form.originalPrice && form.originalPrice > form.price)) && (
+                {(form.isLaunch || form.acceptsExchange || form.isReducedPrice || (form.originalPrice && form.originalPrice > form.price)) && (
                   <div className="flex items-center gap-1.5 bg-black text-white px-2.5 py-1 rounded-md text-[10px] font-black tracking-wider shadow-xs">
+                    {form.isLaunch && <span className="bg-blue-600 px-1.5 py-0.5 rounded text-white font-black">LANÇAMENTO</span>}
+                    {form.isLaunch && (form.acceptsExchange || form.isReducedPrice) && (
+                      <span className="text-stone-500">•</span>
+                    )}
                     {form.acceptsExchange && <span>ACEITA PERMUTA</span>}
                     {form.acceptsExchange && (form.isReducedPrice || (form.originalPrice && form.originalPrice > form.price)) && (
                       <span className="text-stone-500">•</span>

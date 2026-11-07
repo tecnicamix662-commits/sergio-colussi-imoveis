@@ -189,6 +189,10 @@ export class PropertyService {
       list = list.filter((p) => p.featured);
     }
 
+    if (params.isLaunchOnly) {
+      list = list.filter((p) => p.isLaunch === true);
+    }
+
     return list;
   }
 
