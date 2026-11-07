@@ -112,7 +112,7 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
   };
 
   return (
-    <div className={`w-full bg-white rounded-2xl border border-stone-200 shadow-xl ${compact ? 'p-4 sm:p-5 space-y-3.5' : 'p-5 sm:p-7 space-y-5'}`}>
+    <div className={`w-full ${compact ? 'space-y-3' : 'bg-white rounded-2xl border border-stone-200 shadow-xl p-5 sm:p-7 space-y-5'}`}>
       {/* Title */}
       {!compact && (
         <div className="border-b border-stone-200 pb-3.5">
@@ -126,20 +126,19 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
       )}
 
       {/* 
-        EXACT SEQUENCE REQUIRED:
-        1. TIPO ➔ 2. CIDADE ➔ 3. BAIRROS ➔ 4. CONDOMÍNIO ➔ 5. BUSCAR IMÓVEIS (FUNDO PRETO, TEXTO BRANCO)
+        GRID QUADRADO / COMPACTO
       */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
+      <div className={`grid ${compact ? 'grid-cols-1 sm:grid-cols-2 gap-2.5' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4'} items-end`}>
         
         {/* 1. TIPO */}
-        <div className="space-y-1.5">
-          <label className="text-[11px] font-bold uppercase tracking-wider text-stone-900 flex items-center gap-1.5">
-            <Building2 className="w-3.5 h-3.5 text-stone-900 shrink-0" /> Tipo
+        <div className="space-y-1">
+          <label className="text-[11px] font-bold uppercase tracking-wider text-stone-800 flex items-center gap-1">
+            <Building2 className="w-3.5 h-3.5 text-stone-800 shrink-0" /> Tipo
           </label>
           <select
             value={type}
             onChange={(e) => setType(e.target.value)}
-            className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3.5 py-3.5 text-stone-900 text-xs font-semibold focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-colors shadow-sm cursor-pointer"
+            className="w-full bg-white border border-stone-300 rounded-xl px-3 py-2.5 text-stone-900 text-xs font-semibold focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-colors shadow-sm cursor-pointer"
           >
             <option value="todos">Todos os Tipos</option>
             <option value="casa">Casa</option>
@@ -154,14 +153,14 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
         </div>
 
         {/* 2. CIDADE */}
-        <div className="space-y-1.5">
-          <label className="text-[11px] font-bold uppercase tracking-wider text-stone-900 flex items-center gap-1.5">
-            <MapPin className="w-3.5 h-3.5 text-stone-900 shrink-0" /> Cidade
+        <div className="space-y-1">
+          <label className="text-[11px] font-bold uppercase tracking-wider text-stone-800 flex items-center gap-1">
+            <MapPin className="w-3.5 h-3.5 text-stone-800 shrink-0" /> Cidade
           </label>
           <select
             value={city}
             onChange={(e) => handleCityChange(e.target.value)}
-            className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3.5 py-3.5 text-stone-900 text-xs font-semibold focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-colors shadow-sm cursor-pointer"
+            className="w-full bg-white border border-stone-300 rounded-xl px-3 py-2.5 text-stone-900 text-xs font-semibold focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-colors shadow-sm cursor-pointer"
           >
             <option value="todas">Todas as Cidades</option>
             {Object.keys(OFFICIAL_NEIGHBORHOODS_BY_CITY).map((c) => (
@@ -173,14 +172,14 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
         </div>
 
         {/* 3. BAIRROS */}
-        <div className="space-y-1.5">
-          <label className="text-[11px] font-bold uppercase tracking-wider text-stone-900 flex items-center gap-1.5">
-            <Home className="w-3.5 h-3.5 text-stone-900 shrink-0" /> Bairros
+        <div className="space-y-1">
+          <label className="text-[11px] font-bold uppercase tracking-wider text-stone-800 flex items-center gap-1">
+            <Home className="w-3.5 h-3.5 text-stone-800 shrink-0" /> Bairros
           </label>
           <select
             value={neighborhood}
             onChange={(e) => setNeighborhood(e.target.value)}
-            className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3.5 py-3.5 text-stone-900 text-xs font-semibold focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-colors shadow-sm cursor-pointer"
+            className="w-full bg-white border border-stone-300 rounded-xl px-3 py-2.5 text-stone-900 text-xs font-semibold focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-colors shadow-sm cursor-pointer"
           >
             <option value="todos">
               {city !== 'todas' && city !== 'Todas' ? `Todos os Bairros de ${city}` : 'Todos os Bairros'}
@@ -194,14 +193,14 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
         </div>
 
         {/* 4. CONDOMÍNIOS */}
-        <div className="space-y-1.5">
-          <label className="text-[11px] font-bold uppercase tracking-wider text-stone-900 flex items-center gap-1.5">
-            <Shield className="w-3.5 h-3.5 text-stone-900 shrink-0" /> Condomínio
+        <div className="space-y-1">
+          <label className="text-[11px] font-bold uppercase tracking-wider text-stone-800 flex items-center gap-1">
+            <Shield className="w-3.5 h-3.5 text-stone-800 shrink-0" /> Condomínio
           </label>
           <select
             value={condominium}
             onChange={(e) => setCondominium(e.target.value)}
-            className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3.5 py-3.5 text-stone-900 text-xs font-semibold focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-colors shadow-sm cursor-pointer"
+            className="w-full bg-white border border-stone-300 rounded-xl px-3 py-2.5 text-stone-900 text-xs font-semibold focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-colors shadow-sm cursor-pointer"
           >
             <option value="todos">Todos os Condomínios</option>
             {availableCondominiums.map((condo) => (
@@ -212,12 +211,12 @@ export default function PropertyFilterBar({ onFilterChange, compact = false, ini
           </select>
         </div>
 
-        {/* 5. BOTÃO "PESQUISAR IMÓVEL" / "BUSCAR IMÓVEIS" (EXCEÇÃO: FUNDO PRETO, TEXTO BRANCO) */}
-        <div className="w-full md:col-span-2 lg:col-span-1">
+        {/* 5. BOTÃO "BUSCAR IMÓVEIS" */}
+        <div className={compact ? 'sm:col-span-2 pt-1' : 'w-full md:col-span-2 lg:col-span-1'}>
           <button
             type="button"
             onClick={handleApply}
-            className="w-full py-3.5 rounded-xl bg-black hover:bg-stone-800 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 border border-black cursor-pointer"
+            className="w-full py-3 rounded-xl bg-black hover:bg-stone-900 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 border border-black cursor-pointer active:scale-98"
           >
             <Search className="w-4 h-4 text-white stroke-[2.5]" />
             <span>Buscar Imóveis</span>

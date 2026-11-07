@@ -51,11 +51,10 @@ export default function HomePage() {
     return () => window.removeEventListener('properties_updated', loadProperties);
   }, []);
 
-  // Fotos profissionais de alto padrão — ambientes claros com piscinas (resolução e nitidez máximas)
+  // Fotos profissionais de alto padrão — ambientes claros com piscinas (estilo Donizete Imóveis)
   const coverPhotos = [
-    '/images/santo-andre-jardim-aerea.jpg', // Vista aérea do Jardim — Santo André
-    'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=2400&q=90', // Villa moderna de luxo com piscina infinita — foto arquitetônica profissional
     'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=90', // Mansão contemporânea com jardim e piscina — luz natural diurna
+    'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=2400&q=90', // Villa moderna de luxo com piscina infinita — foto arquitetônica profissional
     'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2400&q=90', // Casa clássica branca com piscina e paisagismo impecável
     'https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?auto=format&fit=crop&w=2400&q=90', // Fachada moderna branca com piscina à frente — céu limpo
     'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=2400&q=90', // Área de lazer resort com piscina e espreguiçadeiras — ambiente luminoso
@@ -100,8 +99,8 @@ export default function HomePage() {
 
   return (
     <div className="space-y-12 sm:space-y-16 pb-16 bg-white">
-      {/* HERO SECTION — SLIDE DE FOTOS NÍTIDAS E PROFISSIONAIS */}
-      <section className="relative flex items-center justify-center min-h-[600px] sm:min-h-[700px] lg:min-h-[85vh] pt-20 sm:pt-24 pb-10 sm:pb-12 overflow-hidden bg-black w-full">
+      {/* HERO SECTION — SLIDE NO ESTILO DONIZETE IMÓVEIS */}
+      <section className="relative flex items-center justify-start min-h-[580px] lg:min-h-[620px] pt-16 pb-12 overflow-hidden bg-black w-full">
         {/* Slide de fotos em segundo plano */}
         {coverPhotos.map((imgUrl, index) => (
           <div
@@ -115,9 +114,9 @@ export default function HomePage() {
               alt="Imóveis no ABC Paulista - Sérgio Colussi"
               fill
               priority={index === 0}
-              className="object-cover object-center brightness-100 contrast-[1.03]"
+              className="object-cover object-center brightness-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-black/25" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/10 to-transparent" />
           </div>
         ))}
 
@@ -126,14 +125,14 @@ export default function HomePage() {
           <>
             <button
               onClick={() => setCurrentSlide((prev) => (prev - 1 + coverPhotos.length) % coverPhotos.length)}
-              className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center backdrop-blur-sm transition-all shadow-lg hover:scale-110 cursor-pointer border border-white/20"
+              className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center backdrop-blur-sm transition-all shadow-lg hover:scale-110 cursor-pointer border border-white/20"
               aria-label="Foto anterior"
             >
               <ChevronLeft className="w-5 h-5 text-white" />
             </button>
             <button
               onClick={() => setCurrentSlide((prev) => (prev + 1) % coverPhotos.length)}
-              className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center backdrop-blur-sm transition-all shadow-lg hover:scale-110 cursor-pointer border border-white/20"
+              className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center backdrop-blur-sm transition-all shadow-lg hover:scale-110 cursor-pointer border border-white/20"
               aria-label="Próxima foto"
             >
               <ChevronRight className="w-5 h-5 text-white" />
@@ -143,7 +142,7 @@ export default function HomePage() {
 
         {/* Indicadores (Dots) do Slide */}
         {coverPhotos.length > 1 && (
-          <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 pointer-events-auto">
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 pointer-events-auto">
             {coverPhotos.map((_, i) => (
               <button
                 key={i}
@@ -151,7 +150,7 @@ export default function HomePage() {
                 className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                   i === currentSlide
                     ? 'w-7 bg-white shadow-md'
-                    : 'w-2 bg-white/40 hover:bg-white/70'
+                    : 'w-2 bg-white/50 hover:bg-white/80'
                 }`}
                 aria-label={`Ir para a foto ${i + 1}`}
               />
@@ -159,24 +158,35 @@ export default function HomePage() {
           </div>
         )}
 
-        {/* Conteúdo sobreposto */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-5 sm:space-y-6">
-          <div className="space-y-2">
-            <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white max-w-3xl mx-auto leading-snug drop-shadow-lg">
-              {settings.heroTitle ? (
-                settings.heroTitle
-              ) : (
-                <>
-                  Imóveis à Venda em{' '}
-                  <span className="text-white underline decoration-stone-400 underline-offset-4">Santo André, São Bernardo</span> e ABC Paulista
-                </>
-              )}
+        {/* Conteúdo sobreposto — Caixa compacta alinhada exatamente como na Donizete */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 w-full">
+          <div className="max-w-xl">
+            {/* Título sobre o menu */}
+            <h1 className="text-white text-xl sm:text-2xl font-semibold mb-4 drop-shadow-md text-left">
+              {settings.heroTitle || 'Encontre seu imóvel ideal com Sérgio Colussi'}
             </h1>
-          </div>
 
-          {/* Bloco de Filtros — estilo caixa retangular sobre o slider */}
-          <div className="max-w-4xl mx-auto text-left">
-            <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-white/30 p-5 sm:p-6 space-y-4">
+            {/* Caixa estilo Donizete Imóveis (branca semitransparente, cantos arredondados, formato quadrado/card) */}
+            <div className="bg-white/85 backdrop-blur-md rounded-2xl shadow-2xl border border-white/50 p-5 sm:p-6 space-y-4">
+              
+              {/* Abas superiores: Comprar / Alugar */}
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  className="px-5 py-2 rounded-xl text-xs font-bold bg-[#1e3a5f] text-white shadow-sm"
+                >
+                  COMPRAR
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { window.location.href = '/imoveis'; }}
+                  className="px-5 py-2 rounded-xl text-xs font-bold bg-white/90 text-stone-700 hover:bg-white transition-colors"
+                >
+                  TODOS OS IMÓVEIS
+                </button>
+              </div>
+
+              {/* Filtros em grid de 2 a 3 colunas compacto */}
               <PropertyFilterBar
                 compact={true}
                 onFilterChange={(filters) => {
@@ -190,7 +200,7 @@ export default function HomePage() {
                 }}
               />
 
-              {/* Buscar por Código — dentro do bloco */}
+              {/* Buscar por Código estilo Donizete */}
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -198,24 +208,21 @@ export default function HomePage() {
                   if (!code) return;
                   window.location.href = `/imoveis?q=${encodeURIComponent(code)}`;
                 }}
-                className="flex justify-center"
+                className="flex items-center gap-2 pt-1"
               >
-                <div className="flex items-center bg-stone-50 rounded-xl border border-stone-200 p-1 w-full max-w-md">
-                  <input
-                    type="text"
-                    value={codeQuery}
-                    onChange={(e) => setCodeQuery(e.target.value)}
-                    placeholder="Digite o Código"
-                    className="w-full bg-transparent text-stone-950 font-semibold text-xs sm:text-sm px-4 py-2.5 sm:py-3 focus:outline-none placeholder-stone-400 rounded-xl"
-                  />
-                  <button
-                    type="submit"
-                    className="bg-black hover:bg-stone-900 text-white font-extrabold text-xs uppercase tracking-wider px-5 py-2.5 sm:py-3 rounded-xl transition-all shadow-md flex items-center gap-2 shrink-0 cursor-pointer active:scale-95"
-                  >
-                    <Search className="w-3.5 h-3.5 text-white stroke-[2.5]" />
-                    <span>BUSCAR POR CÓDIGO</span>
-                  </button>
-                </div>
+                <input
+                  type="text"
+                  value={codeQuery}
+                  onChange={(e) => setCodeQuery(e.target.value)}
+                  placeholder="Digite o Código"
+                  className="flex-1 bg-white border border-stone-200 text-stone-900 text-xs px-3.5 py-2.5 rounded-xl focus:outline-none focus:border-stone-400 placeholder-stone-400 shadow-sm"
+                />
+                <button
+                  type="submit"
+                  className="bg-[#1e293b] hover:bg-black text-white text-xs font-bold px-4 py-2.5 rounded-xl uppercase tracking-wider transition-colors shadow-sm cursor-pointer whitespace-nowrap"
+                >
+                  BUSCAR POR CÓDIGO
+                </button>
               </form>
             </div>
           </div>
