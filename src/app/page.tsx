@@ -51,12 +51,12 @@ export default function HomePage() {
     return () => window.removeEventListener('properties_updated', loadProperties);
   }, []);
 
-  // Fotos profissionais de alto padrão — 100% DIURNAS sob sol pleno (sem fotos noturnas, sem crepúsculo, sem pessoas)
+  // Fotos profissionais de alto padrão — Imóveis reais diurnos e iluminados: Mansões com piscinas e edifícios modernos (sem cozinhas com banquetas)
   const coverPhotos = [
-    'https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=2400&q=90', // Cozinha moderna de alto padrão, branca e bege com luz natural do dia
-    'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=2400&q=90', // Villa moderna branca com piscina azul sob sol diurno brilhante
-    'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=2400&q=90', // Fachada moderna contemporânea iluminada pelo sol com piscina
-    'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=2400&q=90', // Mansão clara de alto padrão em dia de sol
+    'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=2400&q=90', // Villa moderna de luxo com piscina cristalina sob sol pleno
+    'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=2400&q=90', // Mansão contemporânea branca com piscina e área gourmet ensolarada
+    'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=2400&q=90', // Edifício residencial de alto padrão moderno com sacadas de vidro
+    'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=2400&q=90', // Casa de alto padrão com fachada ampla e iluminada durante o dia
   ];
 
   // Auto-play suave a cada 5 segundos
