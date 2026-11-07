@@ -51,13 +51,13 @@ export default function HomePage() {
     return () => window.removeEventListener('properties_updated', loadProperties);
   }, []);
 
-  // Fotos nítidas e profissionais de alto padrão (São Paulo aérea / Edifícios modernos / Fachadas / Living)
+  // Fotos profissionais de alto padrão — ambientes claros com piscinas (resolução e nitidez máximas)
   const coverPhotos = [
-    'https://images.unsplash.com/photo-1541971875076-8f970d573be6?auto=format&fit=crop&w=1920&q=85', // Vista aérea panorâmica de prédios em São Paulo / Região metropolitana
-    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=85', // Mansão / Casa moderna de altíssimo padrão
-    'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1920&q=85', // Edifício residencial moderno de alto padrão
-    'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1920&q=85', // Living / Área gourmet sofisticada
-    'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=85', // Fachada moderna contemporânea
+    'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=2400&q=90', // Villa moderna de luxo com piscina infinita — foto arquitetônica profissional
+    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=90', // Mansão contemporânea com jardim e piscina — luz natural diurna
+    'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2400&q=90', // Casa clássica branca com piscina e paisagismo impecável
+    'https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?auto=format&fit=crop&w=2400&q=90', // Fachada moderna branca com piscina à frente — céu limpo
+    'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=2400&q=90', // Área de lazer resort com piscina e espreguiçadeiras — ambiente luminoso
   ];
 
   // Auto-play suave a cada 5 segundos
