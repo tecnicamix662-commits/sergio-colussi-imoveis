@@ -65,7 +65,7 @@ export default function HomePage() {
     if (coverPhotos.length <= 1) return;
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % coverPhotos.length);
-    }, 5000);
+    }, 2000);
     return () => clearInterval(interval);
   }, [coverPhotos.length]);
 
