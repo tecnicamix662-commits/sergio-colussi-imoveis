@@ -117,7 +117,7 @@ export default function HomePage() {
               priority={index === 0}
               className="object-cover object-center brightness-100 contrast-[1.03]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/40" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-black/25" />
           </div>
         ))}
 
@@ -160,9 +160,9 @@ export default function HomePage() {
         )}
 
         {/* Conteúdo sobreposto */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 sm:space-y-5">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-5 sm:space-y-6">
           <div className="space-y-2">
-            <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white max-w-3xl mx-auto leading-snug drop-shadow-md">
+            <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white max-w-3xl mx-auto leading-snug drop-shadow-lg">
               {settings.heroTitle ? (
                 settings.heroTitle
               ) : (
@@ -174,48 +174,50 @@ export default function HomePage() {
             </h1>
           </div>
 
-          {/* Barra de Filtros */}
-          <div className="pt-1 max-w-5xl mx-auto text-left">
-            <PropertyFilterBar
-              compact={true}
-              onFilterChange={(filters) => {
-                const params = new URLSearchParams();
-                if (filters.type) params.set('tipo', filters.type);
-                if (filters.city) params.set('cidade', filters.city);
-                if (filters.neighborhood) params.set('bairro', filters.neighborhood);
-                if (filters.condominium) params.set('condominio', filters.condominium);
-                if (filters.searchQuery) params.set('q', filters.searchQuery);
-                window.location.href = `/imoveis?${params.toString()}`;
-              }}
-            />
+          {/* Bloco de Filtros — estilo caixa retangular sobre o slider */}
+          <div className="max-w-4xl mx-auto text-left">
+            <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-white/30 p-5 sm:p-6 space-y-4">
+              <PropertyFilterBar
+                compact={true}
+                onFilterChange={(filters) => {
+                  const params = new URLSearchParams();
+                  if (filters.type) params.set('tipo', filters.type);
+                  if (filters.city) params.set('cidade', filters.city);
+                  if (filters.neighborhood) params.set('bairro', filters.neighborhood);
+                  if (filters.condominium) params.set('condominio', filters.condominium);
+                  if (filters.searchQuery) params.set('q', filters.searchQuery);
+                  window.location.href = `/imoveis?${params.toString()}`;
+                }}
+              />
 
-            {/* Menu Buscar por Código (Campo Branco e Botão Preto) */}
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                const code = codeQuery.trim();
-                if (!code) return;
-                window.location.href = `/imoveis?q=${encodeURIComponent(code)}`;
-              }}
-              className="mt-4 flex justify-center"
-            >
-              <div className="flex items-center bg-white rounded-2xl shadow-2xl border border-stone-200 p-1 w-full max-w-md">
-                <input
-                  type="text"
-                  value={codeQuery}
-                  onChange={(e) => setCodeQuery(e.target.value)}
-                  placeholder="Digite o Código"
-                  className="w-full bg-white text-stone-950 font-semibold text-xs sm:text-sm px-4 py-2.5 sm:py-3 focus:outline-none placeholder-stone-400 rounded-xl"
-                />
-                <button
-                  type="submit"
-                  className="bg-black hover:bg-stone-900 text-white font-extrabold text-xs uppercase tracking-wider px-5 py-2.5 sm:py-3 rounded-xl transition-all shadow-md flex items-center gap-2 shrink-0 cursor-pointer active:scale-95"
-                >
-                  <Search className="w-3.5 h-3.5 text-white stroke-[2.5]" />
-                  <span>BUSCAR POR CÓDIGO</span>
-                </button>
-              </div>
-            </form>
+              {/* Buscar por Código — dentro do bloco */}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const code = codeQuery.trim();
+                  if (!code) return;
+                  window.location.href = `/imoveis?q=${encodeURIComponent(code)}`;
+                }}
+                className="flex justify-center"
+              >
+                <div className="flex items-center bg-stone-50 rounded-xl border border-stone-200 p-1 w-full max-w-md">
+                  <input
+                    type="text"
+                    value={codeQuery}
+                    onChange={(e) => setCodeQuery(e.target.value)}
+                    placeholder="Digite o Código"
+                    className="w-full bg-transparent text-stone-950 font-semibold text-xs sm:text-sm px-4 py-2.5 sm:py-3 focus:outline-none placeholder-stone-400 rounded-xl"
+                  />
+                  <button
+                    type="submit"
+                    className="bg-black hover:bg-stone-900 text-white font-extrabold text-xs uppercase tracking-wider px-5 py-2.5 sm:py-3 rounded-xl transition-all shadow-md flex items-center gap-2 shrink-0 cursor-pointer active:scale-95"
+                  >
+                    <Search className="w-3.5 h-3.5 text-white stroke-[2.5]" />
+                    <span>BUSCAR POR CÓDIGO</span>
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </section>
