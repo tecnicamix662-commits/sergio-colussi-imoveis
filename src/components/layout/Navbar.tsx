@@ -121,19 +121,6 @@ function NavbarContent() {
             })}
           </nav>
 
-          {/* Contact Action */}
-          <div className="hidden lg:flex items-center gap-3">
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-3.5 py-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-950 font-bold text-xs uppercase tracking-wider transition-all border border-stone-300 shadow-sm flex items-center gap-1.5"
-            >
-              <Phone className="w-3.5 h-3.5 text-stone-900" />
-              <span>Atendimento</span>
-            </a>
-          </div>
-
           {/* Mobile Menu Trigger */}
           <div className="flex md:hidden">
             <button
