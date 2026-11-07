@@ -168,18 +168,18 @@ export default function HomePage() {
             {/* Caixa estilo Donizete Imóveis (branca semitransparente, cantos arredondados, formato quadrado/card) */}
             <div className="bg-white/85 backdrop-blur-md rounded-2xl shadow-2xl border border-white/50 p-5 sm:p-6 space-y-4">
               
-              {/* Abas superiores: Comprar / Alugar */}
+              {/* Abas superiores: Comprar / Todos os Imóveis (Padrão Preto e Branco) */}
               <div className="flex items-center gap-2">
                 <button
                   type="button"
-                  className="px-5 py-2 rounded-xl text-xs font-bold bg-[#1e3a5f] text-white shadow-sm"
+                  className="px-5 py-2 rounded-xl text-xs font-bold bg-black text-white shadow-sm border border-black cursor-pointer"
                 >
                   COMPRAR
                 </button>
                 <button
                   type="button"
                   onClick={() => { window.location.href = '/imoveis'; }}
-                  className="px-5 py-2 rounded-xl text-xs font-bold bg-white/90 text-stone-700 hover:bg-white transition-colors"
+                  className="px-5 py-2 rounded-xl text-xs font-bold bg-stone-100 text-stone-700 hover:text-black hover:bg-stone-200 transition-colors border border-stone-200 cursor-pointer"
                 >
                   TODOS OS IMÓVEIS
                 </button>
