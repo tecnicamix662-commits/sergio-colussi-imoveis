@@ -51,13 +51,13 @@ export default function HomePage() {
     return () => window.removeEventListener('properties_updated', loadProperties);
   }, []);
 
-  // Fotos profissionais de alto padrão — ambientes claros com piscinas (estilo Donizete Imóveis)
+  // Fotos profissionais de alto padrão — ambientes claros, modernos e sofisticados
   const coverPhotos = [
+    'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=2400&q=90', // Cozinha gourmet de luxo com ilha em mármore, clara e contemporânea
     'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=90', // Mansão contemporânea com jardim e piscina — luz natural diurna
     'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=2400&q=90', // Villa moderna de luxo com piscina infinita — foto arquitetônica profissional
-    'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2400&q=90', // Casa clássica branca com piscina e paisagismo impecável
-    'https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?auto=format&fit=crop&w=2400&q=90', // Fachada moderna branca com piscina à frente — céu limpo
-    'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=2400&q=90', // Área de lazer resort com piscina e espreguiçadeiras — ambiente luminoso
+    'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=2400&q=90', // Cozinha moderna e iluminada com bancada ampla e design clean
+    'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=2400&q=90', // Área gourmet e lazer de alto padrão — ambiente claro
   ];
 
   // Auto-play suave a cada 5 segundos
