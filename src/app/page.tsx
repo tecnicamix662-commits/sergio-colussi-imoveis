@@ -101,7 +101,7 @@ export default function HomePage() {
   return (
     <div className="space-y-12 sm:space-y-16 pb-16 bg-white">
       {/* HERO SECTION — SLIDE DE FOTOS NÍTIDAS E PROFISSIONAIS */}
-      <section className="relative flex items-center justify-center min-h-[480px] sm:min-h-[560px] lg:min-h-[640px] pt-20 sm:pt-24 pb-10 sm:pb-12 overflow-hidden bg-black w-full">
+      <section className="relative flex items-center justify-center min-h-[600px] sm:min-h-[700px] lg:min-h-[85vh] pt-20 sm:pt-24 pb-10 sm:pb-12 overflow-hidden bg-black w-full">
         {/* Slide de fotos em segundo plano */}
         {coverPhotos.map((imgUrl, index) => (
           <div
