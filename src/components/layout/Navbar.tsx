@@ -53,44 +53,44 @@ function NavbarContent() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group shrink-0">
+          {/* Logo — padrão imponente com nome em destaque estilo Donizete */}
+          <Link href="/" className="flex items-center gap-3 sm:gap-3.5 group shrink-0">
             {settings.logoUrl ? (
-              <img src={settings.logoUrl} alt={settings.companyName} className="h-8 sm:h-9 w-auto object-contain" />
+              <img src={settings.logoUrl} alt={settings.companyName} className="h-10 sm:h-12 w-auto object-contain" />
             ) : (
               <>
-                {/* Logo SVG — Skyline Refinado */}
+                {/* Logo SVG — Skyline Refinado e Maior */}
                 <svg
-                  width="36" height="36"
+                  width="44" height="44"
                   viewBox="0 0 44 44"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  className="shrink-0"
+                  className="shrink-0 transition-transform group-hover:scale-105"
                   aria-hidden="true"
                 >
                   {/* Linha de base */}
-                  <line x1="2" y1="38" x2="42" y2="38" stroke="#0C0A09" strokeWidth="1.6" strokeLinecap="round"/>
+                  <line x1="2" y1="38" x2="42" y2="38" stroke="#0C0A09" strokeWidth="2" strokeLinecap="round"/>
                   {/* Torre esquerda — baixa */}
-                  <rect x="3" y="24" width="9" height="14" rx="0.5" stroke="#0C0A09" strokeWidth="1.5" fill="none"/>
-                  <line x1="3" y1="29" x2="12" y2="29" stroke="#0C0A09" strokeWidth="0.9"/>
-                  <line x1="3" y1="34" x2="12" y2="34" stroke="#0C0A09" strokeWidth="0.9"/>
+                  <rect x="3" y="24" width="9" height="14" rx="0.5" stroke="#0C0A09" strokeWidth="1.8" fill="none"/>
+                  <line x1="3" y1="29" x2="12" y2="29" stroke="#0C0A09" strokeWidth="1"/>
+                  <line x1="3" y1="34" x2="12" y2="34" stroke="#0C0A09" strokeWidth="1"/>
                   {/* Torre central — esbélta e imponente */}
-                  <rect x="16" y="4" width="12" height="34" rx="0.5" stroke="#0C0A09" strokeWidth="1.8" fill="none"/>
-                  <line x1="16" y1="11" x2="28" y2="11" stroke="#0C0A09" strokeWidth="0.9"/>
-                  <line x1="16" y1="19" x2="28" y2="19" stroke="#0C0A09" strokeWidth="0.9"/>
-                  <line x1="16" y1="27" x2="28" y2="27" stroke="#0C0A09" strokeWidth="0.9"/>
-                  <line x1="16" y1="33" x2="28" y2="33" stroke="#0C0A09" strokeWidth="0.9"/>
+                  <rect x="16" y="4" width="12" height="34" rx="0.5" stroke="#0C0A09" strokeWidth="2.2" fill="none"/>
+                  <line x1="16" y1="11" x2="28" y2="11" stroke="#0C0A09" strokeWidth="1"/>
+                  <line x1="16" y1="19" x2="28" y2="19" stroke="#0C0A09" strokeWidth="1"/>
+                  <line x1="16" y1="27" x2="28" y2="27" stroke="#0C0A09" strokeWidth="1"/>
+                  <line x1="16" y1="33" x2="28" y2="33" stroke="#0C0A09" strokeWidth="1"/>
                   {/* Torre direita — média */}
-                  <rect x="32" y="16" width="9" height="22" rx="0.5" stroke="#0C0A09" strokeWidth="1.5" fill="none"/>
-                  <line x1="32" y1="22" x2="41" y2="22" stroke="#0C0A09" strokeWidth="0.9"/>
-                  <line x1="32" y1="28" x2="41" y2="28" stroke="#0C0A09" strokeWidth="0.9"/>
-                  <line x1="32" y1="33" x2="41" y2="33" stroke="#0C0A09" strokeWidth="0.9"/>
+                  <rect x="32" y="16" width="9" height="22" rx="0.5" stroke="#0C0A09" strokeWidth="1.8" fill="none"/>
+                  <line x1="32" y1="22" x2="41" y2="22" stroke="#0C0A09" strokeWidth="1"/>
+                  <line x1="32" y1="28" x2="41" y2="28" stroke="#0C0A09" strokeWidth="1"/>
+                  <line x1="32" y1="33" x2="41" y2="33" stroke="#0C0A09" strokeWidth="1"/>
                 </svg>
                 <div className="flex flex-col">
-                  <span className="font-serif text-base sm:text-lg font-bold tracking-wide uppercase text-stone-950 group-hover:text-stone-700 transition-colors leading-tight">
+                  <span className="font-serif text-xl sm:text-2xl lg:text-[26px] font-extrabold tracking-tight uppercase text-stone-950 group-hover:text-black transition-colors leading-none">
                     {settings.realtorName || 'Sérgio Colussi'}
                   </span>
-                  <span className="text-[8px] sm:text-[9px] tracking-[0.18em] text-stone-600 uppercase font-bold leading-tight">
+                  <span className="text-[9px] sm:text-[10px] tracking-[0.22em] text-stone-600 uppercase font-bold mt-1 leading-none">
                     Corretor de Imóveis • CRECI {settings.creci || '92.920-F'}
                   </span>
                 </div>
