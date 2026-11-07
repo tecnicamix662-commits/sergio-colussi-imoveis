@@ -51,12 +51,12 @@ export default function HomePage() {
     return () => window.removeEventListener('properties_updated', loadProperties);
   }, []);
 
-  // Fotos profissionais de alto padrão — ambientes claros, diurnos, modernos (cozinha branca/bege sem pessoas + mansões)
+  // Fotos profissionais de alto padrão — 100% DIURNAS sob sol pleno (sem fotos noturnas, sem crepúsculo, sem pessoas)
   const coverPhotos = [
-    'https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=2400&q=90', // Cozinha moderna vazia de alto padrão, branca e bege com luz natural do dia
-    'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=2400&q=90', // Mansão contemporânea branca com piscina sob luz do sol
-    'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=2400&q=90', // Cozinha e living amplos, claros e iluminados durante o dia
-    'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2400&q=90', // Living e espaço gourmet contemporâneo super iluminado
+    'https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=2400&q=90', // Cozinha moderna de alto padrão, branca e bege com luz natural do dia
+    'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=2400&q=90', // Villa moderna branca com piscina azul sob sol diurno brilhante
+    'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=2400&q=90', // Fachada moderna contemporânea iluminada pelo sol com piscina
+    'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=2400&q=90', // Mansão clara de alto padrão em dia de sol
   ];
 
   // Auto-play suave a cada 5 segundos
