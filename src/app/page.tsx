@@ -51,12 +51,12 @@ export default function HomePage() {
     return () => window.removeEventListener('properties_updated', loadProperties);
   }, []);
 
-  // Fotos profissionais de alto padrão — Imóveis reais diurnos e iluminados: Mansões com piscinas e edifícios modernos (sem cozinhas com banquetas)
+  // Fotos de altíssimo padrão: 100% Mansões claras com piscinas azuis, luz solar e áreas externas impecáveis (estilo Donizete)
   const coverPhotos = [
-    'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=2400&q=90', // Villa moderna de luxo com piscina cristalina sob sol pleno
-    'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=2400&q=90', // Mansão contemporânea branca com piscina e área gourmet ensolarada
-    'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=2400&q=90', // Edifício residencial de alto padrão moderno com sacadas de vidro
-    'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=2400&q=90', // Casa de alto padrão com fachada ampla e iluminada durante o dia
+    'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=2400&q=90', // Mansão cinematográfica branca com piscina de borda infinita sob sol brilhante
+    'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=2400&q=90', // Villa de luxo moderna com piscina e deck em dia claro
+    'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=2400&q=90', // Casa contemporânea branca com piscina azul e jardim tropical
+    'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2400&q=90', // Mansão imponente ensolarada com piscina e paisagismo
   ];
 
   // Auto-play suave a cada 5 segundos
