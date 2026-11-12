@@ -107,7 +107,7 @@ export default function PropertyCard({ property, priorityImage = false }: Proper
             </span>
           )}
           {property.isReadyToMove && (
-            <span className="bg-emerald-700 text-white text-[11px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md shadow-lg border border-white/20 w-fit pointer-events-auto">
+            <span className="bg-green-500 text-white text-[11px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md shadow-lg border border-white/20 w-fit pointer-events-auto">
               PRONTO PARA MORAR
             </span>
           )}
