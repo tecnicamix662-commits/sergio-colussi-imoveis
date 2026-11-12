@@ -63,6 +63,7 @@ export interface PropertyFilterParams {
   searchQuery?: string;
   featuredOnly?: boolean;
   isLaunchOnly?: boolean;
+  isReadyToMoveOnly?: boolean;
 }
 
 export interface LeadSubmission {

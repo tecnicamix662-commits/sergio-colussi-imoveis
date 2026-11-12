@@ -193,6 +193,10 @@ export class PropertyService {
       list = list.filter((p) => p.isLaunch === true);
     }
 
+    if (params.isReadyToMoveOnly) {
+      list = list.filter((p) => p.isReadyToMove === true);
+    }
+
     return list;
   }
 

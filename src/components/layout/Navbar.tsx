@@ -24,6 +24,7 @@ function NavbarContent() {
 
   const navLinks = [
     { name: 'COMPRAR', href: '/imoveis?finalidade=venda', key: 'comprar' },
+    { name: 'PRONTO PARA MORAR', href: '/imoveis?pronto=sim', key: 'pronto' },
     { name: 'LANÇAMENTOS', href: '/imoveis?lancamentos=sim', key: 'lancamentos' },
     { name: 'ANUNCIAR MEU IMÓVEL', href: '/anunciar', key: 'anunciar' },
     { name: 'SIMULAR FINANCIAMENTO', href: '/simular-financiamento', key: 'simular' },
@@ -35,6 +36,9 @@ function NavbarContent() {
     }
     if (key === 'lancamentos') {
       return pathname === '/imoveis' && (searchParams.get('lancamentos') === 'sim' || searchParams.get('status') === 'lancamento');
+    }
+    if (key === 'pronto') {
+      return pathname === '/imoveis' && searchParams.get('pronto') === 'sim';
     }
     if (key === 'simular') {
       return pathname.startsWith('/simular-financiamento');
@@ -157,6 +161,7 @@ function NavbarContent() {
                 >
                   <div className="flex items-center gap-3">
                     {link.key === 'comprar' && <Tag className="w-4 h-4 text-stone-900" />}
+                    {link.key === 'pronto' && <Key className="w-4 h-4 text-green-600" />}
                     {link.key === 'simular' && <Calculator className="w-4 h-4 text-stone-900" />}
                     {link.key === 'anunciar' && <PlusCircle className="w-4 h-4 text-stone-900" />}
                     <span>{link.name}</span>
