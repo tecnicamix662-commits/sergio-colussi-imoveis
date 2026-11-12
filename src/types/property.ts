@@ -33,6 +33,7 @@ export interface Property {
 
   // Selos Promocionais e Destaques Visuais
   isLaunch?: boolean; // Lançamento (Imóvel Novo na Planta/Construção)
+  isReadyToMove?: boolean; // Pronto para Morar
   acceptsExchange?: boolean; // Permuta
   isReducedPrice?: boolean; // Preço Reduzido
   originalPrice?: number; // Preço original anterior para exibir riscado

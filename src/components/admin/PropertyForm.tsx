@@ -115,6 +115,7 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
       ownerAddress: '',
       apartmentFloor: '',
       isLaunch: false,
+      isReadyToMove: false,
       acceptsExchange: false,
       isReducedPrice: false,
       originalPrice: undefined,
@@ -527,6 +528,37 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
                   </div>
                 </div>
 
+                {/* Pronto para Morar */}
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-bold text-stone-800 uppercase tracking-wide flex items-center gap-1">
+                    <span>🏠</span> Pronto para Morar?
+                  </span>
+                  <div className="flex bg-stone-200/80 p-0.5 rounded-lg">
+                    <button
+                      type="button"
+                      onClick={() => update('isReadyToMove', true)}
+                      className={`px-2.5 py-1 rounded-md text-xs font-black transition-all cursor-pointer ${
+                        form.isReadyToMove === true
+                          ? 'bg-emerald-700 text-white shadow-xs'
+                          : 'text-stone-600 hover:text-stone-950'
+                      }`}
+                    >
+                      ✓ SIM
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => update('isReadyToMove', false)}
+                      className={`px-2.5 py-1 rounded-md text-xs font-bold transition-all cursor-pointer ${
+                        form.isReadyToMove === false || form.isReadyToMove === undefined
+                          ? 'bg-white text-stone-800 shadow-xs'
+                          : 'text-stone-600 hover:text-stone-950'
+                      }`}
+                    >
+                      NÃO
+                    </button>
+                  </div>
+                </div>
+
                 {/* Permuta */}
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-bold text-stone-800 uppercase tracking-wide flex items-center gap-1">
@@ -621,10 +653,11 @@ export default function PropertyForm({ initialData, mode }: PropertyFormProps) {
                 </div>
 
                 {/* Prévia ao vivo compacta */}
-                {(form.isLaunch || form.acceptsExchange || form.isReducedPrice || (form.originalPrice && form.originalPrice > form.price)) && (
+                {(form.isLaunch || form.isReadyToMove || form.acceptsExchange || form.isReducedPrice || (form.originalPrice && form.originalPrice > form.price)) && (
                   <div className="flex items-center gap-1.5 bg-black text-white px-2.5 py-1 rounded-md text-[10px] font-black tracking-wider shadow-xs">
                     {form.isLaunch && <span className="bg-blue-600 px-1.5 py-0.5 rounded text-white font-black">LANÇAMENTO</span>}
-                    {form.isLaunch && (form.acceptsExchange || form.isReducedPrice) && (
+                    {form.isReadyToMove && <span className="bg-emerald-700 px-1.5 py-0.5 rounded text-white font-black">PRONTO PARA MORAR</span>}
+                    {(form.isLaunch || form.isReadyToMove) && (form.acceptsExchange || form.isReducedPrice) && (
                       <span className="text-stone-500">•</span>
                     )}
                     {form.acceptsExchange && <span>ACEITA PERMUTA</span>}
