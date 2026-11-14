@@ -71,6 +71,34 @@
   }
 }
 
+/* Animação de Balanço Elegante para o Banner de Lançamentos */
+@keyframes bannerSway {
+  0% {
+    transform: rotate(0deg) translateY(0px);
+  }
+  20% {
+    transform: rotate(1.4deg) translateY(-3px);
+  }
+  40% {
+    transform: rotate(-0.5deg) translateY(1px);
+  }
+  60% {
+    transform: rotate(-1.4deg) translateY(-3px);
+  }
+  80% {
+    transform: rotate(0.6deg) translateY(1px);
+  }
+  100% {
+    transform: rotate(0deg) translateY(0px);
+  }
+}
+
+.animate-banner-sway {
+  transform-origin: 50% -20px;
+  animation: bannerSway 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  will-change: transform;
+}
+
 /* Custom Scrollbar Monocromática */
 ::-webkit-scrollbar {
   width: 8px;
