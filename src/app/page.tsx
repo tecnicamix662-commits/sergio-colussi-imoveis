@@ -10,9 +10,6 @@ import PropertyCard from '@/components/properties/PropertyCard';
 import PropertyFilterBar from '@/components/properties/PropertyFilterBar';
 import {
   Building2,
-  ShieldCheck,
-  Award,
-  Users,
   Phone,
   ArrowRight,
   CheckCircle2,
@@ -219,43 +216,6 @@ export default function HomePage() {
                 </button>
               </form>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* QUICK STATS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 p-8 rounded-3xl bg-stone-50 border border-stone-200 shadow-sm">
-          <div className="flex flex-col items-center text-center space-y-2">
-            <div className="w-12 h-12 rounded-2xl bg-white border border-stone-200 flex items-center justify-center text-stone-900 mb-1 shadow-sm">
-              <Award className="w-6 h-6" />
-            </div>
-            <span className="font-serif text-3xl font-bold text-stone-950">22 Anos</span>
-            <span className="text-xs text-stone-600 uppercase tracking-wider font-semibold">De Atuação no ABC</span>
-          </div>
-
-          <div className="flex flex-col items-center text-center space-y-2">
-            <div className="w-12 h-12 rounded-2xl bg-white border border-stone-200 flex items-center justify-center text-stone-900 mb-1 shadow-sm">
-              <Building2 className="w-6 h-6" />
-            </div>
-            <span className="font-serif text-3xl font-bold text-stone-950">Centenas</span>
-            <span className="text-xs text-stone-600 uppercase tracking-wider font-semibold">De Negócios Realizados</span>
-          </div>
-
-          <div className="flex flex-col items-center text-center space-y-2">
-            <div className="w-12 h-12 rounded-2xl bg-white border border-stone-200 flex items-center justify-center text-stone-900 mb-1 shadow-sm">
-              <Users className="w-6 h-6" />
-            </div>
-            <span className="font-serif text-3xl font-bold text-stone-950">Atendimento</span>
-            <span className="text-xs text-stone-600 uppercase tracking-wider font-semibold">Direto com o Corretor</span>
-          </div>
-
-          <div className="flex flex-col items-center text-center space-y-2">
-            <div className="w-12 h-12 rounded-2xl bg-white border border-stone-200 flex items-center justify-center text-stone-900 mb-1 shadow-sm">
-              <ShieldCheck className="w-6 h-6" />
-            </div>
-            <span className="font-serif text-3xl font-bold text-stone-950">Assessoria</span>
-            <span className="text-xs text-stone-600 uppercase tracking-wider font-semibold">Segurança Documental</span>
           </div>
         </div>
       </section>
