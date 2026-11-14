@@ -27,7 +27,6 @@ import {
 export default function HomePage() {
   const { settings } = useSettings();
   const [featuredProperties, setFeaturedProperties] = useState<Property[]>([]);
-  const [activeTab, setActiveTab] = useState<'todos' | 'apartamento' | 'casa' | 'cobertura'>('todos');
   const [codeQuery, setCodeQuery] = useState('');
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -67,10 +66,6 @@ export default function HomePage() {
     }, 2000);
     return () => clearInterval(interval);
   }, [coverPhotos.length]);
-
-  const filteredFeatured = activeTab === 'todos'
-    ? featuredProperties
-    : featuredProperties.filter((p) => p.type === activeTab);
 
   const testimonials = [
     {
@@ -267,49 +262,25 @@ export default function HomePage() {
 
       {/* FEATURED PROPERTIES CATALOG */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-stone-200 pb-6">
-          <div className="space-y-2">
-            <span className="text-stone-900 text-xs font-bold uppercase tracking-widest">
-              Imóveis no ABC Paulista
-            </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-950 tracking-tight">
-              Imóveis em Destaque
-            </h2>
-          </div>
-
-          {/* Type Tabs */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
-            {[
-              { id: 'todos', label: 'Todos' },
-              { id: 'apartamento', label: 'Apartamentos' },
-              { id: 'casa', label: 'Casas' },
-              { id: 'cobertura', label: 'Coberturas' },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
-                  activeTab === tab.id
-                    ? 'bg-black text-white border border-black shadow-sm'
-                    : 'bg-stone-100 text-stone-700 hover:text-black border border-stone-200 hover:border-stone-400'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
+        <div className="text-center space-y-2 border-b border-stone-200 pb-6">
+          <span className="text-stone-900 text-xs font-bold uppercase tracking-widest block">
+            Imóveis no ABC Paulista
+          </span>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-950 tracking-tight">
+            Imóveis em Destaque
+          </h2>
         </div>
 
-        {filteredFeatured.length > 0 ? (
+        {featuredProperties.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredFeatured.map((property) => (
+            {featuredProperties.map((property) => (
               <PropertyCard key={property.id} property={property} />
             ))}
           </div>
         ) : (
           <div className="text-center py-12 bg-white rounded-2xl border border-stone-200 space-y-3">
             <Building2 className="w-10 h-10 text-stone-400 mx-auto" />
-            <p className="text-stone-600 text-sm font-medium">Nenhum imóvel em destaque encontrado nesta categoria.</p>
+            <p className="text-stone-600 text-sm font-medium">Nenhum imóvel em destaque encontrado.</p>
             <Link href="/imoveis" className="text-xs text-stone-900 hover:underline font-bold">
               Ver todos os imóveis -&gt;
             </Link>
