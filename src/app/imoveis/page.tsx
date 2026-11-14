@@ -141,10 +141,12 @@ function CatalogContent() {
       </div>
 
       {/* Filter Component */}
-      <PropertyFilterBar initialFilters={filters} onFilterChange={handleFilterChange} />
+      {!filters.isLaunchOnly && (
+        <PropertyFilterBar initialFilters={filters} onFilterChange={handleFilterChange} />
+      )}
 
       {/* Active Filter Tags */}
-      {activeFilterTags.length > 0 && (
+      {!filters.isLaunchOnly && activeFilterTags.length > 0 && (
         <div className="flex flex-wrap items-center gap-2 pt-2">
           <span className="text-xs text-stone-600 font-bold mr-1">Filtros ativos:</span>
           {activeFilterTags.map((tag) => (
@@ -175,7 +177,7 @@ function CatalogContent() {
 
       {/* Banner Especial de Lançamentos com Balanço Suave */}
       {filters.isLaunchOnly && (
-        <div className="relative pt-2 pb-6 px-2 max-w-4xl mx-auto w-full">
+        <div className="relative pt-0 pb-6 px-2 max-w-4xl mx-auto w-full">
           {/* Cordinhas / Hastes de sustentação da placa */}
           <div className="flex justify-between max-w-sm sm:max-w-md mx-auto px-12 sm:px-16 pointer-events-none">
             <div className="flex flex-col items-center">
