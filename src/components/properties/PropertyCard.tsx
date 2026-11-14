@@ -106,11 +106,6 @@ export default function PropertyCard({ property, priorityImage = false }: Proper
               LANÇAMENTO
             </span>
           )}
-          {property.isReadyToMove && (
-            <span className="bg-green-500 text-white text-[11px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md shadow-lg border border-white/20 w-fit pointer-events-auto">
-              PRONTO PARA MORAR
-            </span>
-          )}
           {statusBadge && (
             <span className={`text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md shadow-md pointer-events-auto ${statusBadge.cls}`}>
               {statusBadge.label}
