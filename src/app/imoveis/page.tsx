@@ -124,10 +124,6 @@ function CatalogContent() {
     <div className="pt-28 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 bg-white">
       {/* Header Title */}
       <div className="space-y-2 text-center sm:text-left">
-        <div className="inline-flex items-center gap-2 text-stone-900 text-xs font-bold uppercase tracking-widest">
-          <Building2 className="w-4 h-4 text-stone-900" />
-          <span>Sérgio Colussi • Imóveis no ABC Paulista</span>
-        </div>
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-stone-950 tracking-tight">
           {filters.isLaunchOnly ? 'Lançamentos e Empreendimentos' : filters.isReadyToMoveOnly ? 'Prontos para Morar' : 'Imóveis à Venda'}
         </h1>
